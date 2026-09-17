@@ -60,7 +60,7 @@ test('public search and cloud account entry render without breaking page actions
   const source=(await readFile(resolve('app.mjs'),'utf8'))
     .replace(/^import .*;\r?\n/gm,'')
     .replace(/\bboot\(\);\s*$/,'');
-  vm.runInNewContext(`${source}\nglobalThis.harness={start(papers){catalog=papers;cloudConfigured=true;authBackend='cloud';view='public';render();},html(){return app.innerHTML;}};`,context,{filename:'app.mjs'});
+  vm.runInNewContext(`${source}\nglobalThis.harness={start(papers){catalog=papers;cloudConfigured=true;authBackend='cloud';view='public';render();},html(){return app.innerHTML;},errorMessage:userFacingError};`,context,{filename:'app.mjs'});
   const paper={id:'paper-1',title:'Flux growth of a quantum material',authors:'A. Researcher',journal:'Physical Review B',year:'2026',material:'UTe₂',doi:'10.1103/example',tags:['Flux'],url:'https://doi.org/10.1103/example'};
   context.harness.start([paper,{...paper,id:'paper-2',title:'Unrelated result',tags:[]}]);
   assert.match(context.harness.html(),/找到 2 条/);
@@ -85,4 +85,6 @@ test('public search and cloud account entry render without breaking page actions
   }
   await handlers.click({target:{closest:()=>({dataset:{action:'switch-backend',backend:'local'}})}});
   assert.match(context.harness.html(),/在此设备创建资料|进入工作台/);
+  assert.match(context.harness.errorMessage({code:'auth/operation-not-allowed'}),/电子邮件\/密码注册/);
+  assert.match(context.harness.errorMessage({code:'auth/unauthorized-domain'}),/已获授权的网域/);
 });

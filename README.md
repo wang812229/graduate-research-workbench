@@ -11,7 +11,7 @@
 配置由站点维护者在自己的 Firebase 和 GitHub 账号中完成，不需要用户给开发者密码。步骤如下：
 
 1. 在 [Firebase 控制台](https://console.firebase.google.com/)新建项目，确认显示 **Spark / No cost**，不要升级 Blaze 或添加付款方式。Google Analytics 对本工作台不是必需的，可关闭。
-2. 在 **Build → Authentication → Sign-in method** 启用 **Email/Password**；不必启用 Email link 或电话验证。注册后应用会发送验证邮件，用户点击邮件中的链接后才能登录。
+2. 在正确的 Firebase 项目中打开 **Authentication → Sign-in method → Email/Password**，启用其中的**电子邮件/密码**开关并点击**保存**；不必启用 Email link 或电话验证。请回到提供方列表，确认状态显示“已启用”。若网页注册提示 `auth/operation-not-allowed`，按 Firebase 官方说明，该项目的密码登录仍未开放；核对项目 ID 与 `cloud-config.json` 一致后重新检查此开关。注册后应用会发送验证邮件，用户点击邮件中的链接后才能登录。
 3. 在 **Build → Realtime Database** 创建一个数据库，选择合适地区。打开 **Rules**，用仓库中的 [database.rules.json](database.rules.json) 全部替换默认规则并点击 **Publish**。规则只允许已经验证邮箱的账号访问 `/vaults/自己的 UID`；不要改成 `.read: true` 或 `.write: true`。
 4. 在项目设置中添加 **Web app**，取得 Firebase 的网页配置。将 [cloud-config.json](cloud-config.json) 的 `enabled` 改为 `true`，填写 `apiKey`、`authDomain`、`projectId`、`appId`，并从 Realtime Database 页面复制准确的 `databaseURL`。这些属于公开网页配置，**不是管理员私钥**；切勿把 Firebase 服务账号私钥、用户密码或其他服务的密钥放在此文件。数据隔离依靠第 3 步的规则。
 5. 在 Firebase **Authentication → Settings → Authorized domains** 确认 GitHub Pages 的站点域名已允许，例如 `wang812229.github.io`。只填域名，不填 `/仓库名/` 路径。验证和重置邮件使用 Firebase 的邮件模板；若未收到，请检查垃圾邮件和免费额度。

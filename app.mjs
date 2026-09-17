@@ -16,6 +16,17 @@ async function request(path,method='GET',bodyValue){
   if(!response.ok){const err=new Error(data.error||'请求失败。');err.status=response.status;err.payload=data;throw err;}return data;
 }
 function toast(message){notice=message;render();setTimeout(()=>{if(notice===message){notice='';document.querySelector('.toast')?.remove();}},6500);}
+function userFacingError(error){
+  const messages={
+    'auth/operation-not-allowed':'此 Firebase 项目尚未开放电子邮件/密码注册。站点维护者请到 Firebase 控制台 → Authentication → 登录方法 → 电子邮件/密码，启用并保存，然后确认项目 ID 与 cloud-config.json 一致。',
+    'auth/unauthorized-domain':'当前网站域名尚未获 Firebase Authentication 授权。站点维护者请在 Authentication → 设置 → 已获授权的网域中添加此网站的域名。',
+    'auth/email-already-in-use':'这个邮箱已注册。请尝试登录，或使用“重发验证邮件”。',
+    'auth/invalid-email':'邮箱地址格式不正确，请检查后重试。',
+    'auth/weak-password':'密码不符合此 Firebase 项目的安全要求，请设置更长的密码。',
+    'auth/too-many-requests':'尝试次数过多，请稍后再试。'
+  };
+  return messages[error?.code]||error?.message||'操作失败，请稍后重试。';
+}
 function syncLabel(){return session?.cloud?(session.offline?'云端离线 · 待同步':session.dirty?'云端同步中…':'已同步到云端'):STATIC_MODE?'仅保存在此设备':session.offline?'离线记录中 · 待同步':session.dirty?'正在同步…':'已同步';}
 function updateStatus(){const el=document.querySelector('#sync-status');if(el&&session)el.textContent=syncLabel();}
 async function cache(){if(session?.key) await saveOffline(session.user.username,session.key,{user:session.user,vault:session.vault,revision:session.revision,dirty:session.dirty});}
@@ -248,7 +259,7 @@ document.addEventListener('click',async event=>{
     if(action==='reset-user'){adminResetLink=await request('/api/admin/reset-link','POST',{userId:button.dataset.id});render();return;}
     if(action==='copy-reset'&&adminResetLink){await navigator.clipboard.writeText(adminResetLink.link);toast('一次性链接已复制。');return;}
     render();
-  }catch(error){toast(error.message);}
+  }catch(error){toast(userFacingError(error));}
 });
 
 document.addEventListener('submit',async event=>{
@@ -312,7 +323,7 @@ document.addEventListener('submit',async event=>{
       if(!confirm(`永久删除此设备上的 ${session.user.username} 资料？此操作无法撤销。`))return;
       await deleteLocalAccount(session.user.username,values.password);try{localStorage.removeItem(backupKey(session.user.username));}catch{}localAccounts=await listLocalAccounts();session=null;view='public';render();toast('本机资料已删除。');return;
     }
-  }catch(error){toast(error.message);}
+  }catch(error){toast(userFacingError(error));}
 });
 
 document.addEventListener('change',async event=>{

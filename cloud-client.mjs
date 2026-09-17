@@ -26,10 +26,11 @@ export function createCloudClient(config) {
     async register(email,password,displayName){
       await prepare();
       const {user}=await createUserWithEmailAndPassword(auth,email,password);
-      if(displayName)await updateProfile(user,{displayName});
-      await sendEmailVerification(user);
-      await signOut(auth);
-      return {pendingVerification:true};
+      try{
+        if(displayName)await updateProfile(user,{displayName});
+        await sendEmailVerification(user);
+        return {pendingVerification:true};
+      }finally{await signOut(auth).catch(()=>{});}
     },
     async login(email,password){
       await prepare();const user=(await signInWithEmailAndPassword(auth,email,password)).user;
