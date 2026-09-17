@@ -33,6 +33,5 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist-static
-          include-hidden-files: true
       - id: deployment
         uses: actions/deploy-pages@v4
