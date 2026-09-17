@@ -32,6 +32,14 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(files.includes('cloud-config.json'));
   assert.ok(files.includes('cloud-client.bundle.mjs'));
   assert.match(await readFile(resolve(out,'runtime.mjs'),'utf8'),/STATIC_MODE=true/);
+  const html=await readFile(resolve(out,'index.html'),'utf8');
+  const app=await readFile(resolve(out,'app.mjs'),'utf8');
+  const worker=await readFile(resolve(out,'sw.js'),'utf8');
+  const version=html.match(/app\.mjs\?v=([a-f0-9]{12})/)?.[1];
+  assert.ok(version,'published app URL should change when assets change');
+  assert.match(html,new RegExp(`styles\\.css\\?v=${version}`));
+  assert.match(app,new RegExp(`core\\.mjs\\?v=${version}`));
+  assert.match(worker,new RegExp(`v7-${version}`));
   const cloudConfig=JSON.parse(await readFile(resolve(out,'cloud-config.json'),'utf8'));
   assert.equal(cloudConfig.enabled,true);
   assert.equal(validateCloudConfig(cloudConfig),true);
@@ -79,6 +87,7 @@ test('public search and cloud account entry render without breaking page actions
   assert.match(context.harness.html(),/打开论文原文/);
   await handlers.click({target:{closest:()=>({dataset:{action:'open-local'}})}});
   assert.match(context.harness.html(),/登录免费云账号/);
+  assert.match(context.harness.html(),/<form data-form="auth"/);
   for(const [tab,label] of [['register','创建免费云账号'],['forgot','找回密码'],['resend','重发验证邮件'],['login','登录免费云账号']]){
     await handlers.click({target:{closest:()=>({dataset:{action:'auth-tab',tab}})}});
     assert.match(context.harness.html(),new RegExp(label));
