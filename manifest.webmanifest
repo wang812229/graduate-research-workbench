@@ -1,0 +1,13 @@
+{
+  "name": "研析 · 研究生工作平台",
+  "short_name": "研析",
+  "description": "离线记录各种实验、文献与课题进度",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fc",
+  "theme_color": "#5f86ff",
+  "icons": [
+    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

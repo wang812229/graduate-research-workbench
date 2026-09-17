@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: yanxi
+      POSTGRES_USER: yanxi
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.lan}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yanxi -d yanxi"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build: .
+    environment:
+      NODE_ENV: production
+      DEPLOY_MODE: lan
+      PORT: 4173
+      HOST: 0.0.0.0
+      TRUST_PROXY: "1"
+      APP_ORIGIN: https://${LAN_HOST:?Set LAN_HOST in .env.lan}
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: yanxi
+      PGUSER: yanxi
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.lan}
+      PG_POOL_SIZE: 12
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    environment:
+      LAN_HOST: ${LAN_HOST:?Set LAN_HOST in .env.lan}
+    ports:
+      - "443:443"
+    volumes:
+      - ./Caddyfile.lan:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:

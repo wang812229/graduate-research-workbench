@@ -1,0 +1,9 @@
+.git
+.env
+.env.lan
+data
+node_modules
+*.local.json
+tests
+work
+dist-static

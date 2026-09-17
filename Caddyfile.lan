@@ -1,0 +1,4 @@
+https://{$LAN_HOST} {
+  tls internal
+  reverse_proxy app:4173
+}

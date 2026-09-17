@@ -1,0 +1,13 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "vaults": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid && auth.token.email_verified === true",
+        ".write": "auth != null && auth.uid === $uid && auth.token.email_verified === true",
+        ".validate": "newData.hasChildren(['revision', 'payload']) && newData.child('revision').isNumber() && newData.child('payload').isString()"
+      }
+    }
+  }
+}

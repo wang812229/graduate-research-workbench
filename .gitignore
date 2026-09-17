@@ -1,0 +1,8 @@
+dist/
+dist-static/
+.DS_Store
+node_modules/
+*.local.json
+data/
+.env
+.env.lan
