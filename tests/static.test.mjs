@@ -4,7 +4,8 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { emptyVault } from '../core.mjs';
+import vm from 'node:vm';
+import { emptyVault, escapeHtml } from '../core.mjs';
 import { registerLocalAccount, unlockOffline, saveOffline, listLocalAccounts, deleteLocalAccount } from '../offline.mjs';
 import { validateCloudConfig } from '../cloud-client.mjs';
 
@@ -47,4 +48,33 @@ test('cloud mode requires complete Firebase config and owner-only verified-email
   assert.equal(rules['.write'],false);
   assert.match(rules.vaults.$uid['.read'],/auth\.uid === \$uid/);
   assert.match(rules.vaults.$uid['.write'],/email_verified/);
+});
+
+test('public search and cloud account entry render without breaking page actions',async()=>{
+  const app={innerHTML:''},handlers={};
+  const document={
+    querySelector:selector=>selector==='#app'?app:selector==='#public-search'?{focus(){},setSelectionRange(){}}:null,
+    addEventListener:(name,handler)=>{handlers[name]=handler;}
+  };
+  const context={document,window:{addEventListener(){}},STATIC_MODE:true,h:escapeHtml};
+  const source=(await readFile(resolve('app.mjs'),'utf8'))
+    .replace(/^import .*;\r?\n/gm,'')
+    .replace(/\bboot\(\);\s*$/,'');
+  vm.runInNewContext(`${source}\nglobalThis.harness={start(papers){catalog=papers;cloudConfigured=true;authBackend='cloud';view='public';render();},html(){return app.innerHTML;}};`,context,{filename:'app.mjs'});
+  const paper={id:'paper-1',title:'Flux growth of a quantum material',authors:'A. Researcher',journal:'Physical Review B',year:'2026',material:'UTe₂',doi:'10.1103/example',tags:['Flux'],url:'https://doi.org/10.1103/example'};
+  context.harness.start([paper,{...paper,id:'paper-2',title:'Unrelated result',tags:[]}]);
+  assert.match(context.harness.html(),/找到 2 条/);
+  handlers.input({target:{id:'public-search',value:'Flux',selectionStart:4}});
+  assert.match(context.harness.html(),/找到 1 条/);
+  assert.doesNotMatch(context.harness.html(),/Unrelated result/);
+  await handlers.click({target:{closest:()=>({dataset:{publicPaper:'paper-1'}})}});
+  assert.match(context.harness.html(),/打开论文原文/);
+  await handlers.click({target:{closest:()=>({dataset:{action:'open-local'}})}});
+  assert.match(context.harness.html(),/登录免费云账号/);
+  for(const [tab,label] of [['register','创建免费云账号'],['forgot','找回密码'],['resend','重发验证邮件'],['login','登录免费云账号']]){
+    await handlers.click({target:{closest:()=>({dataset:{action:'auth-tab',tab}})}});
+    assert.match(context.harness.html(),new RegExp(label));
+  }
+  await handlers.click({target:{closest:()=>({dataset:{action:'switch-backend',backend:'local'}})}});
+  assert.match(context.harness.html(),/在此设备创建资料|进入工作台/);
 });
