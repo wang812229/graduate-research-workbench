@@ -175,8 +175,11 @@ function adminView(){
 }
 
 function publicCatalogView(){
-  const query=publicQuery.trim().toLocaleLowerCase();
-  const matches=query?catalog.filter(p=>[p.title,p.authors,p.journal,p.material,p.doi,...(p.tags||[])].join(' ').toLocaleLowerCase().includes(query)):catalog;
+  const groups=publicQuery.trim().normalize('NFKC').toLocaleLowerCase().split(';').map(group=>group.trim().split(/[\s,，]+/).filter(Boolean)).filter(group=>group.length);
+  const matches=groups.length?catalog.filter(p=>{
+    const text=[p.title,p.authors,p.journal,p.material,p.doi,...(p.tags||[])].join(' ').normalize('NFKC').toLocaleLowerCase();
+    return groups.some(group=>group.every(term=>text.includes(term)));
+  }):catalog;
   const pageSize=12,totalPages=Math.max(1,Math.ceil(matches.length/pageSize));publicPage=Math.min(publicPage,totalPages-1);
   const page=matches.slice(publicPage*pageSize,(publicPage+1)*pageSize),selected=matches.find(p=>p.id===selectedPublic)||page[0];
   const detail=selected?`<div class="public-detail-meta">${h(selected.journal||'来源未填')} · ${h(selected.year||'年份未填')}</div><h2>${h(selected.title)}</h2><p>${h(selected.authors||'作者未填')}</p><dl class="detail-grid">${[['研究对象',selected.material],['DOI',selected.doi],['关键词',(selected.tags||[]).join(' · ')]].map(([label,value])=>describe(label,value)).join('')}</dl>${selected.url?.startsWith('https://')?`<a class="button primary" href="${h(selected.url)}" target="_blank" rel="noopener noreferrer">打开论文原文 ↗</a>`:''}`:blank('没有匹配的公开文献','试试作者、材料、期刊或 DOI。');
@@ -318,13 +321,15 @@ document.addEventListener('change',async event=>{
   try{if(file.size>6_000_000)throw new Error('导入文件不能超过 6 MB。');importPreview=parseImport(await file.text(),file.name,catalog);render();toast(`已读取 ${importPreview.kind}，请核对数量后确认。`);}catch(error){toast(error.message);}
 });
 document.addEventListener('input',event=>{
-  if(STATIC_MODE&&event.target.id==='public-search'){const input=event.target;publicQuery=input.value;publicPage=0;selectedPublic=null;const pos=input.selectionStart;render();const replacement=document.querySelector('#public-search');replacement?.focus();replacement?.setSelectionRange(pos,pos);}
+  if(STATIC_MODE&&event.target.id==='public-search'&&!event.isComposing)updatePublicSearch(event.target);
   if(event.target.id==='paper-search'){const input=event.target;paperQuery=input.value;const pos=input.selectionStart;render();const replacement=document.querySelector('#paper-search');replacement?.focus();replacement?.setSelectionRange(pos,pos);}
   if(event.target.name==='scheduleText'){
     const node=document.querySelector('#schedule-preview');if(!node)return;
     try{node.innerHTML=scheduleChart(parseSchedule(event.target.value));}catch(error){node.innerHTML=`<p class="input-warning">${h(error.message)}</p>`;}
   }
 });
+document.addEventListener('compositionend',event=>{if(STATIC_MODE&&event.target.id==='public-search')updatePublicSearch(event.target);});
+function updatePublicSearch(input){publicQuery=input.value;publicPage=0;selectedPublic=null;const pos=input.selectionStart;render();const replacement=document.querySelector('#public-search');replacement?.focus();if(pos!=null)replacement?.setSelectionRange(pos,pos);}
 window.addEventListener('online',async()=>{
   if(STATIC_MODE&&!session?.cloud)return;
   if(!session)return;

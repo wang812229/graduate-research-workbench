@@ -67,6 +67,14 @@ test('public search and cloud account entry render without breaking page actions
   handlers.input({target:{id:'public-search',value:'Flux',selectionStart:4}});
   assert.match(context.harness.html(),/找到 1 条/);
   assert.doesNotMatch(context.harness.html(),/Unrelated result/);
+  handlers.input({target:{id:'public-search',value:'UTe2 Flux',selectionStart:9}});
+  assert.match(context.harness.html(),/找到 1 条/);
+  handlers.input({target:{id:'public-search',value:'Unrelated；UTe₂ Flux',selectionStart:19}});
+  assert.match(context.harness.html(),/找到 2 条/);
+  handlers.input({target:{id:'public-search',value:'不存在',selectionStart:3},isComposing:true});
+  assert.match(context.harness.html(),/找到 2 条/);
+  handlers.compositionend({target:{id:'public-search',value:'Flux',selectionStart:4}});
+  assert.match(context.harness.html(),/找到 1 条/);
   await handlers.click({target:{closest:()=>({dataset:{publicPaper:'paper-1'}})}});
   assert.match(context.harness.html(),/打开论文原文/);
   await handlers.click({target:{closest:()=>({dataset:{action:'open-local'}})}});
