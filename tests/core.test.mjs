@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries } from '../core.mjs';
+import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
   const old={id:'exp-1',sampleId:'CVT-01',material:'α-RuCl₃',method:'CVT',notes:'第一行\n第二行, 含逗号'};
@@ -39,4 +40,20 @@ test('temperature program parses both zones and rejects ambiguous rows',()=>{
   assert.equal(series.at(-1).growthC,650);
   assert.throws(()=>parseSchedule('保温|未知|850|800'),/第 1 行/);
   assert.equal(normalizeExperiment({schedule:stages}).schedule.length,3);
+});
+
+test('daily report sync adds new papers once and retains personal-library match IDs',()=>{
+  const old=[{id:'doi:10.1234/old',title:'Old paper',journal:'PRB'}];
+  const reports=[{date:'2026-09-18',papers:[
+    {title:'New crystal',doi:'https://doi.org/10.1234/new',authors:'A; B',journal:'PRL',material:'UTe₂',category:'重费米子与量子临界',conclusion:'新结论',tags:['Flux']},
+    {title:'New crystal',doi:'https://doi.org/10.1234/new',authors:'A; B'},
+    {title:'Preprint',doi:'https://arxiv.org/abs/2609.20093v1',authors:'C',tags:['单晶']}
+  ]}];
+  const merged=mergeReports(reports,old);
+  assert.equal(merged.length,3);
+  assert.equal(merged[0].id,'doi:10.1234/new');
+  assert.equal(merged[0].reportUrl,'https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-18/#paper-1');
+  assert.equal(merged[0].summary,'新结论');
+  assert.equal(merged[1].id,'arxiv:2609.20093');
+  assert.equal(merged[2].id,'doi:10.1234/old');
 });
