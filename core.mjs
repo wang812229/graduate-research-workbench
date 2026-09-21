@@ -1,5 +1,6 @@
 export const PROFILE_KEYS = ['materials','methods','measurements','journals','authors'];
 export const PAPER_GROUPS = ['准备复现','实验方法参考','生长方法参考','待组会汇报','与当前结果冲突','需要获取全文','需要补看SI'];
+export const MEASUREMENT_TYPES = ['电阻/电输运','磁化/磁矩','比热','霍尔效应','I–V曲线','XRD/衍射','光谱','自定义'];
 export const EXPERIMENT_COLUMNS = ['date','project','sampleId','material','method','batch','ratio','agent','vessel','atmosphere','sourceTemp','growthTemp','peakTemp','holdTime','coolingRate','postTreatment','crystalSize','yield','measurements','results','quality','notes'];
 const now = () => new Date().toISOString();
 const clean = value => String(value ?? '').trim();
@@ -14,8 +15,91 @@ export function normalizeExperiment(raw = {}) {
   for (const key of EXPERIMENT_COLUMNS) result[key] = clean(raw[key]);
   result.project ||= '未分组';
   result.schedule = Array.isArray(raw.schedule) ? raw.schedule.map(s => ({ label: clean(s.label), hours: Number(s.hours), sourceC: s.sourceC === '' || s.sourceC == null ? null : Number(s.sourceC), growthC: s.growthC === '' || s.growthC == null ? null : Number(s.growthC) })).filter(s => s.label && Number.isFinite(s.hours) && s.hours >= 0 && (Number.isFinite(s.sourceC) || Number.isFinite(s.growthC))) : [];
+  result.datasets = Array.isArray(raw.datasets) ? raw.datasets.slice(0,12).map(normalizeMeasurementDataset).filter(Boolean) : [];
   result.archived = Boolean(raw.archived);
   return result;
+}
+
+const numeric = value => {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+  const normalized = clean(value).replace(/[−–—]/g,'-').replace(/([\d.])D([+-]?\d+)/i,'$1E$2');
+  if (!normalized || /^(?:nan|inf|-inf|null|--?)$/i.test(normalized)) return null;
+  const number = Number(normalized);
+  return Number.isFinite(number) ? number : null;
+};
+
+function uniqueColumns(values) {
+  const seen = new Map();
+  return values.map((value,index) => {
+    const base=clean(value).replace(/^['"]|['"]$/g,'') || `Column ${index+1}`;
+    const count=(seen.get(base)||0)+1;seen.set(base,count);
+    return count===1?base:`${base} (${count})`;
+  });
+}
+
+export function inferMeasurementType(columns=[],filename='') {
+  const text=`${filename} ${columns.join(' ')}`.toLocaleLowerCase();
+  if(/heat|specific.?heat|cp\b|c\/t|比热/.test(text))return '比热';
+  if(/magnet|moment|emu|m\/h|suscept|磁化|磁矩/.test(text))return '磁化/磁矩';
+  if(/hall|霍尔|rxy|rho.?xy/.test(text))return '霍尔效应';
+  if(/xrd|2theta|2.?theta|intensity|衍射/.test(text))return 'XRD/衍射';
+  if(/raman|wavenumber|absorb|photolum|spectrum|光谱/.test(text))return '光谱';
+  if(/current|voltage|\bi.?v\b|电流|电压/.test(text))return 'I–V曲线';
+  if(/resist|rho\b|rxx|电阻|电输运/.test(text))return '电阻/电输运';
+  return '自定义';
+}
+
+function axisScore(name,kind='x') {
+  const text=String(name).toLocaleLowerCase();
+  const xPatterns=[/temperature|temp|^t\b|温度/,/field|^h\b|magnetic|磁场/,/time|秒|minute|hour/,/angle|theta|角度/,/current|电流/,/voltage|电压/];
+  const yPatterns=[/resist|rho|rxx|电阻/,/moment|magnet|emu|磁矩|磁化/,/heat|^cp|c\/t|比热/,/intensity|counts|强度/,/voltage|电压/,/current|电流/];
+  return (kind==='x'?xPatterns:yPatterns).findIndex(pattern=>pattern.test(text));
+}
+
+export function normalizeMeasurementDataset(raw={}) {
+  const columns=uniqueColumns(Array.isArray(raw.columns)?raw.columns:[]).slice(0,32);
+  if(columns.length<2)return null;
+  const rows=(Array.isArray(raw.rows)?raw.rows:[]).slice(0,20000).map(row=>columns.map((_,i)=>numeric(row?.[i]))).filter(row=>row.filter(Number.isFinite).length>=2);
+  if(!rows.length)return null;
+  const xColumn=columns.includes(raw.xColumn)?raw.xColumn:columns[0];
+  const yColumn=columns.includes(raw.yColumn)&&raw.yColumn!==xColumn?raw.yColumn:(columns.find(c=>c!==xColumn)||columns[1]);
+  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,importedAt:clean(raw.importedAt)||now(),notes:clean(raw.notes)};
+}
+
+function splitMeasurementLine(line,delimiter){
+  if(delimiter===',')return parseCsv(line)[0]||[];
+  if(delimiter===';')return line.split(';').map(clean);
+  if(delimiter==='\t')return line.split('\t').map(clean);
+  return line.trim().split(/\s+/).map(clean);
+}
+
+export function parseMeasurementText(text,filename='measurement.txt') {
+  const lines=String(text).replace(/^\uFEFF/,'').split(/\r?\n/).map(line=>line.trim()).filter(line=>line&&!/^(?:#|\/\/)/.test(line));
+  if(lines.length<2)throw new Error('数据文件至少需要两行。');
+  const sample=lines.slice(0,8).join('\n');
+  const counts=[['\t',(sample.match(/\t/g)||[]).length],[',',(sample.match(/,/g)||[]).length],[';',(sample.match(/;/g)||[]).length]];
+  const delimiter=counts.sort((a,b)=>b[1]-a[1])[0][1]>0?counts[0][0]:'whitespace';
+  const rawRows=lines.map(line=>splitMeasurementLine(line,delimiter));
+  const width=Math.max(...rawRows.map(row=>row.length));
+  if(width<2)throw new Error('没有识别到至少两列数据。请使用逗号、制表符、分号或空格分隔。');
+  const first=rawRows[0];
+  const firstNumeric=first.filter(value=>numeric(value)!==null).length;
+  const hasHeader=firstNumeric<Math.max(2,Math.ceil(first.length*.65));
+  const columns=uniqueColumns(hasHeader?first:Array.from({length:width},(_,i)=>`Column ${i+1}`));
+  const body=rawRows.slice(hasHeader?1:0);
+  const rows=body.map(row=>columns.map((_,i)=>numeric(row[i]))).filter(row=>row.filter(Number.isFinite).length>=2);
+  if(!rows.length)throw new Error('文件中没有可绘图的数值行。');
+  if(rows.length>20000)throw new Error('单个文件最多导入 20,000 行；请先分段或降采样。');
+  const xRank=columns.map((name,index)=>({index,score:axisScore(name,'x')})).filter(x=>x.score>=0).sort((a,b)=>a.score-b.score)[0]?.index??0;
+  const yRank=columns.map((name,index)=>({index,score:axisScore(name,'y')})).filter(x=>x.index!==xRank&&x.score>=0).sort((a,b)=>a.score-b.score)[0]?.index;
+  const yIndex=yRank??columns.findIndex((_,i)=>i!==xRank);
+  return normalizeMeasurementDataset({name:filename.replace(/\.[^.]+$/,''),type:inferMeasurementType(columns,filename),columns,xColumn:columns[xRank],yColumn:columns[yIndex],rows,rowCount:rows.length});
+}
+
+export function measurementCsv(dataset) {
+  const normalized=normalizeMeasurementDataset(dataset);if(!normalized)throw new Error('数据集为空。');
+  const quote=value=>`"${String(value??'').replaceAll('"','""')}"`;
+  return '\uFEFF'+[normalized.columns.map(quote).join(','),...normalized.rows.map(row=>row.map(value=>quote(value??'')).join(','))].join('\r\n');
 }
 
 export function normalizePaper(raw = {}, catalog = []) {

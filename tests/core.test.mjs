@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries } from '../core.mjs';
+import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv } from '../core.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
@@ -40,6 +40,25 @@ test('temperature program parses both zones and rejects ambiguous rows',()=>{
   assert.equal(series.at(-1).growthC,650);
   assert.throws(()=>parseSchedule('保温|未知|850|800'),/第 1 行/);
   assert.equal(normalizeExperiment({schedule:stages}).schedule.length,3);
+});
+
+test('measurement import recognizes transport columns and survives experiment normalization',()=>{
+  const dataset=parseMeasurementText('Temperature (K),Resistance (Ohm),Field (T)\n300,1.2,0\n100,0.8,0\n2,0.03,0','sample-resistance.csv');
+  assert.equal(dataset.type,'电阻/电输运');
+  assert.equal(dataset.xColumn,'Temperature (K)');
+  assert.equal(dataset.yColumn,'Resistance (Ohm)');
+  assert.equal(dataset.rows.length,3);
+  const record=normalizeExperiment({sampleId:'R-01',datasets:[dataset]});
+  assert.equal(record.datasets[0].rows[2][1],0.03);
+  assert.match(measurementCsv(record.datasets[0]),/"Temperature \(K\)","Resistance \(Ohm\)"/);
+});
+
+test('measurement import accepts whitespace instrument files and rejects oversized tables',()=>{
+  const dataset=parseMeasurementText('# PPMS export\nT_K Moment_emu\n2 1.2D-5\n5 1.5D-5\n10 2.1D-5','magnetization.dat');
+  assert.equal(dataset.type,'磁化/磁矩');
+  assert.equal(dataset.rows[0][1],1.2e-5);
+  const tooLarge=['x y',...Array.from({length:20001},(_,i)=>`${i} ${i}`)].join('\n');
+  assert.throws(()=>parseMeasurementText(tooLarge,'large.txt'),/20,000/);
 });
 
 test('daily report sync adds new papers once and retains personal-library match IDs',()=>{

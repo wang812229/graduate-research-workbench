@@ -34,11 +34,15 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.match(await readFile(resolve(out,'runtime.mjs'),'utf8'),/STATIC_MODE=true/);
   const html=await readFile(resolve(out,'index.html'),'utf8');
   const app=await readFile(resolve(out,'app.mjs'),'utf8');
+  const core=await readFile(resolve(out,'core.mjs'),'utf8');
   const worker=await readFile(resolve(out,'sw.js'),'utf8');
   const version=html.match(/app\.mjs\?v=([a-f0-9]{12})/)?.[1];
   assert.ok(version,'published app URL should change when assets change');
   assert.match(html,new RegExp(`styles\\.css\\?v=${version}`));
   assert.match(app,new RegExp(`core\\.mjs\\?v=${version}`));
+  assert.match(app,/pick-measurement/);
+  assert.match(app,/TABLE \+ LIVE PLOT/);
+  assert.match(core,/parseMeasurementText/);
   assert.match(worker,new RegExp(`v7-${version}`));
   const cloudConfig=JSON.parse(await readFile(resolve(out,'cloud-config.json'),'utf8'));
   assert.equal(cloudConfig.enabled,true);
