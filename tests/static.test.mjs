@@ -42,7 +42,12 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.match(app,new RegExp(`core\\.mjs\\?v=${version}`));
   assert.match(app,/pick-measurement/);
   assert.match(app,/TABLE \+ LIVE PLOT/);
+  assert.match(app,/多样品叠图比较/);
+  assert.match(app,/dataset-analysis/);
+  assert.match(app,/25_000_000/);
   assert.match(core,/parseMeasurementText/);
+  assert.match(core,/Curie–Weiss/);
+  assert.match(core,/downsampleDataset/);
   assert.match(worker,new RegExp(`v7-${version}`));
   const cloudConfig=JSON.parse(await readFile(resolve(out,'cloud-config.json'),'utf8'));
   assert.equal(cloudConfig.enabled,true);

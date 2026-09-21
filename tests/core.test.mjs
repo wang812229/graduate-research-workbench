@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv } from '../core.mjs';
+import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, comparisonSeries, downsampleDataset } from '../core.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
@@ -56,9 +56,54 @@ test('measurement import recognizes transport columns and survives experiment no
 test('measurement import accepts whitespace instrument files and rejects oversized tables',()=>{
   const dataset=parseMeasurementText('# PPMS export\nT_K Moment_emu\n2 1.2D-5\n5 1.5D-5\n10 2.1D-5','magnetization.dat');
   assert.equal(dataset.type,'磁化/磁矩');
+  assert.equal(dataset.instrument,'Quantum Design PPMS');
   assert.equal(dataset.rows[0][1],1.2e-5);
-  const tooLarge=['x y',...Array.from({length:20001},(_,i)=>`${i} ${i}`)].join('\n');
-  assert.throws(()=>parseMeasurementText(tooLarge,'large.txt'),/20,000/);
+  const tooLarge=['x y',...Array.from({length:250001},(_,i)=>`${i} ${i}`)].join('\n');
+  assert.throws(()=>parseMeasurementText(tooLarge,'large.txt'),/250,000/);
+});
+
+test('PPMS data section is recognized without treating header metadata as rows',()=>{
+  const text='[Header]\nINFO,APPNAME,PPMS\nINFO,FILEOPENTIME,9/21/2026\n[Data]\nTemperature (K),Resistance (Ohm)\n2,0.1\n100,1\n300,2';
+  const dataset=parseMeasurementText(text,'QD_export.dat');
+  assert.equal(dataset.instrument,'Quantum Design PPMS');
+  assert.equal(dataset.rows.length,3);
+  assert.deepEqual(dataset.columns,['Temperature (K)','Resistance (Ohm)']);
+});
+
+test('automatic analyses produce traceable transport, magnetic, heat capacity and Hall results',()=>{
+  const resistance={name:'R-T',columns:['T','R'],xColumn:'T',yColumn:'R',type:'电阻/电输运',rows:Array.from({length:20},(_,i)=>[i+1,i<2?1:10+i])};
+  const rrr=analyzeDataset(resistance,{type:'RRR'});
+  assert.ok(rrr.metrics.rrr>20);
+  assert.match(rrr.formula,/RRR/);
+  const tc=analyzeDataset({name:'Tc',columns:['T','R'],xColumn:'T',yColumn:'R',rows:[[1,0],[2,0],[3,1],[4,5],[5,9],[6,10],[7,10],[8,10],[9,10],[10,10]]},{type:'超导转变温度'});
+  assert.ok(tc.metrics.tcMidK>3&&tc.metrics.tcMidK<5);
+
+  const magnetic={name:'chi',columns:['T','chi'],xColumn:'T',yColumn:'chi',rows:[10,20,30,40,50].map(t=>[t,2/(t+10)])};
+  const cw=analyzeDataset(magnetic,{type:'Curie–Weiss 拟合'});
+  assert.ok(Math.abs(cw.metrics.thetaK+10)<1e-9);
+  assert.ok(cw.metrics.r2>.999999);
+
+  const heat={name:'Cp',columns:['T','C'],xColumn:'T',yColumn:'C',rows:[1,2,3,4,5].map(t=>[t,3*t+.2*t**3])};
+  const ct=analyzeDataset(heat,{type:'C/T–T² 拟合',atomsPerFormula:3});
+  assert.ok(Math.abs(ct.metrics.gamma-3)<1e-9);
+  assert.ok(Math.abs(ct.metrics.beta-.2)<1e-9);
+
+  const hall={name:'Hall',columns:['B','rho_xy'],xColumn:'B',yColumn:'rho_xy',rows:[-2,-1,0,1,2].map(b=>[b,2e-9*b])};
+  const result=analyzeDataset(hall,{type:'霍尔系数与迁移率',rhoXx:1e-6});
+  assert.ok(Math.abs(result.metrics.hallCoefficient-2e-9)<1e-15);
+  assert.ok(result.metrics.mobilityM2Vs>0);
+  assert.ok(result.steps.length>=3);
+});
+
+test('comparison normalization and cloud downsampling preserve provenance',()=>{
+  const dataset={name:'sample',columns:['T','R'],xColumn:'T',yColumn:'R',rows:Array.from({length:10001},(_,i)=>[i,2]),sampleMeta:{massMg:10,lengthMm:2,widthMm:1,thicknessMm:.1,molarMass:100}};
+  assert.equal(comparisonSeries(dataset,'mass').points[0][1],200);
+  assert.equal(comparisonSeries(dataset,'geometry').points[0][1],.0001);
+  assert.equal(comparisonSeries(dataset,'molar').points[0][1],20000);
+  const sampled=downsampleDataset(dataset,5000);
+  assert.equal(sampled.rows.length,5000);
+  assert.equal(sampled.sourceRows,10001);
+  assert.equal(sampled.localRawOnly,true);
 });
 
 test('daily report sync adds new papers once and retains personal-library match IDs',()=>{
