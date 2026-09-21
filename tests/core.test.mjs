@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, comparisonSeries, downsampleDataset } from '../core.mjs';
+import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, comparisonSeries, downsampleDataset } from '../core.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
@@ -104,6 +104,59 @@ test('comparison normalization and cloud downsampling preserve provenance',()=>{
   assert.equal(sampled.rows.length,5000);
   assert.equal(sampled.sourceRows,10001);
   assert.equal(sampled.localRawOnly,true);
+});
+
+test('fit windows preserve excluded points and Origin export includes errors, residuals and method',()=>{
+  const dataset={name:'fit-source',columns:['T','rho','sigma','range'],xColumn:'T',yColumn:'rho',rows:Array.from({length:12},(_,i)=>[i+1,2+3*(i+1)**2,.1,i<6?1:2])};
+  const fit=analyzeDataset(dataset,{type:'低温电阻 ρ₀+AT²',xMin:3,xMax:10,errorColumn:'sigma',qualityColumn:'range'});
+  assert.ok(Math.abs(fit.metrics.rho0-2)<1e-9);
+  assert.ok(Math.abs(fit.metrics.A-3)<1e-9);
+  assert.equal(fit.quality.excludedByWindow,4);
+  assert.equal(fit.quality.rangeSwitches,1);
+  assert.equal(fit.fit.slopeCI95.length,2);
+  const projection=analysisProjection(dataset,fit);
+  assert.equal(projection.filter(row=>row.included).length,8);
+  assert.equal(projection[0].qualityFlag,'outside_window');
+  const csv=analysisCsv(dataset,fit);
+  assert.match(csv,/Y_Error_Original/);
+  assert.match(csv,/Residual/);
+  assert.match(csv,/普通最小二乘线性回归/);
+});
+
+test('specialized magnetic, heat-capacity and nonlinear models report assumptions',()=>{
+  const loop={name:'loop',columns:['H','M'],xColumn:'H',yColumn:'M',rows:[[-2,-1],[-1,-.4],[0,.2],[1,.6],[2,1],[1,.4],[0,-.2],[-1,-.6],[-2,-1]]};
+  const hysteresis=analyzeDataset(loop,{type:'磁滞回线参数'});
+  assert.ok(hysteresis.metrics.coerciveField>0);
+  assert.match(hysteresis.formula,/Hc/);
+
+  const chi={name:'chi',columns:['T','chi'],xColumn:'T',yColumn:'chi',rows:[[2,-.08],[3,-.079],[4,-.078],[5,-.07],[6,-.05]]};
+  const shielding=analyzeDataset(chi,{type:'超导屏蔽体积分数',demagFactor:.1});
+  assert.ok(shielding.metrics.shieldingPercent>0);
+  assert.match(shielding.assumptions.join(' '),/cgs/);
+
+  const zfc={name:'zfc-fc',columns:['T','ZFC','FC'],xColumn:'T',yColumn:'ZFC',rows:[[2,.1,.3],[4,.12,.31],[6,.2,.3],[8,.29,.3],[10,.3,.3]]};
+  const bif=analyzeDataset(zfc,{type:'ZFC/FC 分叉温度',referenceColumn:'FC',branchThreshold:.05});
+  assert.ok(bif.metrics.bifurcationK>=6);
+
+  const cp={name:'jump',columns:['T','C'],xColumn:'T',yColumn:'C',rows:Array.from({length:81},(_,i)=>{const t=6+i*.1;return [t,t<10?30:20];})};
+  const jump=analyzeDataset(cp,{type:'比热跃变 ΔC/γTc',tcK:10,gamma:1});
+  assert.ok(Math.abs(jump.metrics.deltaCOverGammaTc-1)<1e-9);
+
+  const bg={name:'metal',columns:['T','rho'],xColumn:'T',yColumn:'rho',rows:[10,20,40,80,120,180,240,300].map(t=>[t,1+.002*t])};
+  const bgFit=analyzeDataset(bg,{type:'Bloch–Grüneisen 拟合',thetaDInitial:200});
+  assert.equal(bgFit.fit.model,'Bloch–Grüneisen');
+  assert.ok(Number.isFinite(bgFit.metrics.thetaR));
+
+  const lattice={name:'lattice',columns:['T','C'],xColumn:'T',yColumn:'C',rows:[5,10,20,40,80,120].map(t=>[t,.01*t+.0002*t**3])};
+  const de=analyzeDataset(lattice,{type:'Debye–Einstein 联合拟合',atomsPerFormula:2,gamma:.01,thetaDInitial:250,thetaEInitial:100});
+  assert.equal(de.fit.model,'Debye–Einstein');
+  assert.match(de.assumptions.join(' '),/初值/);
+
+  const e=1.602176634e-19,ne=1e26,nh=2e26,mue=.01,muh=.02,twoBand=b=>b*((nh*muh**2-ne*mue**2)+(nh-ne)*(muh*mue*b)**2)/(e*((nh*muh+ne*mue)**2+((nh-ne)*muh*mue*b)**2));
+  const hall2={name:'two-band',columns:['B','rho'],xColumn:'B',yColumn:'rho',rows:[-9,-6,-3,0,3,6,9].map(b=>[b,twoBand(b)])};
+  const two=analyzeDataset(hall2,{type:'双载流子霍尔模型',electronDensityInitial:ne,holeDensityInitial:nh,electronMobilityInitial:mue,holeMobilityInitial:muh});
+  assert.equal(two.fit.model,'two-band-hall');
+  assert.ok(two.metrics.r2>.99);
 });
 
 test('daily report sync adds new papers once and retains personal-library match IDs',()=>{
