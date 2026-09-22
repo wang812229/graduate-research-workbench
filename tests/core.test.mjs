@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, comparisonSeries, downsampleDataset } from '../core.mjs';
+import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, comparisonSeries, downsampleDataset, runProcessingPipeline, createPipelineVersion, analysisVersionDiff, evaluateSampleQuality, growthPropertySeries } from '../core.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
@@ -173,4 +173,40 @@ test('daily report sync adds new papers once and retains personal-library match 
   assert.equal(merged[0].summary,'新结论');
   assert.equal(merged[1].id,'arxiv:2609.20093');
   assert.equal(merged[2].id,'doi:10.1234/old');
+});
+
+test('processing pipelines keep raw data immutable and create comparable versions',()=>{
+  const dataset={name:'PPMS batch',columns:['Time','R'],xColumn:'Time',yColumn:'R',rows:[[0,10],[20,8],[40,6],[60,4]],sampleMeta:{lengthMm:2,widthMm:1,thicknessMm:.1},processing:{steps:[],versions:[]}};
+  const steps=[{type:'裁剪启动阶段',params:{seconds:30}},{type:'电阻换算电阻率',params:{}}];
+  const result=runProcessingPipeline(dataset,steps);
+  assert.deepEqual(dataset.rows,[[0,10],[20,8],[40,6],[60,4]]);
+  assert.equal(result.rows.length,2);
+  assert.ok(Math.abs(result.rows[0][1]-.0003)<1e-12);
+  assert.equal(result.layers.raw.rowCount,4);
+  assert.equal(result.layers.processed.rowCount,2);
+  const v1=createPipelineVersion(dataset,steps,'PPMS 四探针');
+  dataset.processing.versions=[v1];
+  const v2=createPipelineVersion(dataset,[{type:'筛选 X 窗口',params:{min:20,max:60}}],'窗口筛选');
+  assert.equal(v2.version,2);
+  assert.notEqual(v1.summary,v2.summary);
+});
+
+test('sample lineage quality scoring and growth-property series use only recorded evidence',()=>{
+  const pass=evaluateSampleQuality({rrr:28,rockingFwhmDeg:.08,edsDeviationPercent:1.2});
+  assert.equal(pass.status,'可测量');
+  assert.equal(pass.total,3);
+  const fail=evaluateSampleQuality({rrr:12,transitionWidthK:.8});
+  assert.equal(fail.status,'不建议继续加工');
+  const records=[normalizeExperiment({sampleId:'A',coolingRate:'2',lineage:[{id:'a',type:'母晶',label:'A crystal',metrics:{rrr:31}}]}),normalizeExperiment({sampleId:'B',coolingRate:'5',lineage:[{id:'b',type:'母晶',label:'B crystal',metrics:{rrr:18}}]}),normalizeExperiment({sampleId:'C',coolingRate:'unknown',lineage:[{id:'c',type:'母晶',label:'C crystal',metrics:{rrr:22}}]})];
+  assert.deepEqual(growthPropertySeries(records,'coolingRate','rrr').map(point=>[point.x,point.y]),[[2,31],[5,18]]);
+  const diff=analysisVersionDiff({type:'线性',window:{min:50,max:200},fit:{r2:.992},metrics:{thetaK:-18.4},steps:[]},{type:'线性',window:{min:80,max:250},fit:{r2:.998},metrics:{thetaK:-21.1},steps:['扣除背景']});
+  assert.ok(diff.some(row=>row[0]==='拟合窗口'&&row[1]==='50–200'));
+});
+
+test('complete backups preserve custom processing templates and figures',()=>{
+  const vault=emptyVault();vault.processingTemplates=[{id:'template-1',name:'My recipe',steps:[{type:'按 X 升序排序',params:{}}],updatedAt:'2026-09-22T00:00:00Z'}];vault.experiments=[normalizeExperiment({sampleId:'A',figures:[{id:'f1',name:'rho.png',caption:'电阻率拟合',dataUrl:'data:image/png;base64,AAAA'}]})];
+  const imported=parseImport(JSON.stringify({format:'yanxi-workbench',vault}),'backup.json');
+  const merged=mergeVault(emptyVault(),imported);
+  assert.equal(merged.processingTemplates[0].name,'My recipe');
+  assert.equal(merged.experiments[0].figures[0].caption,'电阻率拟合');
 });

@@ -3,14 +3,43 @@ export const PAPER_GROUPS = ['准备复现','实验方法参考','生长方法�
 export const MEASUREMENT_TYPES = ['电阻/电输运','磁化/磁矩','比热','霍尔效应','I–V曲线','XRD/衍射','光谱','自定义'];
 export const ANALYSIS_TYPES = ['RRR','超导转变温度','Curie–Weiss 拟合','C/T–T² 拟合','Debye–Einstein 联合拟合','霍尔系数与迁移率','双载流子霍尔模型','低温电阻 ρ₀+AT²','弱局域化/Kondo 对数拟合','磁滞回线参数','超导屏蔽体积分数','ZFC/FC 分叉温度','比热跃变 ΔC/γTc','Bloch–Grüneisen 拟合'];
 export const INSTRUMENT_TEMPLATES = ['通用表格','Quantum Design PPMS','Quantum Design MPMS','Keithley','XRD'];
+export const SAMPLE_NODE_TYPES = ['生长批次','母晶','切割样品','器件','测量件'];
+export const QUALITY_METRICS = [
+  {key:'rrr',label:'RRR',unit:'',operator:'gte',threshold:20},
+  {key:'rockingFwhmDeg',label:'摇摆曲线 FWHM',unit:'°',operator:'lte',threshold:.1},
+  {key:'edsDeviationPercent',label:'EDS 成分偏差',unit:'%',operator:'lte',threshold:2},
+  {key:'transitionWidthK',label:'转变宽度',unit:'K',operator:'lte',threshold:.5},
+  {key:'repeatabilityPercent',label:'同批次重复性误差',unit:'%',operator:'lte',threshold:5},
+  {key:'shieldingPercent',label:'超导体积分数',unit:'%',operator:'gte',threshold:80}
+];
+export const PIPELINE_STEP_TYPES = ['裁剪启动阶段','按 X 升序排序','按 X 降序排序','筛选 X 窗口','扣除常数背景','按质量归一化','按摩尔数归一化','电阻换算电阻率','霍尔正反场反对称化','XRD 最低值背景扣除'];
+export const BUILTIN_PIPELINE_TEMPLATES = [
+  {id:'ppms-transport',name:'PPMS 四探针电阻流程',steps:[{type:'裁剪启动阶段',params:{seconds:30}},{type:'按 X 升序排序',params:{}},{type:'电阻换算电阻率',params:{}}]},
+  {id:'mpms-susceptibility',name:'MPMS 磁化率流程',steps:[{type:'裁剪启动阶段',params:{seconds:30}},{type:'按 X 升序排序',params:{}},{type:'按质量归一化',params:{}}]},
+  {id:'heat-capacity',name:'比热低温拟合流程',steps:[{type:'按 X 升序排序',params:{}},{type:'筛选 X 窗口',params:{min:0,max:15}}]},
+  {id:'hall-antisym',name:'霍尔正反场反对称化',steps:[{type:'按 X 升序排序',params:{}},{type:'霍尔正反场反对称化',params:{}}]},
+  {id:'xrd-peak',name:'XRD 背景扣除与寻峰准备',steps:[{type:'按 X 升序排序',params:{}},{type:'XRD 最低值背景扣除',params:{}}]},
+  {id:'batch-screening',name:'多批次晶体质量筛选',steps:[{type:'按 X 升序排序',params:{}},{type:'筛选 X 窗口',params:{min:null,max:null}}]}
+];
 export const EXPERIMENT_COLUMNS = ['date','project','sampleId','material','method','batch','ratio','agent','vessel','atmosphere','sourceTemp','growthTemp','peakTemp','holdTime','coolingRate','postTreatment','crystalSize','yield','measurements','results','quality','notes'];
 const now = () => new Date().toISOString();
 const clean = value => String(value ?? '').trim();
 const uid = prefix => `${prefix}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 
 export function emptyVault() {
-  return { schema: 1, profile: { updatedAt: now(), materials: [], methods: [], measurements: [], journals: [], authors: [] }, experiments: [], papers: [], projects: [], tasks: [] };
+  return { schema: 2, profile: { updatedAt: now(), materials: [], methods: [], measurements: [], journals: [], authors: [] }, experiments: [], papers: [], projects: [], tasks: [], processingTemplates: [] };
 }
+
+const normalizeMetricMap=value=>Object.fromEntries(Object.entries(value&&typeof value==='object'?value:{}).map(([key,item])=>[key,numeric(item)]).filter(([,item])=>item!==null));
+function normalizeLineage(raw=[],sampleId=''){
+  const nodes=Array.isArray(raw)?raw.slice(0,80).map(item=>({id:clean(item.id)||uid('sample'),type:SAMPLE_NODE_TYPES.includes(item.type)?item.type:'切割样品',label:clean(item.label)||'未命名样品',parentId:clean(item.parentId),notes:clean(item.notes),metrics:normalizeMetricMap(item.metrics),createdAt:clean(item.createdAt)||now(),archived:Boolean(item.archived)})):[];
+  return nodes.length?nodes:[{id:uid('sample'),type:'生长批次',label:sampleId||'本次实验',parentId:'',notes:'',metrics:{},createdAt:now(),archived:false}];
+}
+function normalizeQualityCriteria(raw=[]){
+  const source=Array.isArray(raw)&&raw.length?raw:QUALITY_METRICS;
+  return source.slice(0,20).map(item=>({key:clean(item.key),label:clean(item.label)||clean(item.key),unit:clean(item.unit),operator:item.operator==='gte'?'gte':'lte',threshold:numeric(item.threshold)})).filter(item=>item.key&&item.threshold!==null);
+}
+function normalizeFigure(item={}){const dataUrl=clean(item.dataUrl);if(!/^data:image\/(?:png|jpeg|webp|gif);base64,/i.test(dataUrl))return null;return {id:clean(item.id)||uid('figure'),name:clean(item.name)||'处理结果图',dataUrl,caption:clean(item.caption),kind:clean(item.kind)||'处理结果',createdAt:clean(item.createdAt)||now()};}
 
 export function normalizeExperiment(raw = {}) {
   const result = { id: clean(raw.id) || uid('exp'), createdAt: clean(raw.createdAt) || now(), updatedAt: clean(raw.updatedAt) || now() };
@@ -18,6 +47,9 @@ export function normalizeExperiment(raw = {}) {
   result.project ||= '未分组';
   result.schedule = Array.isArray(raw.schedule) ? raw.schedule.map(s => ({ label: clean(s.label), hours: Number(s.hours), sourceC: s.sourceC === '' || s.sourceC == null ? null : Number(s.sourceC), growthC: s.growthC === '' || s.growthC == null ? null : Number(s.growthC) })).filter(s => s.label && Number.isFinite(s.hours) && s.hours >= 0 && (Number.isFinite(s.sourceC) || Number.isFinite(s.growthC))) : [];
   result.datasets = Array.isArray(raw.datasets) ? raw.datasets.slice(0,12).map(normalizeMeasurementDataset).filter(Boolean) : [];
+  result.figures = Array.isArray(raw.figures) ? raw.figures.slice(0,20).map(normalizeFigure).filter(Boolean) : [];
+  result.lineage = normalizeLineage(raw.lineage,result.sampleId);
+  result.qualityCriteria = normalizeQualityCriteria(raw.qualityCriteria);
   result.archived = Boolean(raw.archived);
   return result;
 }
@@ -70,7 +102,57 @@ export function normalizeMeasurementDataset(raw={}) {
   const analyses=Array.isArray(raw.analyses)?raw.analyses.slice(0,100).map(item=>({
     id:clean(item.id)||uid('analysis'),type:ANALYSIS_TYPES.includes(item.type)?item.type:clean(item.type),version:Math.max(1,Number(item.version)||1),createdAt:clean(item.createdAt)||now(),xColumn:clean(item.xColumn),yColumn:clean(item.yColumn),errorColumn:clean(item.errorColumn),referenceColumn:clean(item.referenceColumn),qualityColumn:clean(item.qualityColumn),window:item.window&&typeof item.window==='object'?{min:numeric(item.window.min),max:numeric(item.window.max)}:{min:null,max:null},parameters:item.parameters&&typeof item.parameters==='object'?item.parameters:{},formula:clean(item.formula),method:clean(item.method),assumptions:Array.isArray(item.assumptions)?item.assumptions.map(clean).filter(Boolean).slice(0,20):[],summary:clean(item.summary),metrics:item.metrics&&typeof item.metrics==='object'?item.metrics:{},fit:item.fit&&typeof item.fit==='object'?item.fit:null,quality:item.quality&&typeof item.quality==='object'?item.quality:{},exclusionRules:Array.isArray(item.exclusionRules)?item.exclusionRules.map(clean).filter(Boolean).slice(0,20):[],steps:Array.isArray(item.steps)?item.steps.map(clean).filter(Boolean).slice(0,20):[]
   })).filter(item=>item.type):[];
-  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),instrument:INSTRUMENT_TEMPLATES.includes(raw.instrument)?raw.instrument:'通用表格',columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,sourceRows:Number(raw.sourceRows)||Number(raw.rowCount)||rows.length,sourceBytes:Number(raw.sourceBytes)||0,localRawOnly:Boolean(raw.localRawOnly),importedAt:clean(raw.importedAt)||now(),notes:clean(raw.notes),sampleMeta,analyses};
+  const processing=raw.processing&&typeof raw.processing==='object'?raw.processing:{};
+  const steps=Array.isArray(processing.steps)?processing.steps.slice(0,30).map(item=>({id:clean(item.id)||uid('step'),type:PIPELINE_STEP_TYPES.includes(item.type)?item.type:PIPELINE_STEP_TYPES[0],enabled:item.enabled!==false,params:item.params&&typeof item.params==='object'?item.params:{},createdAt:clean(item.createdAt)||now()})):[];
+  const versions=Array.isArray(processing.versions)?processing.versions.slice(-30).map(item=>({id:clean(item.id)||uid('pipeline'),version:Math.max(1,Number(item.version)||1),createdAt:clean(item.createdAt)||now(),templateName:clean(item.templateName),steps:Array.isArray(item.steps)?item.steps:[],layers:item.layers&&typeof item.layers==='object'?item.layers:{},summary:clean(item.summary)})):[];
+  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),instrument:INSTRUMENT_TEMPLATES.includes(raw.instrument)?raw.instrument:'通用表格',columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,sourceRows:Number(raw.sourceRows)||Number(raw.rowCount)||rows.length,sourceBytes:Number(raw.sourceBytes)||0,localRawOnly:Boolean(raw.localRawOnly),importedAt:clean(raw.importedAt)||now(),notes:clean(raw.notes),sampleMeta,analyses,processing:{steps,versions,lastRunAt:clean(processing.lastRunAt),lastResult:processing.lastResult&&typeof processing.lastResult==='object'?processing.lastResult:null}};
+}
+
+function cloneRows(rows){return rows.map(row=>[...row]);}
+function pipelineSummary(columns,rows,label){return {label,rowCount:rows.length,columns:[...columns],previewRows:rows.slice(0,8),updatedAt:now()};}
+export function runProcessingPipeline(dataset,steps=dataset?.processing?.steps||[]){
+  const source=normalizeMeasurementDataset(dataset);if(!source)throw new Error('数据集为空。');
+  let columns=[...source.columns],rows=cloneRows(source.rows),cleanedRows=rows,cleaned=false;const applied=[];const xi=()=>columns.indexOf(source.xColumn),yi=()=>columns.indexOf(source.yColumn);
+  for(const step of steps.filter(item=>item&&item.enabled!==false)){
+    const params=step.params||{},xIndex=xi(),yIndex=yi();
+    if(step.type==='裁剪启动阶段'){const seconds=numeric(params.seconds)??30,minX=Math.min(...rows.map(row=>row[xIndex]).filter(Number.isFinite));rows=rows.filter(row=>!Number.isFinite(row[xIndex])||row[xIndex]>=minX+seconds);cleaned=true;}
+    else if(step.type==='按 X 升序排序'){rows.sort((a,b)=>(a[xIndex]??Infinity)-(b[xIndex]??Infinity));cleaned=true;}
+    else if(step.type==='按 X 降序排序'){rows.sort((a,b)=>(b[xIndex]??-Infinity)-(a[xIndex]??-Infinity));cleaned=true;}
+    else if(step.type==='筛选 X 窗口'){const min=numeric(params.min),max=numeric(params.max);rows=rows.filter(row=>(min===null||row[xIndex]>=min)&&(max===null||row[xIndex]<=max));cleaned=true;}
+    else if(step.type==='扣除常数背景'){const value=numeric(params.value)||0;rows=rows.map(row=>row.map((item,index)=>index===yIndex&&Number.isFinite(item)?item-value:item));}
+    else if(step.type==='按质量归一化'){const mass=source.sampleMeta.massMg;if(!(mass>0))throw new Error('按质量归一化需要样品质量 mg。');rows=rows.map(row=>row.map((item,index)=>index===yIndex&&Number.isFinite(item)?item*1000/mass:item));}
+    else if(step.type==='按摩尔数归一化'){const {massMg,molarMass}=source.sampleMeta;if(!(massMg>0&&molarMass>0))throw new Error('按摩尔数归一化需要质量和摩尔质量。');rows=rows.map(row=>row.map((item,index)=>index===yIndex&&Number.isFinite(item)?item*molarMass/(massMg/1000):item));}
+    else if(step.type==='电阻换算电阻率'){const {lengthMm,widthMm,thicknessMm}=source.sampleMeta;if(!(lengthMm>0&&widthMm>0&&thicknessMm>0))throw new Error('换算电阻率需要样品长、宽和厚度。');const factor=widthMm*thicknessMm/lengthMm*1e-3;rows=rows.map(row=>row.map((item,index)=>index===yIndex&&Number.isFinite(item)?item*factor:item));}
+    else if(step.type==='XRD 最低值背景扣除'){const baseline=Math.min(...rows.map(row=>row[yIndex]).filter(Number.isFinite));rows=rows.map(row=>row.map((item,index)=>index===yIndex&&Number.isFinite(item)?item-baseline:item));}
+    else if(step.type==='霍尔正反场反对称化'){
+      const positive=rows.filter(row=>Number.isFinite(row[xIndex])&&row[xIndex]>=0).sort((a,b)=>a[xIndex]-b[xIndex]),negative=rows.filter(row=>Number.isFinite(row[xIndex])&&row[xIndex]<=0);
+      rows=positive.map(pos=>{const match=negative.reduce((best,row)=>Math.abs(row[xIndex]+pos[xIndex])<Math.abs(best[xIndex]+pos[xIndex])?row:best,negative[0]||pos);const next=[...pos];next[yIndex]=(pos[yIndex]-match[yIndex])/2;return next;});cleaned=true;
+    }
+    if(cleaned){cleanedRows=cloneRows(rows);cleaned=false;}applied.push({type:step.type,params:{...params}});
+  }
+  const layers={raw:pipelineSummary(columns,source.rows,'原始仪器文件'),cleaned:pipelineSummary(columns,cleanedRows,'清洗与单位转换'),processed:pipelineSummary(columns,rows,'背景扣除和归一化'),results:{label:'拟合与物理参数',analysisVersions:source.analyses.length},conclusion:{label:'结论与下一步实验',text:clean(dataset.notes)}};
+  return {columns,rows,layers,steps:applied,summary:`${source.rows.length} 行原始数据经 ${applied.length} 个步骤得到 ${rows.length} 行处理数据。`};
+}
+
+export function createPipelineVersion(dataset,steps=dataset?.processing?.steps||[],templateName=''){
+  const result=runProcessingPipeline(dataset,steps),previous=dataset?.processing?.versions||[];
+  return {id:uid('pipeline'),version:(previous.at(-1)?.version||0)+1,createdAt:now(),templateName:clean(templateName),steps:structuredClone(steps),layers:result.layers,summary:result.summary};
+}
+
+export function analysisVersionDiff(left,right){
+  if(!left||!right)return [];
+  const rows=[['分析类型',left.type,right.type],['拟合窗口',`${left.window?.min??'−∞'}–${left.window?.max??'+∞'}`,`${right.window?.min??'−∞'}–${right.window?.max??'+∞'}`],['R²',left.fit?.r2??'—',right.fit?.r2??'—'],['背景扣除',left.steps?.some(x=>/背景/.test(x))?'已扣除':'无',right.steps?.some(x=>/背景/.test(x))?'已扣除':'无'],['异常点',left.quality?.residualOutliers??0,right.quality?.residualOutliers??0]];
+  const keys=new Set([...Object.keys(left.metrics||{}),...Object.keys(right.metrics||{})]);for(const key of keys)rows.push([key,left.metrics?.[key]??'—',right.metrics?.[key]??'—']);return rows;
+}
+
+export function evaluateSampleQuality(metrics={},criteria=QUALITY_METRICS){
+  const results=normalizeQualityCriteria(criteria).map(item=>{const value=numeric(metrics[item.key]),pass=value===null?null:item.operator==='gte'?value>=item.threshold:value<=item.threshold;return {...item,value,pass};});
+  const known=results.filter(item=>item.pass!==null),failed=known.filter(item=>!item.pass);return {status:!known.length?'需要复查':failed.length?'不建议继续加工':'可测量',passed:known.length-failed.length,total:known.length,results};
+}
+
+export function growthPropertySeries(experiments=[],xKey='coolingRate',metricKey='rrr'){
+  const points=[];for(const experiment of experiments){const x=numeric(experiment[xKey]);if(x===null)continue;let y=null,label=experiment.sampleId||experiment.id;for(const node of experiment.lineage||[]){if(numeric(node.metrics?.[metricKey])!==null){y=numeric(node.metrics[metricKey]);label=node.label;break;}}if(y===null)for(const dataset of experiment.datasets||[])for(const analysis of dataset.analyses||[])if(numeric(analysis.metrics?.[metricKey])!==null){y=numeric(analysis.metrics[metricKey]);break;}if(y!==null)points.push({x,y,label,experimentId:experiment.id});}
+  return points;
 }
 
 export function detectInstrument(text='',filename='',columns=[]) {
@@ -346,7 +428,7 @@ export function temperatureSeries(stages) {
 }
 
 export function parseImport(text, filename = '', catalog = []) {
-  const result = { experiments: [], papers: [], projects: [], tasks: [], profile: null, kind: '' };
+  const result = { experiments: [], papers: [], projects: [], tasks: [], processingTemplates: [], profile: null, kind: '' };
   if (/\.csv$/i.test(filename)) {
     const [head, ...rows] = parseCsv(text);
     if (!head?.includes('sampleId')) throw new Error('CSV 缺少 sampleId 列。');
@@ -359,6 +441,7 @@ export function parseImport(text, filename = '', catalog = []) {
   if (!data || typeof data !== 'object') throw new Error('不支持的文件结构。');
   if (data.format === 'yanxi-workbench' && data.vault) {
     for (const key of ['experiments','papers','projects','tasks']) result[key] = Array.isArray(data.vault[key]) ? data.vault[key].map(item => key === 'experiments' ? normalizeExperiment(item) : key === 'papers' ? normalizePaper(item, catalog) : item) : [];
+    result.processingTemplates = Array.isArray(data.vault.processingTemplates) ? data.vault.processingTemplates.slice(0, 100) : [];
     result.profile = data.vault.profile || null; result.kind = '研析完整备份'; return result;
   }
   if (data.format === 'daily-literature-research-export' || 'favorites' in data || 'collections' in data || 'preferences' in data) {
@@ -384,6 +467,7 @@ function mergeItems(current = [], incoming = []) {
 export function mergeVault(current, imported) {
   const result = structuredClone(current);
   for (const key of ['experiments','papers','projects','tasks']) result[key] = mergeItems(result[key], imported[key] || []);
+  result.processingTemplates = mergeItems(result.processingTemplates || [], imported.processingTemplates || []);
   if (imported.profile && (!result.profile || (imported.profile.updatedAt || '') >= (result.profile.updatedAt || ''))) {
     result.profile = { ...result.profile, ...imported.profile };
     for (const key of PROFILE_KEYS) result.profile[key] = Array.isArray(result.profile[key]) ? result.profile[key] : [];
