@@ -1,5 +1,425 @@
 [
   {
+    "id": "doi:10.1038/s41467-026-77905-2",
+    "title": "Emergent charge crystallization and frustration in a particle anti-spin ice",
+    "authors": "Renaud Baillou; Matthew Terkel; Cristiano Nisoli; Pietro Tierno",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-77905-2",
+    "url": "https://doi.org/10.1038/s41467-026-77905-2",
+    "material": "粒子anti-spin ice",
+    "tags": [
+      "正式期刊",
+      "元数据级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-26",
+    "access": "仅基于出版社元数据：正式DOI已确认，但出版社页面当前未返回可读摘要/正文；所有实验参数均保持未知",
+    "summary": "题名表明作者在“粒子anti-spin ice”中观察涌现电荷结晶与受挫共存，重点从单粒子构型上升到有效电荷自由度；但出版社元数据尚无摘要，当前不能确认装置几何、相变证据或定量尺度。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-26/#paper-1"
+  },
+  {
+    "id": "doi:10.1038/s41467-026-77965-4",
+    "title": "Manipulation of ferromagnetism with a light-driven nonlinear Edelstein-Zeeman field",
+    "authors": "Yinchuan Lv; W. Joe Meese; Azel Murzabekova; Jennifer Freedberg; Changjun Lee; Yiming Sun; Joshua Wakefield; Takashi Kurumaji; Joseph Checkelsky; Fahad Mahmood",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-77965-4",
+    "url": "https://doi.org/10.1038/s41467-026-77965-4",
+    "material": "光驱非线性Edelstein–Zeeman铁磁调控",
+    "tags": [
+      "正式期刊",
+      "元数据级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-26",
+    "access": "仅基于出版社元数据：正式DOI已确认，但出版社页面当前未返回可读摘要/正文；所有实验参数均保持未知",
+    "summary": "题名主张用光驱非线性Edelstein–Zeeman有效场操控铁磁性，把光生电流、自旋—轨道耦合和磁矩转向连接起来；在摘要缺失时，不能判断是瞬态偏转、确定性翻转还是模型预测。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-26/#paper-2"
+  },
+  {
+    "id": "doi:10.1021/jacs.6c14384",
+    "title": "Bulk 1T-NbSe2 Superconductor Stabilized by the Doped Ti-3d0 Electronic Configuration",
+    "authors": "Kunqi Li; Yifan Zhou; Yuqiang Fang; Zhongxun Tian; Xuzhou Sun; Xueyang Tu; Linchen Zhou; Wei Zhao; Yiwei Li; Hui Bi; Fuqiang Huang",
+    "journal": "Journal of the American Chemical Society",
+    "year": 2026,
+    "doi": "10.1021/jacs.6c14384",
+    "url": "https://doi.org/10.1021/jacs.6c14384",
+    "material": "1T-Nb₀.₉₂Ti₀.₀₈Se₂单晶",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是用少量Ti同时改变Nb配位偏好并用层间Ti“钉住”亚稳1T层，最终把难以获得的体相1T-NbSe₂变成Tc=7.2 K、Hc2∥=13.46 T且面内呈四重各向异性的超导体。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-1"
+  },
+  {
+    "id": "doi:10.1021/acs.chemmater.6c01631",
+    "title": "Toward an Ideal S = 1/2 Kagome Antiferromagnet and Quantum Spin Liquid Candidate through Selective Mg 2+ Doping of Averievite",
+    "authors": "Ethan Lowe; Lewis Giannelli; Claire Wilson; Ursula B. Hansen; David Boldrin",
+    "journal": "Chemistry of Materials",
+    "year": 2026,
+    "doi": "10.1021/acs.chemmater.6c01631",
+    "url": "https://doi.org/10.1021/acs.chemmater.6c01631",
+    "material": "MgₓCu₅₋ₓV₂O₁₀CsCl averievite",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是把Mg优先放到蜂窝Cu位，尽量不污染S=1/2 kagome Cu网格；x=2时长程磁序和自旋冻结都被压到2 K以下，形成更干净的QSL候选。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-2"
+  },
+  {
+    "id": "doi:10.1002/adfm.78489",
+    "title": "Accelerated Discovery of Topological Spin Phase Diagrams in CrSBr Magnets Via High‐Throughput Optimization",
+    "authors": "Andrew Lyall; Mohammad H. Badarneh; Cristian Bonato; Rebecca Cheung; Elton J. G. Santos",
+    "journal": "Advanced Functional Materials",
+    "year": 2026,
+    "doi": "10.1002/adfm.78489",
+    "url": "https://doi.org/10.1002/adfm.78489",
+    "material": "CrSBr拓扑自旋纹理",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是把受约束准牛顿优化用于上千组自旋参数，在CrSBr中找到畴壁bimeron、链态、Néel skyrmion和混合螺旋等亚稳态，并把它们同40 K以下非临界磁化率异常联系起来。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-3"
+  },
+  {
+    "id": "doi:10.1021/acs.nanolett.6c03169",
+    "title": "Switching Chern Number by Sliding and Gating in Alternately Twisted Tetralayer MoTe2",
+    "authors": "Xiao-Wei Zhang; Kaijie Yang; Xiaodong Xu; Ting Cao; Di Xiao",
+    "journal": "Nano Letters",
+    "year": 2026,
+    "doi": "10.1021/acs.nanolett.6c03169",
+    "url": "https://doi.org/10.1021/acs.nanolett.6c03169",
+    "material": "交替扭转四层MoTe₂",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是利用层间滑移重排各层莫尔势，再用垂直电场把首条K谷莫尔带的Chern数在+1与−1之间切换，为“机械位置+电学栅压”双旋钮拓扑器件提供理论路径。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-4"
+  },
+  {
+    "id": "doi:10.1038/s41467-026-77986-z",
+    "title": "Colossal magnetic tunability of excitons in 2D van der Waals magnetic semiconductor CrSBr",
+    "authors": "Rafał Komar; Mateusz Goryca; Aleksandra Łopion; Miłosz Rybak; Tomasz Woźniak; Mateusz Raczyński; Karol M. Gała̧zka; Kseniia Mosina; Aljoscha Söll; Zdeněk Sofer; Wojciech Pacuski; Clément Faugeras; Magdalena Birowska; Piotr Kossacki; Tomasz Kazimierczuk",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-77986-z",
+    "url": "https://doi.org/10.1038/s41467-026-77986-z",
+    "material": "CrSBr二维磁性半导体",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是避开基态激子、转而研究更高能光学跃迁，观察到接近100 meV的巨幅红/蓝移，使激子成为高灵敏度磁序探针。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-5"
+  },
+  {
+    "id": "doi:10.1038/s41567-026-03469-z",
+    "title": "Probing picosecond depairing currents in type-II superconductors",
+    "authors": "E. Wang; M. Chavez-Cervantes; J. Satapathy; T. Matsuyama; G. Meier; X. Zhang; L. You; F. Marijanovic; J. B. Curtis; E. Demler; A. Cavalleri",
+    "journal": "Nature Physics",
+    "year": 2026,
+    "doi": "10.1038/s41567-026-03469-z",
+    "url": "https://doi.org/10.1038/s41567-026-03469-z",
+    "material": "NbN与YBa₂Cu₃O₇超导薄膜",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是把驱动脉冲压缩到涡旋来不及移动、样品来不及显著发热的时间尺度，从常规临界电流跨到本征退配对极限；NbN出现约2.2倍阈值，而d波YBCO呈渐进抑制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-6"
+  },
+  {
+    "id": "doi:10.1126/science.ady5526",
+    "title": "Antiferroelectric hafnia down to the 2D limit",
+    "authors": "Xin Li; Guodong Ren; Haidong Lu; Kartik Samanta; Amit Kumar Shah; Kai Huang; Pravan Omprakash; Yu Yun; Pratyush Buragohain; Huibo Cao; Yan Wu; Jordan A. Hachtel; Andrew R. Lupini; Miaofang Chi; Juan Carlos Idrobo; Evgeny Y. Tsymbal; Alexei Gruverman; Rohan Mishra; Xiaoshan Xu",
+    "journal": "Science",
+    "year": 2026,
+    "doi": "10.1126/science.ady5526",
+    "url": "https://doi.org/10.1126/science.ady5526",
+    "material": "La掺杂HfO₂(111)外延薄膜",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是用压缩应变稳定反极性正交相，在单晶(111) La:HfO₂中直接观察反平行子晶格极化和稳定双滞回；薄到二维极限时反极性有序反而增强，订货温度达到850 °C。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-7"
+  },
+  {
+    "id": "doi:10.1103/vc5l-ts6m",
+    "title": "Observation of Kondo effect in rhombohedral graphene superlattices",
+    "authors": "Anonymous",
+    "journal": "Physical Review Letters",
+    "year": 2026,
+    "doi": "10.1103/vc5l-ts6m",
+    "url": "https://doi.org/10.1103/vc5l-ts6m",
+    "material": "菱方石墨烯超晶格",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是把可栅调菱方石墨烯超晶格推入局域矩与导电电子耦合区，报告Kondo效应，使二维碳平台可以连续调节局域性与屏蔽竞争。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-8"
+  },
+  {
+    "id": "doi:10.1038/s41563-026-02764-7",
+    "title": "Electrical control of perpendicular altermagnets",
+    "authors": "Mingzhong Wu",
+    "journal": "Nature Materials",
+    "year": 2026,
+    "doi": "10.1038/s41563-026-02764-7",
+    "url": "https://doi.org/10.1038/s41563-026-02764-7",
+    "material": "垂直易轴交替磁体",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "题名指向通过电学手段控制垂直交替磁体，为零净磁矩但具有自旋分裂的材料提供写入旋钮；当前元数据不足以确认具体材料、器件和机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-9"
+  },
+  {
+    "id": "doi:10.1103/ks5f-s1hm",
+    "title": "High-pressure structures of Bi 0.5 Sb 1.5 Te 3 at room temperature and in its superconducting states",
+    "authors": "C. Halbert; A. Lamichhane; B. Wang; S. Racioppi; N. P. Salke; R. Kumar; A. H. Manayil Marathamkottil; H. Farraj; K. Wang; E. H. T. Poldi; M. Ahart; Z. Liu; D. J. Schulze; Shaowei Song; X. Shi; Zhifeng Ren; Y. Meng; G. Konstantin; R. D. dos Reis; R. Tartaglia; L. Z. Deng; C. W. Chu; E. Zurek; R. J. Hemley",
+    "journal": "Physical Review Materials",
+    "year": 2026,
+    "doi": "10.1103/ks5f-s1hm",
+    "url": "https://doi.org/10.1103/ks5f-s1hm",
+    "material": "Bi₀.₅Sb₁.₅Te₃",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是追踪拓扑绝缘体合金在压力下的结构序列与超导出现区，试图把结构相变、载流子重构和高压超导放进同一相图。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-10"
+  },
+  {
+    "id": "doi:10.1021/acs.nanolett.6c01845",
+    "title": "Anisotropic Quantum Hall Transport in a Black Phosphorus Two-Dimensional Hole Gas",
+    "authors": "Fangyuan Yang; Mingyan Luo; Zuocheng Zhang; Shuaifei Guo; Hao Wang; Naizhou Wang; Ke Yang; Kenji Watanabe; Takashi Taniguchi; Hua Wu; Xianhui Chen; Xin Wan; Wei Ruan; Yuanbo Zhang",
+    "journal": "Nano Letters",
+    "year": 2026,
+    "doi": "10.1021/acs.nanolett.6c01845",
+    "url": "https://doi.org/10.1021/acs.nanolett.6c01845",
+    "material": "少层黑磷二维空穴气",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是利用黑磷固有有效质量各向异性稳定非常规条纹样量子Hall态：各向异性可到约4 K，部分填充从N=2时约1/4随Landau能级升高到约0.4。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-11"
+  },
+  {
+    "id": "doi:10.1103/sbx1-g6vb",
+    "title": "Effect of metal encapsulation on bulk superconducting properties of niobium thin films used in qubits",
+    "authors": "Anonymous",
+    "journal": "Physical Review Applied",
+    "year": 2026,
+    "doi": "10.1103/sbx1-g6vb",
+    "url": "https://doi.org/10.1103/sbx1-g6vb",
+    "material": "量子比特用Nb薄膜",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是把常被当作防氧化层的金属封帽视为会改变Nb薄膜体超导参数的工艺变量，目标是把界面化学与量子比特材料损耗连接起来。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-12"
+  },
+  {
+    "id": "doi:10.1103/y227-dk8f",
+    "title": "Evolution of Electron Spin Resonance through a Metallic Quantum Critical Phase Diagram",
+    "authors": "Marc Scheffler; Jörg Sichelschmidt; Conrad Clauss; Mojtaba Javaheri Rahim; Boris I. Kochelaev; Cornelius Krellner; Christoph Geibel; Frank Steglich; Martin Dressel",
+    "journal": "Physical Review Letters",
+    "year": 2026,
+    "doi": "10.1103/y227-dk8f",
+    "url": "https://doi.org/10.1103/y227-dk8f",
+    "material": "YbRh₂Si₂重费米子单晶",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-09-25",
+    "access": "仅基于出版社摘要/元数据：本次未取得正文、Methods与补充材料；生长和测量参数未知项不作推测",
+    "summary": "故事是用新的宽频低温ESR跨越反铁磁、量子临界和顺磁费米液区，发现g因子与线宽在沿场或沿温逼近QCP时给出相匹配的连续演化。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-13"
+  },
+  {
+    "id": "arxiv:2609.29168",
+    "title": "Hidden magnetic order within the pressure induced superconducting dome of UTe2",
+    "authors": "Kaixin Ye; Lubin Wang; Dengpeng Yuan; Binbin Zhang; Yanan Zhang; Ye Chen; Yu Liu; Xin Lu; Chaofan Zhang; Qiuyun Chen; Shiyong Tan; Frank Steglich; Lin Jiao; Michael Smidman; Huiqiu Yuan",
+    "journal": "arXiv:2609.29168v1",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.29168",
+    "material": "UTe₂单晶",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-09-25",
+    "access": "全文精读：已读取arXiv公开HTML正文、Methods、图注和结果讨论",
+    "summary": "这篇论文在UTe₂压力诱导SC2穹顶内部找到此前被超导遮蔽的磁序HMO：它约从1.0 GPa出现，在1.1 GPa/0.55 K形成热容异常，随场被压低，并在1.5 GPa与超导一起消失、让位于三维AFM。HMO边界外推的零温端点与SC2最高Tc重合，使“低维AFM涨落驱动三重态SC2”成为可检验的相图故事。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-14"
+  },
+  {
+    "id": "arxiv:2609.28837",
+    "title": "Imaging how fluctuations destroy superconductivity in two dimensions",
+    "authors": "Logan Bishop-Van Horn; Teng Zhang; Sara Metti; Tyler Lindemann; Michael J. Manfra; Kathryn A. Moler",
+    "journal": "arXiv:2609.28837v1",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.28837",
+    "material": "栅控二维Josephson结阵列",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-09-25",
+    "access": "全文精读：已读取arXiv公开HTML正文、Methods、图注和结果讨论",
+    "summary": "作者把“异常金属是否只是输运假象”转化为可成像的热力学问题：随载流子降低，Tc与局域相刚度比纯热涨落预期下降更快，异常金属与大尺度空间不均匀同时出现，支持量子涨落和无序区相滑移共同摧毁二维超导。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-15"
+  },
+  {
+    "id": "arxiv:2609.30202",
+    "title": "Incipient superconductivity and tunable Chern insulators in twisted Bernal bilayer-trilayer graphene",
+    "authors": "Derek Waleffe; Aryana Bhattacharyya; Manish Kumar; Eric Maginnis; Anna Okounkova; Tobias Faehndrich; Kenji Watanabe; Takashi Taniguchi; Joshua Folk; Matthew Yankowitz",
+    "journal": "arXiv:2609.30202v1",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.30202",
+    "material": "扭转Bernal双层–三层石墨烯",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-09-25",
+    "access": "全文精读：已读取arXiv公开HTML正文、Methods、图注和结果讨论",
+    "summary": "同一莫尔家族把可调Chern绝缘体与配对口袋放在一起：电子侧在整数/分数填充出现|C|≤3的Chern态，1.18°器件空穴侧ν=−2绝缘体被位移场推入最高约160 mK的“incipient”超导；电阻未归零但平面场扩展口袋，并在第二口袋看到Fraunhofer样临界电流调制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-16"
+  },
+  {
+    "id": "arxiv:2609.29354",
+    "title": "Superconductivity in structurally complex $σ$-Phase Re-X (X = V, Nb, Ta) and a derived medium-entropy alloys",
+    "authors": "Pavan Kumar Meena; Tomasz Klimczuk",
+    "journal": "arXiv:2609.29354v1",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.29354",
+    "material": "σ相Re–V/Nb/Ta与中熵合金",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-09-25",
+    "access": "全文精读：已读取arXiv公开HTML正文、Methods、图注和结果讨论",
+    "summary": "论文建立一个结构复杂、化学无序但仍近弱耦合全能隙的σ相超导系列：Re₀.₇₆V₀.₂₄、Re₀.₅₆Nb₀.₄₄、Re₀.₆₀Ta₀.₄₀和Re₀.₅₆Nb₀.₁₉Ta₀.₁₉V₀.₀₆的体相Tc依次约4.46、2.28、1.76、1.64 K。电阻Tc系统高于热力学Tc，暴露表面/细丝通道与体相之间的差异。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-17"
+  },
+  {
+    "id": "arxiv:2609.29794",
+    "title": "Anisotropic Magnetic and Transport Properties of RAlGe (R = Y, Gd-Tm, Lu)",
+    "authors": "Tyler J. Slade; Lin-Lin Wang; Sergey L. Bud'ko; Paul C. Canfield",
+    "journal": "arXiv:2609.29794v1",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.29794",
+    "material": "RAlGe（R=Y,Gd–Tm,Lu）单晶",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-25",
+    "access": "全文精读：已读取arXiv公开HTML正文、Methods、图注和结果讨论",
+    "summary": "这是一套稀土系列的可比性工作：所有样品在正交Cmcm骨架中，磁性成员TN从Tm的5 K到Tb的39 K；Tb–Ho还有6–8 K第二转变，易轴从Tb–Ho的a轴切换到Er/Tm的b轴，2 K出现丰富变磁与60–150%正磁阻，非磁YAlGe则显示dHvA小高迁移率口袋。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-18"
+  },
+  {
+    "id": "arxiv:2609.28968",
+    "title": "Beyond the Kagome Layer: Interlayer Origin of the Flat Band in FeSn",
+    "authors": "Shimin Zhang; Bipasa Samanta; Ho Viet Thang; Alexandru B. Georgescu",
+    "journal": "arXiv:2609.28968v1",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.28968",
+    "material": "FeSn kagome层状金属",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-25",
+    "access": "全文精读：已读取arXiv公开HTML正文、Methods、图注和结果讨论",
+    "summary": "论文纠正“表面平带只来自单个kagome层”的直觉：占据的Fe-dz²平带在铁磁堆垛中来自原胞kz=π/c并由相邻kagome层反键耦合产生，A型反铁磁堆垛会压制它；计算−0.32 eV与实验表面约−0.23 eV相近。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-25/#paper-19"
+  },
+  {
     "id": "doi:10.1038/s41563-026-02750-z",
     "title": "Interlayer hybridization promotes superconductivity in bilayer nickelates",
     "authors": "Shilong Zhang; Meng Zhang; Qiling Luo; Zihao Tao; Hsiao-Yu Huang; Eugen Weschke; Kunhao Li; Ganesha Channagowdra; Jie Li; Junchi Fu; Di-Jing Huang; Yanwu Xie; Yi Lu; Yingying Peng",
@@ -5153,29 +5573,6 @@
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-05/#paper-15"
   },
   {
-    "id": "arxiv:2609.03994",
-    "title": "Evolution of electron spin resonance through a metallic quantum critical phase diagram",
-    "authors": "Marc Scheffler; Jörg Sichelschmidt; Conrad Clauss; Mojtaba Javaheri Rahim; Boris I. Kochelaev; Cornelius Krellner; Christoph Geibel; Frank Steglich; Martin Dressel",
-    "journal": "arXiv:2609.03994 [cond-mat.str-el]",
-    "year": null,
-    "doi": "",
-    "url": "https://arxiv.org/abs/2609.03994",
-    "material": "YbRh2Si2 单晶",
-    "tags": [
-      "YbRh2Si2",
-      "ESR",
-      "quantum critical",
-      "60 mT",
-      "RRR 50",
-      "重费米子与量子临界"
-    ],
-    "category": "重费米子与量子临界",
-    "date": "2026-09-05",
-    "access": "全文精读：16页PDF含SI；已读谐振器、样品、ESR相图和模型",
-    "summary": "",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-05/#paper-16"
-  },
-  {
     "id": "arxiv:2609.04074",
     "title": "Synthesis and Characterization of Compositionally Complex (Gd/Ho/Er/Dy)2Zr2O7 Thin Film Combinatorial Library",
     "authors": "Dalton A. Pearl; Jade Holliman Jr; Reece Emory; Joshua Safin; Aditya Raghavan; Kamyar Barakati; Andrew H. Jones; Ethan A. Scott; Jack C. Lasseter; Adam Corrao; Daniel Olds; Bruce Ravel; Sergei K. Kalinin; Patrick E. Hopkins; Katharine Page; Philip D. Rack",
@@ -6363,5 +6760,28 @@
     "access": "仅摘要/元数据",
     "summary": "",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-08-28/#paper-4"
+  },
+  {
+    "id": "arxiv:2609.03994",
+    "title": "Evolution of electron spin resonance through a metallic quantum critical phase diagram",
+    "authors": "Marc Scheffler; Jörg Sichelschmidt; Conrad Clauss; Mojtaba Javaheri Rahim; Boris I. Kochelaev; Cornelius Krellner; Christoph Geibel; Frank Steglich; Martin Dressel",
+    "journal": "arXiv:2609.03994 [cond-mat.str-el]",
+    "year": null,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2609.03994",
+    "material": "YbRh2Si2 单晶",
+    "tags": [
+      "YbRh2Si2",
+      "ESR",
+      "quantum critical",
+      "60 mT",
+      "RRR 50",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-09-05",
+    "access": "全文精读：16页PDF含SI；已读谐振器、样品、ESR相图和模型",
+    "summary": "",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-05/#paper-16"
   }
 ]
