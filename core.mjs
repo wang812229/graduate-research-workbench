@@ -468,7 +468,8 @@ export function mergeVault(current, imported) {
   const result = structuredClone(current);
   for (const key of ['experiments','papers','projects','tasks']) result[key] = mergeItems(result[key], imported[key] || []);
   result.processingTemplates = mergeItems(result.processingTemplates || [], imported.processingTemplates || []);
-  if (imported.profile && (!result.profile || (imported.profile.updatedAt || '') >= (result.profile.updatedAt || ''))) {
+  const currentProfileIsEmpty = !result.profile || PROFILE_KEYS.every(key => !Array.isArray(result.profile[key]) || result.profile[key].length === 0);
+  if (imported.profile && (currentProfileIsEmpty || (imported.profile.updatedAt || '') >= (result.profile.updatedAt || ''))) {
     result.profile = { ...result.profile, ...imported.profile };
     for (const key of PROFILE_KEYS) result.profile[key] = Array.isArray(result.profile[key]) ? result.profile[key] : [];
   }
