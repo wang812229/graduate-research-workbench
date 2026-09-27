@@ -1,5 +1,110 @@
 [
   {
+    "id": "doi:10.1002/adma.75153",
+    "title": "Atmosphere-Controlled Valence Engineering of Eu in Aluminate Crystals Enabling High-Performance Temperature Sensing and Flexible X-Ray Imaging",
+    "authors": "Ci'an Xie; Yan-gai Liu; Lefu Mei; Chenguang Yang; Yukun Liu; Yicen Liu; Hui Li; Liming Wu; Zekun Wang",
+    "journal": "Advanced Materials",
+    "year": 2026,
+    "doi": "10.1002/adma.75153",
+    "url": "https://doi.org/10.1002/adma.75153",
+    "material": "SrMgAl10O17:Eu铝酸盐晶体",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "参数待全文核对",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-09-27",
+    "access": "仅基于出版社摘要/元数据：已读取题名、作者、单位、摘要和DOI；未取得正文、Methods或SI，不能标为全文精读",
+    "summary": "作者用同一前驱体和不同埋碳深度调节Eu2+/Eu3+比例，把一个SrMgAl10O17:Eu体系分成两条功能路线：完全还原样品承担柔性X射线探测，部分还原样品利用两种价态不同的热猝灭行为做550–625 K多模态测温。故事的核心不是“掺Eu会发光”，而是气氛/还原程度被当作可编程的价态旋钮。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-27/#paper-1"
+  },
+  {
+    "id": "doi:10.1002/adma.75151",
+    "title": "Percolation-Driven β-Relaxation Enables Resonant Acceleration of Crystallization in Amorphous Phase-Change Materials",
+    "authors": "Yu-Yao Liu; Liang Gao; Jun-Ying Jiang; Yiming Zhou; Jan Luebben; Di Zhao; Xiaoling Lu; Maximilian J. Müller; Ulrich Boettger; Jiang-Jing Wang; Hai-Bin Yu; Shuai Wei",
+    "journal": "Advanced Materials",
+    "year": 2026,
+    "doi": "10.1002/adma.75151",
+    "url": "https://doi.org/10.1002/adma.75151",
+    "material": "Ge2Sb2Te5非晶相变材料",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "参数待全文核对",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-09-27",
+    "access": "仅基于出版社摘要/元数据：已读取题名、作者、单位、摘要和DOI；未取得正文、Methods或SI，不能标为全文精读",
+    "summary": "论文把Ge2Sb2Te5结晶从经验热处理问题改写成“可动原子网络是否渗流”的动力学问题：β弛豫对应的连通性转变决定扩散驱动与无扩散形核/生长谁占主导，并且在接近β弛豫特征频率时施加超声可产生共振式加速。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-27/#paper-2"
+  },
+  {
+    "id": "doi:10.1002/adma.75126",
+    "title": "Bare-Die Antiferromagnetic Computing",
+    "authors": "Yu Liu; Zhuoting Han; Zexin Feng; Peixin Qin; Zhiyuan Duan; Yuhao Ye; Zengwei Zhu; Chengyan Zhong; Li Liu; Guojian Zhao; Wenbin Shen; Jingyu Li; Sixu Jiang; Xiaoyang Tan; Xiaoning Wang; Ziang Meng; Chengbao Jiang; Zhiqi Liu",
+    "journal": "Advanced Materials",
+    "year": 2026,
+    "doi": "10.1002/adma.75126",
+    "url": "https://doi.org/10.1002/adma.75126",
+    "material": "MnIr/PMN-PT反铁磁异质器件",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "参数待全文核对",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-09-27",
+    "access": "仅基于出版社摘要/元数据：已读取题名、作者、单位、摘要和DOI；未取得正文、Methods或SI，不能标为全文精读",
+    "summary": "作者把MnIr/PMN-PT反铁磁器件直接当作模拟边缘处理器：应变介导的磁响应与输入调制、自刷新编码结合，使裸芯片在500 K、55 T和1.5 Mrad条件下仍执行特征提取与分类，并以语音、航天目标和无人机视觉演示把“极端环境磁器件”推进到系统级任务。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-27/#paper-3"
+  },
+  {
+    "id": "doi:10.1002/adfm.78717",
+    "title": "Competition Between Weak Localization and Antilocalization of Dirac-Like Fermions in a Spin-Polarized Two-Dimensional Electron Gas at KTaO3(111) Interface",
+    "authors": "Hui Zhang; Daming Tian; Xiaobing Chen; Lu Chen; Min Li; Yetong Bai; Dengjing Wang; Fengxia Hu; Baogen Shen; Jirong Sun; Weisheng Zhao",
+    "journal": "Advanced Functional Materials",
+    "year": 2026,
+    "doi": "10.1002/adfm.78717",
+    "url": "https://doi.org/10.1002/adfm.78717",
+    "material": "EuTiO3/KTaO3(111)自旋极化二维电子气",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "参数待全文核对",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-09-27",
+    "access": "仅基于出版社摘要/元数据：已读取题名、作者、单位、摘要和DOI；未取得正文、Methods或SI，不能标为全文精读",
+    "summary": "作者在EuTiO3/KTaO3(111)绝缘氧化物界面构造自旋极化二维电子气：异常霍尔与磁滞磁阻先建立长程铁磁证据，再把低场量子电导解释为弱局域化与弱反局域化竞争，并用光激发移动费米能级来调节竞争关系。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-27/#paper-4"
+  },
+  {
+    "id": "doi:10.1038/s41467-026-77967-2",
+    "title": "Efficient transport kinetics of indirect excitons in van der Waals heterostructure",
+    "authors": "Zhiwen Zhou; W. J. Brunner; E. A. Szwed; H. Henstridge; L. H. Fowler-Gerace; L. V. Butov",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-77967-2",
+    "url": "https://doi.org/10.1038/s41467-026-77967-2",
+    "material": "范德华异质结空间间接激子",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "参数待全文核对",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-09-27",
+    "access": "仅基于出版社摘要/元数据：已读取题名、作者、单位、摘要和DOI；未取得正文、Methods或SI，不能标为全文精读",
+    "summary": "论文在存在显著面内无序的范德华异质结里仍观察到异常高的间接激子迁移率；高迁移率随升温消失、随密度呈非单调变化，这组现象与间接激子超流理论定性一致，但作者谨慎停留在“consistent with”而不是宣称已证明超流。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-27/#paper-5"
+  },
+  {
     "id": "doi:10.1038/s41467-026-77905-2",
     "title": "Emergent charge crystallization and frustration in a particle anti-spin ice",
     "authors": "Renaud Baillou; Matthew Terkel; Cristiano Nisoli; Pietro Tierno",
