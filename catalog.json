@@ -304,14 +304,14 @@
     "material": "CeRh2As2",
     "tags": [
       "arXiv v1",
-      "摘要级",
-      "待全文核对",
+      "全文精读",
+      "2026-09-28 官方 new 列表",
       "重费米子与量子临界"
     ],
     "category": "重费米子与量子临界",
     "date": "2026-09-28",
-    "access": "仅基于 arXiv v1 摘要/元数据；尚未读到正文、Methods 或 SI，所有缺失条件不可推断",
-    "summary": "这篇新稿围绕CeRh2As2提出或报告：显式纳入 Γ7/Γ6 准四重态与非局域 f–d 杂化后，模型在较宽参数区支持 Q=(π,π) 反铁磁，四极矩主要在双重态近简并时增强；结论是模型机制不是磁序直接观测。目前本条只读到 arXiv 摘要，尚不能确认全文中的样品质量、对照设计和误差；它适合先纳入追踪，复现实验与结论强度需在获得正文后重新评估。",
+    "access": "全文精读：已读取 arXiv 公开 HTML 的 Introduction、Periodic Anderson model、RISB mean-field、Paramagnetic state、Magnetic ordering、Discussion、Table 1 及 Fig. 2–7 图注；未见独立 SI，未声称阅读 PDF 附件",
+    "summary": "这篇论文尝试把 CeRh₂As₂ 的两个难题放进同一模型：低温重费米子由 Ce 4f 与 Rh d 电子杂化形成，而近简并的 Γ₇/Γ₆ 晶场双重态又可能参与磁性及四极序。作者建立多轨道周期 Anderson 模型，通过旋转不变从玻色子平均场得到低能能带，再在多种对称允许的磁序之间比较自由能。结果显示一个常用单轨道模型在特定低能窗口确有微观来源，但磁相图更常偏向 Q=(π,π) 的面内反铁磁；四极矩主要是磁序诱导，只有晶场双重态接近交叉时明显增强。它提供的是模型机制及可测的对称性判据，不是对实际磁波矢、超导配对或四极主序的直接实验证明。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-28/#paper-15"
   },
   {
