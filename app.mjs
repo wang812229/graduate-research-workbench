@@ -469,7 +469,8 @@ document.addEventListener('click',async event=>{
       const bundle=await datasetBundle(found,passphrase);
       const manifest=await cloudClient.uploadRawDataset(session.user.id,found.dataset.id,bundle,(done,total)=>{const el=document.querySelector('.toast');if(el)el.textContent=`云端备份中：${done}/${total} 块；请保持页面打开。`;});
       await updateSavedDataset(found.dataset.id,dataset=>{dataset.cloudBackup=manifest;});
-      toast(`完整数据已上传并核对清单，共 ${manifest.parts} 块。换设备登录后可凭同一复现包口令恢复。`);return;
+      if(session.dirty)await flush();
+      toast(session.dirty?`加密数据已上传 ${manifest.parts} 块，但备份目录尚未同步。请保持页面打开并点“立即重试同步”，确认状态变为“已同步”后再换设备。`:`完整数据已上传并同步目录，共 ${manifest.parts} 块。换设备登录后可凭同一复现包口令恢复。`);return;
     }
     if(action==='dataset-cloud-restore'){
       if(!session.cloud||session.offline)throw new Error('请先联网登录已验证邮箱的云账号。');
