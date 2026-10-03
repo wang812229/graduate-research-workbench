@@ -98,14 +98,43 @@ export function normalizeMeasurementDataset(raw={}) {
   const xColumn=columns.includes(raw.xColumn)?raw.xColumn:columns[0];
   const yColumn=columns.includes(raw.yColumn)&&raw.yColumn!==xColumn?raw.yColumn:(columns.find(c=>c!==xColumn)||columns[1]);
   const sampleMeta={};
-  for(const key of ['massMg','lengthMm','widthMm','thicknessMm','molarMass','formulaUnits'])sampleMeta[key]=numeric(raw.sampleMeta?.[key]);
+  for(const key of ['massMg','lengthMm','widthMm','thicknessMm','molarMass','formulaUnits','massMgError','lengthMmError','widthMmError','thicknessMmError'])sampleMeta[key]=numeric(raw.sampleMeta?.[key]);
   const analyses=Array.isArray(raw.analyses)?raw.analyses.slice(0,100).map(item=>({
     id:clean(item.id)||uid('analysis'),type:ANALYSIS_TYPES.includes(item.type)?item.type:clean(item.type),version:Math.max(1,Number(item.version)||1),createdAt:clean(item.createdAt)||now(),xColumn:clean(item.xColumn),yColumn:clean(item.yColumn),errorColumn:clean(item.errorColumn),referenceColumn:clean(item.referenceColumn),qualityColumn:clean(item.qualityColumn),window:item.window&&typeof item.window==='object'?{min:numeric(item.window.min),max:numeric(item.window.max)}:{min:null,max:null},parameters:item.parameters&&typeof item.parameters==='object'?item.parameters:{},formula:clean(item.formula),method:clean(item.method),assumptions:Array.isArray(item.assumptions)?item.assumptions.map(clean).filter(Boolean).slice(0,20):[],summary:clean(item.summary),metrics:item.metrics&&typeof item.metrics==='object'?item.metrics:{},fit:item.fit&&typeof item.fit==='object'?item.fit:null,quality:item.quality&&typeof item.quality==='object'?item.quality:{},exclusionRules:Array.isArray(item.exclusionRules)?item.exclusionRules.map(clean).filter(Boolean).slice(0,20):[],steps:Array.isArray(item.steps)?item.steps.map(clean).filter(Boolean).slice(0,20):[]
   })).filter(item=>item.type):[];
   const processing=raw.processing&&typeof raw.processing==='object'?raw.processing:{};
+  const acquisition=raw.acquisition&&typeof raw.acquisition==='object'?raw.acquisition:{};
+  const units=Object.fromEntries(columns.map(column=>[column,clean(acquisition.units?.[column])]).filter(([,unit])=>unit));
+  const uncertaintyColumns=Object.fromEntries(columns.map(column=>[column,columns.includes(acquisition.uncertaintyColumns?.[column])?acquisition.uncertaintyColumns[column]:'']).filter(([,error])=>error));
   const steps=Array.isArray(processing.steps)?processing.steps.slice(0,30).map(item=>({id:clean(item.id)||uid('step'),type:PIPELINE_STEP_TYPES.includes(item.type)?item.type:PIPELINE_STEP_TYPES[0],enabled:item.enabled!==false,params:item.params&&typeof item.params==='object'?item.params:{},createdAt:clean(item.createdAt)||now()})):[];
   const versions=Array.isArray(processing.versions)?processing.versions.slice(-30).map(item=>({id:clean(item.id)||uid('pipeline'),version:Math.max(1,Number(item.version)||1),createdAt:clean(item.createdAt)||now(),templateName:clean(item.templateName),steps:Array.isArray(item.steps)?item.steps:[],layers:item.layers&&typeof item.layers==='object'?item.layers:{},summary:clean(item.summary)})):[];
-  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),instrument:INSTRUMENT_TEMPLATES.includes(raw.instrument)?raw.instrument:'通用表格',columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,sourceRows:Number(raw.sourceRows)||Number(raw.rowCount)||rows.length,sourceBytes:Number(raw.sourceBytes)||0,localRawOnly:Boolean(raw.localRawOnly),importedAt:clean(raw.importedAt)||now(),notes:clean(raw.notes),sampleMeta,analyses,processing:{steps,versions,lastRunAt:clean(processing.lastRunAt),lastResult:processing.lastResult&&typeof processing.lastResult==='object'?processing.lastResult:null}};
+  const source=raw.source&&typeof raw.source==='object'?raw.source:{};
+  const cloudBackup=raw.cloudBackup&&typeof raw.cloudBackup==='object'?raw.cloudBackup:{};
+  const qualityReport=raw.qualityReport&&typeof raw.qualityReport==='object'?raw.qualityReport:{};
+  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),instrument:INSTRUMENT_TEMPLATES.includes(raw.instrument)?raw.instrument:'通用表格',columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,sourceRows:Number(raw.sourceRows)||Number(raw.rowCount)||rows.length,sourceBytes:Number(raw.sourceBytes)||0,localRawOnly:Boolean(raw.localRawOnly),importedAt:clean(raw.importedAt)||now(),notes:clean(raw.notes),sampleMeta,analyses,processing:{steps,versions,lastRunAt:clean(processing.lastRunAt),lastResult:processing.lastResult&&typeof processing.lastResult==='object'?processing.lastResult:null},source:{filename:clean(source.filename),sha256:/^[a-f0-9]{64}$/i.test(source.sha256||'')?source.sha256.toLowerCase():'',bytes:Number(source.bytes)||0,originalStored:Boolean(source.originalStored)},acquisition:{sampleNodeId:clean(acquisition.sampleNodeId),acquiredAt:clean(acquisition.acquiredAt),operator:clean(acquisition.operator),instrumentId:clean(acquisition.instrumentId),calibrationAt:clean(acquisition.calibrationAt),calibrationReference:clean(acquisition.calibrationReference),geometry:clean(acquisition.geometry),excitation:clean(acquisition.excitation),scanBranch:clean(acquisition.scanBranch),fieldDirection:clean(acquisition.fieldDirection),notes:clean(acquisition.notes),units,uncertaintyColumns},cloudBackup:{sha256:/^[a-f0-9]{64}$/i.test(cloudBackup.sha256||'')?cloudBackup.sha256.toLowerCase():'',savedAt:clean(cloudBackup.savedAt),bytes:Number(cloudBackup.bytes)||0,hasOriginal:Boolean(cloudBackup.hasOriginal)},qualityReport:{checkedAt:clean(qualityReport.checkedAt),issues:Array.isArray(qualityReport.issues)?qualityReport.issues.map(clean).slice(0,20):[],duplicates:Number(qualityReport.duplicates)||0,missing:Number(qualityReport.missing)||0}};
+}
+
+export function datasetQualityReport(dataset){
+  const item=normalizeMeasurementDataset(dataset);if(!item)throw new Error('数据集无效。');
+  const issues=[],a=item.acquisition,xi=item.columns.indexOf(item.xColumn),yi=item.columns.indexOf(item.yColumn);
+  if(!item.source.sha256)issues.push('缺少仪器原文件 SHA-256 校验值；旧数据可继续分析，但无法证明与原文件逐字节一致。');
+  if(!a.sampleNodeId)issues.push('未关联具体样品节点，跨测量比较时需人工核对样品身份。');
+  if(!a.units[item.xColumn]||!a.units[item.yColumn])issues.push('X/Y 轴单位未完整确认，自动换算前应核对仪器导出表头。');
+  if(!a.instrumentId||!a.calibrationAt)issues.push('仪器编号或最近校准日期未记录。');
+  if(!a.scanBranch)issues.push('升温/降温或正扫/反扫支路未记录。');
+  const seen=new Set();let duplicates=0,missing=0;
+  for(const row of item.rows){if(!Number.isFinite(row[xi])||!Number.isFinite(row[yi]))missing++;if(Number.isFinite(row[xi])){if(seen.has(row[xi]))duplicates++;else seen.add(row[xi]);}}
+  if(duplicates)issues.push(`X 轴有 ${duplicates} 个重复点；可能属于不同扫描支路，未自动删除。`);
+  if(missing)issues.push(`X/Y 有 ${missing} 行缺值；原始记录仍保留。`);
+  if(!a.uncertaintyColumns[item.yColumn])issues.push('Y 轴尚未指定误差列；模型参数的系统误差仍需单独评估。');
+  return {issues,duplicates,missing,checkedRows:item.rows.length};
+}
+
+export function geometryRelativeUncertainty(sampleMeta={}){
+  const terms=[['widthMm','widthMmError'],['thicknessMm','thicknessMmError'],['lengthMm','lengthMmError']];
+  if(terms.some(([value,error])=>!(numeric(sampleMeta[value])>0)||numeric(sampleMeta[error])===null||numeric(sampleMeta[error])<0))return null;
+  const relative=Math.hypot(...terms.map(([value,error])=>numeric(sampleMeta[error])/numeric(sampleMeta[value])));
+  return {relative,percent:relative*100,formula:'u(ρ)/ρ = √[(u_w/w)² + (u_t/t)² + (u_L/L)²]；假设几何误差相互独立'};
 }
 
 function cloneRows(rows){return rows.map(row=>[...row]);}
@@ -344,7 +373,9 @@ export function analysisCsv(dataset,analysis){
 }
 
 export function analysisMethodText(dataset,analysis){
-  const lines=[`分析：${analysis.type}`,`数据集：${dataset.name}`,`版本：v${analysis.version}`,`方法：${analysis.method||'—'}`,`公式：${analysis.formula||'—'}`,`X / Y：${analysis.xColumn} / ${analysis.yColumn}`,`拟合窗口：${analysis.window?.min??'−∞'} 至 ${analysis.window?.max??'+∞'}`,`结果：${analysis.summary||'—'}`,'','适用条件与假设：',...(analysis.assumptions||[]).map((item,index)=>`${index+1}. ${item}`),'','处理步骤：',...(analysis.steps||[]).map((item,index)=>`${index+1}. ${item}`),'','排除与质量规则：',...(analysis.exclusionRules||[]).map((item,index)=>`${index+1}. ${item}`),'','拟合统计：',JSON.stringify(analysis.fit||{},null,2),'','质量摘要：',JSON.stringify(analysis.quality||{},null,2)];
+  const lines=[`分析：${analysis.type}`,`数据集：${dataset.name}`,`版本：v${analysis.version}`,`方法：${analysis.method||'—'}`,`公式：${analysis.formula||'—'}`,`X / Y：${analysis.xColumn} / ${analysis.yColumn}`,`拟合窗口：${analysis.window?.min??'−∞'} 至 ${analysis.window?.max??'+∞'}`,`结果：${analysis.summary||'—'}`,'',`仪器原文件 SHA-256：${dataset.source?.sha256||'未记录'}`,`采集时间：${dataset.acquisition?.acquiredAt||'未记录'}`,`仪器编号 / 校准：${dataset.acquisition?.instrumentId||'未记录'} / ${dataset.acquisition?.calibrationAt||'未记录'}`,`扫描支路：${dataset.acquisition?.scanBranch||'未记录'}`,`接线或测量几何：${dataset.acquisition?.geometry||'未记录'}`,`列单位：${JSON.stringify(dataset.acquisition?.units||{})}`,`误差列映射：${JSON.stringify(dataset.acquisition?.uncertaintyColumns||{})}`,`样品尺寸及误差：${JSON.stringify(dataset.sampleMeta||{})}`,'','适用条件与假设：',...(analysis.assumptions||[]).map((item,index)=>`${index+1}. ${item}`),'','处理步骤：',...(analysis.steps||[]).map((item,index)=>`${index+1}. ${item}`),'','排除与质量规则：',...(analysis.exclusionRules||[]).map((item,index)=>`${index+1}. ${item}`),'','拟合统计：',JSON.stringify(analysis.fit||{},null,2),'','质量摘要：',JSON.stringify(analysis.quality||{},null,2)];
+  const geometry=geometryRelativeUncertainty(dataset.sampleMeta);
+  if(geometry)lines.push('',`电阻率几何因子相对标准不确定度：${geometry.percent.toFixed(2)}%`,geometry.formula,'该几何误差未并入拟合参数标准误差；若电阻本身有误差，应另行传播。');
   return lines.join('\r\n');
 }
 

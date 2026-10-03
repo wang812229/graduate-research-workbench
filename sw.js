@@ -1,6 +1,6 @@
 const CACHE_PREFIX = `yanxi-shell-${encodeURIComponent(self.registration.scope)}-`;
-const CACHE = `${CACHE_PREFIX}v6`;
-const SHELL = ["./", "./index.html", "./styles.css", "./app.mjs", "./core.mjs", "./offline.mjs", "./runtime.mjs", "./catalog.json", "./favicon.svg", "./manifest.webmanifest"];
+const CACHE = `${CACHE_PREFIX}v7`;
+const SHELL = ["./", "./index.html", "./styles.css", "./app.mjs", "./core.mjs", "./offline.mjs", "./research-package.mjs", "./runtime.mjs", "./catalog.json", "./favicon.svg", "./manifest.webmanifest"];
 const OPTIONAL_CLOUD = ["./cloud-config.json", "./cloud-client.bundle.mjs"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(async cache => {

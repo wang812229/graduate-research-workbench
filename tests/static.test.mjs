@@ -5,8 +5,8 @@ import { execFileSync } from 'node:child_process';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import vm from 'node:vm';
-import { emptyVault, escapeHtml } from '../core.mjs';
-import { registerLocalAccount, unlockOffline, saveOffline, listLocalAccounts, deleteLocalAccount } from '../offline.mjs';
+import { emptyVault, escapeHtml, normalizeMeasurementDataset } from '../core.mjs';
+import { registerLocalAccount, unlockOffline, saveOffline, listLocalAccounts, deleteLocalAccount, saveRawFile, readRawFile, changeLocalPassword } from '../offline.mjs';
 import { validateCloudConfig } from '../cloud-client.mjs';
 
 test('device-local profiles require their own password and never overwrite an existing name',async()=>{
@@ -24,6 +24,18 @@ test('device-local profiles require their own password and never overwrite an ex
   assert.deepEqual(await listLocalAccounts(),[]);
 });
 
+test('encrypted raw instrument file survives password rotation and is removed with profile',async()=>{
+  const created=await registerLocalAccount('rawmember','实验成员','old-raw-password',emptyVault());
+  const bytes=new Uint8Array([0,255,10,13,65,66,67]);
+  await saveRawFile('rawmember',created.key,'data-12345678',bytes);
+  assert.deepEqual(await readRawFile('rawmember',created.key,'data-12345678'),bytes);
+  const nextKey=await changeLocalPassword('rawmember','old-raw-password','new-raw-password',{user:created.user,vault:emptyVault(),revision:0,dirty:false});
+  await assert.rejects(unlockOffline('rawmember','old-raw-password'),/无法解锁/);
+  assert.deepEqual(await readRawFile('rawmember',nextKey,'data-12345678'),bytes);
+  await deleteLocalAccount('rawmember','new-raw-password');
+  assert.equal(await readRawFile('rawmember',nextKey,'data-12345678'),null);
+});
+
 test('static build publishes only public assets and enables browser-local mode',async()=>{
   execFileSync(process.execPath,['scripts/build-static.mjs'],{cwd:resolve('.')});
   const out=resolve('dist-static'),files=await readdir(out);
@@ -31,6 +43,7 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(files.includes('catalog.json'));
   assert.ok(files.includes('cloud-config.json'));
   assert.ok(files.includes('cloud-client.bundle.mjs'));
+  assert.ok(files.includes('research-package.mjs'));
   assert.match(await readFile(resolve(out,'runtime.mjs'),'utf8'),/STATIC_MODE=true/);
   const html=await readFile(resolve(out,'index.html'),'utf8');
   const app=await readFile(resolve(out,'app.mjs'),'utf8');
@@ -40,6 +53,7 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(version,'published app URL should change when assets change');
   assert.match(html,new RegExp(`styles\\.css\\?v=${version}`));
   assert.match(app,new RegExp(`core\\.mjs\\?v=${version}`));
+  assert.match(app,new RegExp(`research-package\\.mjs\\?v=${version}`));
   assert.match(app,/pick-measurement/);
   assert.match(app,/TABLE \+ LIVE PLOT/);
   assert.match(app,/多样品叠图比较/);
@@ -53,7 +67,7 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.match(core,/downsampleDataset/);
   assert.match(core,/analysisCsv/);
   assert.match(core,/Bloch–Grüneisen/);
-  assert.match(worker,new RegExp(`v7-${version}`));
+  assert.match(worker,new RegExp(`v8-${version}`));
   const cloudConfig=JSON.parse(await readFile(resolve(out,'cloud-config.json'),'utf8'));
   assert.equal(cloudConfig.enabled,true);
   assert.equal(validateCloudConfig(cloudConfig),true);
@@ -70,6 +84,21 @@ test('cloud mode requires complete Firebase config and owner-only verified-email
   assert.equal(rules['.write'],false);
   assert.match(rules.vaults.$uid['.read'],/auth\.uid === \$uid/);
   assert.match(rules.vaults.$uid['.write'],/email_verified/);
+  assert.match(rules.rawDatasets.$uid['.read'],/auth\.uid === \$uid/);
+});
+
+test('portable package restores full rows over a cloud preview without losing prior analysis',async()=>{
+  const app={innerHTML:''},document={querySelector:()=>app,addEventListener(){}},context={document,window:{addEventListener(){}},STATIC_MODE:true,structuredClone,normalizeMeasurementDataset,originalFileBytes:()=>null,confirm:()=>true};
+  const source=(await readFile(resolve('app.mjs'),'utf8')).replace(/^import .*;\r?\n/gm,'').replace(/\bboot\(\);\s*$/,'');
+  vm.runInNewContext(`${source}\ncommit=async next=>{session.vault=next;};render=()=>{};globalThis.harness={restore:restoreDatasetPackage,setVault:vault=>{session={vault,user:{username:'member'},key:{}};},getVault:()=>session.vault};`,context,{filename:'app.mjs'});
+  const preview={id:'data-legacy',name:'R(T)',columns:['T','R'],xColumn:'T',yColumn:'R',rows:[[2,.1]],localRawOnly:true,analyses:[{id:'fit-2',type:'RRR',version:2}]};
+  context.harness.setVault({experiments:[{id:'exp-1',sampleId:'A',datasets:[preview]}]});
+  const full={...preview,rows:[[2,.1],[100,.5],[300,1.2]],localRawOnly:false};
+  assert.equal(await context.harness.restore({experiment:{id:'exp-1'},dataset:full,originalBytes:null},'data-legacy'),true);
+  const restored=context.harness.getVault().experiments[0].datasets[0];
+  assert.equal(restored.rows.length,3);
+  assert.equal(restored.localRawOnly,false);
+  assert.equal(restored.analyses[0].id,'fit-2');
 });
 
 test('public search and cloud account entry render without breaking page actions',async()=>{

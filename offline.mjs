@@ -1,12 +1,15 @@
 import { STATIC_MODE } from './runtime.mjs';
 const basePath=new URL('.',globalThis.location?.href||'https://local.invalid/').pathname;
-const DB_NAME=STATIC_MODE?`yanxi-local-${encodeURIComponent(basePath)}`:'yanxi-offline-cache-v1', STORE='accounts';
+const DB_NAME=STATIC_MODE?`yanxi-local-${encodeURIComponent(basePath)}`:'yanxi-offline-cache-v1', STORE='accounts',RAW_STORE='raw-files';
 const b64=bytes=>{let binary='';for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));return btoa(binary);};
 const unb64=value=>Uint8Array.from(atob(value),c=>c.charCodeAt(0));
 function openDb(){
   return new Promise((resolve,reject)=>{
-    const request=indexedDB.open(DB_NAME,1);
-    request.onupgradeneeded=()=>request.result.createObjectStore(STORE,{keyPath:'username'});
+    const request=indexedDB.open(DB_NAME,2);
+    request.onupgradeneeded=()=>{
+      if(!request.result.objectStoreNames.contains(STORE))request.result.createObjectStore(STORE,{keyPath:'username'});
+      if(!request.result.objectStoreNames.contains(RAW_STORE))request.result.createObjectStore(RAW_STORE,{keyPath:'id'});
+    };
     request.onsuccess=()=>resolve(request.result);
     request.onerror=()=>reject(request.error);
   });
@@ -77,6 +80,7 @@ export async function listLocalAccounts(){
 }
 export async function deleteLocalAccount(username,password){
   await unlockOffline(username,password);
+  await deleteAllRawFiles(username);
   await remove(username);
 }
 export async function createOfflineSession(username,password,payload){
@@ -90,4 +94,58 @@ export async function saveOffline(username,key,payload,saltOverride){
   const iv=crypto.getRandomValues(new Uint8Array(12));
   const ciphertext=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(JSON.stringify(payload)));
   await put({username:username.toLowerCase(),salt:b64(salt),iv:b64(iv),ciphertext:b64(new Uint8Array(ciphertext)),savedAt:new Date().toISOString()});
+}
+
+const rawId=(username,datasetId)=>`${username.toLowerCase()}:${datasetId}`;
+export async function saveRawFile(username,key,datasetId,bytes){
+  if(!key||!datasetId||!(bytes instanceof Uint8Array))throw new Error('缺少原文件或本机资料密钥。');
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ciphertext=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,bytes);
+  const db=await openDb();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(RAW_STORE,'readwrite');
+    tx.objectStore(RAW_STORE).put({id:rawId(username,datasetId),iv:b64(iv),ciphertext:b64(new Uint8Array(ciphertext)),savedAt:new Date().toISOString()});
+    tx.oncomplete=()=>{db.close();resolve();};tx.onabort=()=>{db.close();reject(tx.error);};
+  });
+}
+export async function readRawFile(username,key,datasetId){
+  const db=await openDb();
+  const saved=await new Promise((resolve,reject)=>{
+    const tx=db.transaction(RAW_STORE,'readonly'),request=tx.objectStore(RAW_STORE).get(rawId(username,datasetId));
+    request.onsuccess=()=>resolve(request.result||null);request.onerror=()=>reject(request.error);tx.oncomplete=()=>db.close();
+  });
+  if(!saved)return null;
+  try{return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(saved.iv)},key,unb64(saved.ciphertext)));}
+  catch{throw new Error('本机仪器原文件无法解密；请用原备份恢复。');}
+}
+async function deleteAllRawFiles(username){
+  const db=await openDb(),prefix=`${username.toLowerCase()}:`;
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(RAW_STORE,'readwrite'),store=tx.objectStore(RAW_STORE),cursor=store.openCursor();
+    cursor.onsuccess=()=>{const item=cursor.result;if(item){if(item.key.startsWith(prefix))item.delete();item.continue();}};
+    tx.oncomplete=()=>{db.close();resolve();};tx.onabort=()=>{db.close();reject(tx.error);};
+  });
+}
+export async function changeLocalPassword(username,oldPassword,newPassword,payload){
+  if(typeof newPassword!=='string'||newPassword.length<10||newPassword.length>200)throw new Error('新密码需为 10–200 个字符。');
+  const unlocked=await unlockOffline(username,oldPassword),saved=await row(username),salt=unb64(saved.salt),newKey=await derive(newPassword,salt);
+  const db=await openDb(),prefix=`${username.toLowerCase()}:`;
+  const entries=await new Promise((resolve,reject)=>{
+    const tx=db.transaction(RAW_STORE,'readonly'),request=tx.objectStore(RAW_STORE).getAll();
+    request.onsuccess=()=>resolve(request.result.filter(item=>item.id.startsWith(prefix)));request.onerror=()=>reject(request.error);tx.oncomplete=()=>db.close();
+  });
+  const reencrypted=[];
+  for(const item of entries){
+    const plaintext=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(item.iv)},unlocked.key,unb64(item.ciphertext));
+    const iv=crypto.getRandomValues(new Uint8Array(12)),ciphertext=await crypto.subtle.encrypt({name:'AES-GCM',iv},newKey,plaintext);
+    reencrypted.push({...item,iv:b64(iv),ciphertext:b64(new Uint8Array(ciphertext))});
+  }
+  const iv=crypto.getRandomValues(new Uint8Array(12)),ciphertext=await crypto.subtle.encrypt({name:'AES-GCM',iv},newKey,new TextEncoder().encode(JSON.stringify(payload)));
+  const next=await openDb();await new Promise((resolve,reject)=>{
+    const tx=next.transaction([STORE,RAW_STORE],'readwrite');
+    for(const item of reencrypted)tx.objectStore(RAW_STORE).put(item);
+    tx.objectStore(STORE).put({username:username.toLowerCase(),salt:saved.salt,iv:b64(iv),ciphertext:b64(new Uint8Array(ciphertext)),savedAt:new Date().toISOString()});
+    tx.oncomplete=()=>{next.close();resolve();};tx.onabort=()=>{next.close();reject(tx.error);};
+  });
+  return newKey;
 }

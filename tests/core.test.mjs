@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyVault, normalizeExperiment, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, comparisonSeries, downsampleDataset, runProcessingPipeline, createPipelineVersion, analysisVersionDiff, evaluateSampleQuality, growthPropertySeries } from '../core.mjs';
+import { emptyVault, normalizeExperiment, normalizeMeasurementDataset, datasetQualityReport, geometryRelativeUncertainty, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, comparisonSeries, downsampleDataset, runProcessingPipeline, createPipelineVersion, analysisVersionDiff, evaluateSampleQuality, growthPropertySeries } from '../core.mjs';
+import { packResearchDataset, unpackResearchDataset, originalFileBytes, splitCloudPackage, joinCloudPackage, sha256 } from '../research-package.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
@@ -51,6 +52,44 @@ test('measurement import recognizes transport columns and survives experiment no
   const record=normalizeExperiment({sampleId:'R-01',datasets:[dataset]});
   assert.equal(record.datasets[0].rows[2][1],0.03);
   assert.match(measurementCsv(record.datasets[0]),/"Temperature \(K\)","Resistance \(Ohm\)"/);
+});
+
+test('encrypted research package preserves original bytes, analysis provenance and rejects damage',async()=>{
+  const bytes=new TextEncoder().encode('Temperature (K),Resistance (Ohm)\n2,0.1\n2,0.11\n10,0.3\n');
+  const dataset=parseMeasurementText(new TextDecoder().decode(bytes),'ppms.csv');
+  dataset.source={filename:'ppms.csv',sha256:await sha256(bytes),bytes:bytes.length,originalStored:true};
+  dataset.acquisition={sampleNodeId:'A-R1',instrumentId:'PPMS-01',scanBranch:'升温',units:{'Temperature (K)':'K','Resistance (Ohm)':'Ω'},uncertaintyColumns:{}};
+  dataset.analyses=[{id:'analysis-1',type:'RRR',version:1,formula:'R(300 K)/R(2 K)'}];
+  const normalized=normalizeMeasurementDataset(dataset);
+  assert.equal(normalized.source.sha256,dataset.source.sha256);
+  assert.equal(normalized.acquisition.units[dataset.xColumn],'K');
+  assert.match(datasetQualityReport(normalized).issues.join(' '),/重复点/);
+  const geometry=geometryRelativeUncertainty({lengthMm:2,widthMm:1,thicknessMm:.1,lengthMmError:.02,widthMmError:.01,thicknessMmError:.001});
+  assert.ok(Math.abs(geometry.percent-Math.sqrt(3))<1e-10);
+  const bundle=await packResearchDataset({sampleId:'CVT-026',material:'UTe₂'},normalized,bytes,'an independent passphrase');
+  const restored=await unpackResearchDataset(bundle,'an independent passphrase');
+  assert.deepEqual(originalFileBytes(restored),bytes);
+  assert.equal(restored.dataset.analyses[0].formula,'R(300 K)/R(2 K)');
+  await assert.rejects(unpackResearchDataset(bundle,'incorrect passphrase'),/口令错误/);
+  await assert.rejects(unpackResearchDataset({...bundle,sha256:'0'.repeat(64)},'an independent passphrase'),/校验失败/);
+  const largeEnvelope={...bundle,ciphertext:'A'.repeat(1_200_000)};
+  const {chunks,bytes:cloudBytes}=splitCloudPackage(largeEnvelope);
+  assert.equal(chunks.length,3);
+  assert.deepEqual(joinCloudPackage(chunks,cloudBytes),largeEnvelope);
+  assert.throws(()=>joinCloudPackage(chunks.slice(1),cloudBytes),/长度不符/);
+});
+
+test('multi-megabyte instrument file survives encrypted package and cloud chunk roundtrip',async()=>{
+  const bytes=new Uint8Array(5_200_000);
+  let state=0x12345678;
+  for(let index=0;index<bytes.length;index++){state^=state<<13;state^=state>>>17;state^=state<<5;bytes[index]=state&255;}
+  const dataset=normalizeMeasurementDataset({id:'data-large-file',name:'PPMS large',columns:['T','R'],xColumn:'T',yColumn:'R',rows:[[2,0.1],[300,1.1]],source:{filename:'large.dat',sha256:await sha256(bytes),bytes:bytes.length,originalStored:true}});
+  const bundle=await packResearchDataset({sampleId:'CVT-026',material:'UTe₂'},dataset,bytes,'portable-data-passphrase');
+  const parts=splitCloudPackage(bundle);
+  assert.ok(parts.chunks.length>10);
+  const restored=await unpackResearchDataset(joinCloudPackage(parts.chunks,parts.bytes),'portable-data-passphrase');
+  assert.equal(restored.dataset.rows.length,2);
+  assert.equal(await sha256(originalFileBytes(restored)),dataset.source.sha256);
 });
 
 test('measurement import accepts whitespace instrument files and rejects oversized tables',()=>{
