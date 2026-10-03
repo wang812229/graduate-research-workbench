@@ -1,3 +1,5 @@
+import {normalizeRunComparison,normalizeRunEvents,normalizeOutcomeReviews,normalizeHandovers} from './experiment-journal.mjs';
+
 export const PROFILE_KEYS = ['materials','methods','measurements','journals','authors'];
 export const PAPER_GROUPS = ['准备复现','实验方法参考','生长方法参考','待组会汇报','与当前结果冲突','需要获取全文','需要补看SI'];
 export const MEASUREMENT_TYPES = ['电阻/电输运','磁化/磁矩','比热','霍尔效应','I–V曲线','XRD/衍射','光谱','自定义'];
@@ -32,8 +34,8 @@ export function emptyVault() {
 
 const normalizeMetricMap=value=>Object.fromEntries(Object.entries(value&&typeof value==='object'?value:{}).map(([key,item])=>[key,numeric(item)]).filter(([,item])=>item!==null));
 function normalizeLineage(raw=[],sampleId=''){
-  const nodes=Array.isArray(raw)?raw.slice(0,80).map(item=>({id:clean(item.id)||uid('sample'),type:SAMPLE_NODE_TYPES.includes(item.type)?item.type:'切割样品',label:clean(item.label)||'未命名样品',parentId:clean(item.parentId),notes:clean(item.notes),metrics:normalizeMetricMap(item.metrics),createdAt:clean(item.createdAt)||now(),archived:Boolean(item.archived)})):[];
-  return nodes.length?nodes:[{id:uid('sample'),type:'生长批次',label:sampleId||'本次实验',parentId:'',notes:'',metrics:{},createdAt:now(),archived:false}];
+  const nodes=Array.isArray(raw)?raw.slice(0,80).map(item=>({id:clean(item.id)||uid('sample'),type:SAMPLE_NODE_TYPES.includes(item.type)?item.type:'切割样品',label:clean(item.label)||'未命名样品',parentId:clean(item.parentId),notes:clean(item.notes),metrics:normalizeMetricMap(item.metrics),createdAt:clean(item.createdAt)||now(),archived:Boolean(item.archived),storageLocation:clean(item.storageLocation),handoverHistory:normalizeHandovers(item.handoverHistory)})):[];
+  return nodes.length?nodes:[{id:uid('sample'),type:'生长批次',label:sampleId||'本次实验',parentId:'',notes:'',metrics:{},createdAt:now(),archived:false,storageLocation:'',handoverHistory:[]}];
 }
 function normalizeQualityCriteria(raw=[]){
   const source=Array.isArray(raw)&&raw.length?raw:QUALITY_METRICS;
@@ -49,6 +51,9 @@ export function normalizeExperiment(raw = {}) {
   result.datasets = Array.isArray(raw.datasets) ? raw.datasets.slice(0,12).map(normalizeMeasurementDataset).filter(Boolean) : [];
   result.figures = Array.isArray(raw.figures) ? raw.figures.slice(0,20).map(normalizeFigure).filter(Boolean) : [];
   result.lineage = normalizeLineage(raw.lineage,result.sampleId);
+  result.runComparison = normalizeRunComparison(raw.runComparison);
+  result.runEvents = normalizeRunEvents(raw.runEvents);
+  result.outcomeReviews = normalizeOutcomeReviews(raw.outcomeReviews);
   result.qualityCriteria = normalizeQualityCriteria(raw.qualityCriteria);
   result.archived = Boolean(raw.archived);
   return result;

@@ -1,6 +1,9 @@
 import { emptyVault, normalizeExperiment, normalizePaper, normalizeMeasurementDataset, parseImport, mergeVault, experimentsCsv, formatSchedule, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, analysisMethodText, comparisonSeries, downsampleDataset, runProcessingPipeline, createPipelineVersion, analysisVersionDiff, evaluateSampleQuality, growthPropertySeries, datasetQualityReport, MEASUREMENT_TYPES, ANALYSIS_TYPES, INSTRUMENT_TEMPLATES, PROFILE_KEYS, PAPER_GROUPS, PIPELINE_STEP_TYPES, BUILTIN_PIPELINE_TEMPLATES, SAMPLE_NODE_TYPES, QUALITY_METRICS, escapeHtml as h, newId } from './core.mjs';
 import { unlockOffline, createOfflineSession, saveOffline, registerLocalAccount, deleteLocalAccount, listLocalAccounts, saveRawFile, readRawFile, changeLocalPassword } from './offline.mjs';
-import { packResearchDataset, unpackResearchDataset, originalFileBytes, sha256 } from './research-package.mjs';
+import { packResearchDataset, unpackResearchDataset, packWholeExperiment, unpackWholeExperiment, originalFileBytes, sha256 } from './research-package.mjs';
+import { EVENT_TYPES, RUN_PARAMETERS, runDeviation, sampleLink } from './experiment-journal.mjs';
+import qrcode from './qrcode-vendor.mjs';
+import { renderExperimentJournal } from './experiment-journal-ui.mjs';
 import { STATIC_MODE } from './runtime.mjs';
 
 const app=document.querySelector('#app');
@@ -41,6 +44,22 @@ async function restoreDatasetPackage(payload,targetDatasetId=''){
   record.datasets.find(item=>item.id===incoming.id).source.originalStored=Boolean(bytes);
   record.updatedAt=new Date().toISOString();
   await commit(next);selectedExperiment=record.id;experimentMode='detail';view='experiments';render();return true;
+}
+async function restoreWholeExperiment(payload){
+  const source=payload.experiment,originals=payload.originals||{};
+  if(!source.sampleId||!source.material||!Array.isArray(source.datasets)||source.datasets.length>12||source.figures?.length>20)throw new Error('档案缺少实验编号、材料，或超出数据和图片上限。');
+  const nodeIds=new Map((source.lineage||[]).map(item=>[item.id,newId('sample')])),datasetIds=new Map(source.datasets.map(item=>[item.id,newId('dataset')])),figureIds=new Map((source.figures||[]).map(item=>[item.id,newId('figure')]));
+  const copy=structuredClone(source);copy.id=newId('exp');copy.sampleId=`${source.sampleId}（导入副本）`;copy.createdAt=new Date().toISOString();copy.updatedAt=copy.createdAt;
+  copy.lineage=(copy.lineage||[]).map(item=>({...item,id:nodeIds.get(item.id),parentId:nodeIds.get(item.parentId)||'',handoverHistory:(item.handoverHistory||[]).map(entry=>({...entry,id:newId('handover')}))}));
+  copy.datasets=copy.datasets.map(item=>({...item,id:datasetIds.get(item.id),acquisition:{...item.acquisition,sampleNodeId:nodeIds.get(item.acquisition?.sampleNodeId)||''},source:{...item.source,originalStored:Boolean(originals[item.id])}}));
+  copy.figures=(copy.figures||[]).map(item=>({...item,id:figureIds.get(item.id)}));
+  copy.runEvents=(copy.runEvents||[]).map(item=>({...item,id:newId('event'),sampleNodeId:nodeIds.get(item.sampleNodeId)||'',datasetId:datasetIds.get(item.datasetId)||'',figureId:figureIds.get(item.figureId)||''}));
+  copy.outcomeReviews=(copy.outcomeReviews||[]).map(item=>({...item,id:newId('outcome')}));
+  const record=normalizeExperiment(copy);
+  if(record.datasets.length!==source.datasets.length||record.figures.length!==(source.figures||[]).length||record.runEvents.length!==(source.runEvents||[]).length||record.lineage.length!==(source.lineage||[]).length)throw new Error('档案内容在标准化时丢失，未导入。');
+  for(let i=0;i<record.datasets.length;i++)if(record.datasets[i].rows.length!==source.datasets[i].rows.length)throw new Error('档案含无效数据行，未导入。');
+  for(const [oldId,bytes] of Object.entries(originals))await saveRawFile(session.user.username,session.key,datasetIds.get(oldId),bytes);
+  const next=structuredClone(session.vault);next.experiments.unshift(record);await commit(next);selectedExperiment=record.id;experimentMode='detail';view='experiments';render();return record;
 }
 const json=(name,data)=>download(name,JSON.stringify(data,null,2));
 const backupKey=username=>`yanxi-backup:${location.pathname}:${username}`;
@@ -279,6 +298,8 @@ function lineagePanel(record){const nodes=(record.lineage||[]).filter(node=>!nod
 function qualityCriteriaEditor(record){return `<div class="quality-criteria-editor"><b>样品放行标准</b><div>${(record.qualityCriteria||QUALITY_METRICS).map(item=>`<label>${h(item.label)}<span><select name="criterion_${h(item.key)}_operator"><option value="gte" ${item.operator==='gte'?'selected':''}>≥</option><option value="lte" ${item.operator==='lte'?'selected':''}>≤</option></select><input name="criterion_${h(item.key)}" type="number" step="any" value="${h(item.threshold)}"><i>${h(item.unit)}</i></span></label>`).join('')}</div></div>`;}
 function experimentDetail(record){return `<div class="detail-head"><div><span class="eyebrow">EXPERIMENT RECORD</span><h2>${h(record.sampleId)} <span>· ${h(record.material)}</span></h2><p>${h(record.date)} · ${h(record.project)} · ${h(record.method||'方法未填')}</p></div><div class="button-group"><button class="button subtle" data-action="edit-experiment">编辑与上传数据</button><button class="button subtle" data-action="export-experiment">导出</button></div></div><section class="section-block"><div class="section-title"><h3>温度程序</h3><span>TIME–TEMPERATURE</span></div>${scheduleChart(record.schedule)}</section><section class="section-block"><div class="section-title"><h3>测量数据与处理流水线</h3><span>LOCAL DATA · ${(record.datasets||[]).length} SETS</span></div>${datasetDetail(record.datasets||[])}</section>${lineagePanel(record)}<section class="section-block"><div class="section-title"><h3>处理结果图</h3><span>${(record.figures||[]).length} FIGURES</span></div>${figureGallery(record.figures||[])}</section><section class="section-block"><div class="section-title"><h3>研究对象与实验条件</h3><span>EXPERIMENT LOG</span></div><dl class="detail-grid">${[['批次 / 编号',record.batch],['配方 / 输入参数',record.ratio],['关键试剂 / 条件',record.agent],['容器 / 设备',record.vessel],['真空与气氛',record.atmosphere],['温区 A / 源区',record.sourceTemp],['温区 B / 生长区',record.growthTemp],['峰值温度',record.peakTemp],['保温时间',record.holdTime],['降温速率',record.coolingRate],['后处理',record.postTreatment],['产物 / 尺寸',record.crystalSize],['产率',record.yield]].map(([a,b])=>describe(a,b)).join('')}</dl></section><section class="section-block"><div class="section-title"><h3>测量与复盘</h3><span>MEASURE & LEARN</span></div><dl class="detail-stack">${[['测量项目与条件',record.measurements],['关键结果',record.results],['质量指标',record.quality],['问题与下一次实验',record.notes]].map(([a,b])=>describe(a,b)).join('')}</dl></section><div class="detail-footer"><button class="text-button danger" data-action="archive-experiment">归档这条记录</button></div>`;}
 function experimentForm(record){const r=record||{date:day(),method:'',project:'',schedule:[],datasets:[]},editing=Boolean(record);if(draftDatasets===null)draftDatasets=structuredClone(r.datasets||[]);return `<div class="detail-head"><div><span class="eyebrow">${editing?'EDIT RECORD':'NEW RECORD'}</span><h2>${editing?'编辑实验':'记录一次实验'}</h2><p>温度程序可以表格录入；仪器数据在浏览器本地解析并随记录保存。</p></div><button class="button subtle" data-action="cancel-experiment">返回记录</button></div><form data-form="experiment" class="editor-form"><input type="hidden" name="id" value="${h(r.id||'')}"><section class="section-block"><div class="section-title"><h3>01 · 实验身份</h3></div><div class="form-grid">${field('实验编号 / 名称 *','sampleId',r.sampleId,'text','如 CVT-026 或 输运测量-01', 'required')}${field('研究对象 / 体系 *','material',r.material,'text','如 α-RuCl₃ 或 数据集名称','required')}${field('课题','project',r.project,'text','如 二维磁体晶体生长')}${field('日期','date',r.date,'date')}${field('批次 / 编号','batch',r.batch)}${field('实验方法 / 类型','method',r.method,'text','如 CVT、低温输运、光谱、计算')}</div></section><section class="section-block"><div class="section-title"><h3>02 · 实验条件</h3></div><div class="form-grid">${field('配方 / 输入参数','ratio',r.ratio,'text','原料与化学计量比')}${field('关键试剂 / 条件','agent',r.agent,'text','如 I₂，5 mg/mL')}${field('容器 / 设备','vessel',r.vessel)}${field('真空 / 气氛','atmosphere',r.atmosphere)}${field('温区 A / 源区','sourceTemp',r.sourceTemp,'text','°C')}${field('温区 B / 生长区','growthTemp',r.growthTemp,'text','°C')}${field('峰值温度','peakTemp',r.peakTemp,'text','°C')}${field('保温时间','holdTime',r.holdTime,'text','小时')}${field('降温速率','coolingRate',r.coolingRate,'text','°C/h')}${field('后处理','postTreatment',r.postTreatment)}${field('产物 / 尺寸','crystalSize',r.crystalSize)}${field('产率','yield',r.yield)}</div></section><section class="section-block"><div class="section-title"><h3>03 · 温度程序</h3><span>TABLE + LIVE PLOT</span></div>${scheduleEditor(r.schedule||[])}</section><section class="section-block"><div class="section-title"><h3>04 · 本地测量数据</h3><span>PPMS · MPMS · KEITHLEY · XRD</span></div><div class="data-upload-bar"><div><b>把仪器数据直接放进实验记录</b><p>本机单文件最多 25 MB、250,000 行；自动识别 PPMS、MPMS、Keithley 与 XRD。云端默认同步可浏览的抽样数据与分析记录；完整数据可另行加密分块备份，或导出加密复现包跨设备转移。</p></div><button type="button" class="button primary" data-action="pick-measurement">＋ 选择数据文件</button><input id="measurement-file" type="file" accept=".csv,.tsv,.txt,.dat,.xy,text/csv,text/plain" multiple hidden></div><p id="measurement-status" class="field-help" aria-live="polite"></p><div id="dataset-editor">${datasetEditor(draftDatasets)}</div></section><section class="section-block"><div class="section-title"><h3>05 · 测量与下一步</h3></div><div class="form-grid">${area('测量项目与条件','measurements',r.measurements,'温度、磁场、接线方式、仪器等')}${area('关键结果','results',r.results,'定量数据、现象及误差')}${area('质量指标','quality',r.quality,'RRR、XRD、EDS、摇摆曲线等')}${area('问题与下一次实验','notes',r.notes,'失败原因、下次调整、样品放行标准')}</div></section><div class="form-actions"><button class="button primary" type="submit">保存实验记录</button><button class="button subtle" type="button" data-action="cancel-experiment">取消</button></div></form>`;}
+const experimentDetailBase=experimentDetail;
+experimentDetail=function experimentDetailWithJournal(record){return experimentDetailBase(record).replace('<div class="detail-footer">',`${renderExperimentJournal(record,session.vault.experiments,h)}<div class="detail-footer">`).replace('<button class="button subtle" data-action="export-experiment">导出</button>','<button class="button subtle" data-action="export-experiment">导出 JSON</button><button class="button primary" data-action="experiment-package-export">导出整次复现档案</button>');};
 const experimentFormBase=experimentForm;
 experimentForm=function experimentFormEnhanced(record){const r=record||{figures:[],qualityCriteria:QUALITY_METRICS};if(draftFigures===null)draftFigures=structuredClone(r.figures||[]);let html=experimentFormBase(record);const marker='<section class="section-block"><div class="section-title"><h3>05 · 测量与下一步</h3></div>';const inserted=`<section class="section-block"><div class="section-title"><h3>05 · 处理结果图</h3><span>PNG · JPEG · WEBP</span></div>${figuresEditor(draftFigures)}</section><section class="section-block"><div class="section-title"><h3>06 · 样品放行标准与下一步</h3></div>${qualityCriteriaEditor(r)}<div class="form-grid">`;html=html.replace(marker+'<div class="form-grid">',inserted);return html;};
 function correlationChart(records){const points=growthPropertySeries(records,correlationX,correlationY),xLabels={coolingRate:'降温速率',sourceTemp:'源区温度',growthTemp:'生长区温度',peakTemp:'峰值温度',holdTime:'保温时间'},yLabels={rrr:'RRR',rockingFwhmDeg:'摇摆曲线 FWHM',edsDeviationPercent:'EDS 成分偏差',transitionWidthK:'转变宽度',repeatabilityPercent:'重复性误差',shieldingPercent:'超导体积分数'};if(points.length<2)return `<div class="chart-empty compact"><b>至少需要 2 个可比较样品</b><small>在样品谱系中填写质量指标，并确保实验记录包含数值型生长参数。</small></div>`;const xs=points.map(p=>p.x),ys=points.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),sx=x=>58+(x-x0)/(x1-x0||1)*580,sy=y=>198-(y-y0)/(y1-y0||1)*154;return `<div class="correlation-chart"><svg viewBox="0 0 700 240" role="img" aria-label="${h(xLabels[correlationX])}与${h(yLabels[correlationY])}关联散点图"><line x1="58" y1="198" x2="650" y2="198"/><line x1="58" y1="32" x2="58" y2="198"/>${points.map(p=>`<g><circle cx="${sx(p.x)}" cy="${sy(p.y)}" r="5"/><title>${h(p.label)}：${p.x}, ${p.y}</title></g>`).join('')}<text x="350" y="232">${h(xLabels[correlationX])}</text><text x="15" y="120" transform="rotate(-90 15 120)">${h(yLabels[correlationY])}</text></svg><div class="correlation-list">${points.map(p=>`<span><b>${h(p.label)}</b>${shortNumber(p.x)} → ${shortNumber(p.y)}</span>`).join('')}</div></div>`;}
@@ -325,6 +346,9 @@ function settingsViewV2(){
   return original.replace(/<\/div>$/,`${panel}</div>`);
 }
 
+const settingsViewV2Base=settingsViewV2;
+settingsViewV2=function settingsViewWithWholeExperiment(){const panel=`<section class="panel"><div class="panel-head"><div><span class="eyebrow">WHOLE RUN ARCHIVE</span><h2>整次实验复现档案</h2></div></div><p class="body-copy">包含事件时间轴、计划与实测、样品谱系及交接、失败复盘、温度程序、数据与分析版本、处理图片；本机存在的仪器原文件也会加密收录。跨设备导入会另建副本，不覆盖现有记录。</p><button class="button primary" data-action="pick-experiment-package">导入整次实验档案</button><input id="experiment-package-file" type="file" accept=".json,.yanxi,application/json" hidden><p class="field-help">口令至少 10 位，不存于网站。整包解压后上限 120 MB；超限请用单数据集复现包分别转移。云端文字记录与大文件仍受 Firebase 额度和规则约束。</p></section>`;return settingsViewV2Base().replace(/<\/div>$/,`${panel}</div>`);};
+
 let adminUsers=[],adminResetLink=null;
 function adminView(){
   const registrationNote=config.recoveryMode==='admin'?'局域网开放注册后，同一局域网内的成员可以自行创建账号。请定期备份数据库。':'公开开放注册可能吸引自动化滥用。正式面向互联网时请配置 HTTPS、反向代理限流与定期数据库备份。';
@@ -347,6 +371,7 @@ function publicCatalogView(){
 function render(){
   if(STATIC_MODE&&view==='public'){app.innerHTML=publicCatalogView();return;}
   if(!session){app.innerHTML=authViewV2();return;}
+  if(location.hash.startsWith('#sample=')){const nodeId=decodeURIComponent(location.hash.slice(8)),record=session.vault.experiments.find(item=>item.lineage?.some(node=>node.id===nodeId));if(record){selectedExperiment=record.id;experimentMode='detail';view='experiments';history.replaceState(null,'',location.pathname+location.search);}else if(view!=='auth'){notice='此账号尚未找到该样品；请确认已同步对应实验记录。';history.replaceState(null,'',location.pathname+location.search);}}
   const content=({dashboard,experiments:experimentsView,literature:literatureView,projects:projectsView,settings:settingsViewV2,admin:adminView})[view]?.()||dashboard();
   app.innerHTML=shell(content);
 }
@@ -389,6 +414,20 @@ document.addEventListener('click',async event=>{
     if(action==='menu'){document.body.classList.toggle('menu-open');return;}
     if(action==='logout'){if(session?.cloud)await cloudClient.logout().catch(()=>{});else if(!STATIC_MODE&&!session.offline)await request('/api/logout','POST').catch(()=>{});adminResetLink=null;session=null;view=STATIC_MODE?'public':'dashboard';render();return;}
     if(!session){render();return;}
+    if(action==='sample-qr'){
+      const record=selectedRecord('experiments',selectedExperiment),node=record?.lineage?.find(item=>item.id===button.dataset.node);if(!node)throw new Error('没有找到样品节点。');
+      const link=sampleLink(location.origin+location.pathname,node.id),qr=qrcode(0,'M');qr.addData(link);qr.make();const svg=qr.createSvgTag({cellSize:5,margin:20,scalable:true});
+      const popup=window.open('','_blank','width=520,height=690');if(!popup){download(`${safeFilename(node.label)}-qr.svg`,svg,'image/svg+xml');toast('弹窗被拦截，已下载本机生成的二维码 SVG。');return;}
+      popup.document.write(`<meta charset="utf-8"><title>${h(node.label)} · 样品标签</title><style>body{font:16px system-ui;margin:2rem;text-align:center;color:#18233a}svg{width:min(80vw,340px);height:auto}code{display:block;overflow-wrap:anywhere;margin:1rem}button{padding:.7rem 1rem}</style><h1>${h(node.label)}</h1><p>${h(node.type)} · ${h(record.sampleId)}</p>${svg}<code>${h(node.id)}</code><p>扫码后须登录自己的研究资料</p><button id="print">打印标签</button>`);popup.document.close();popup.document.querySelector('#print').addEventListener('click',()=>popup.print());return;
+    }
+    if(action==='experiment-package-export'){
+      const record=selectedRecord('experiments',selectedExperiment);if(!record)throw new Error('未选择实验。');
+      if(record.datasets?.some(item=>item.localRawOnly))throw new Error('此设备有抽样副本，先恢复全部完整数据后再导出整次档案。');
+      const passphrase=askPackagePassphrase('导出整次实验复现档案');if(passphrase===null)return;
+      toast('正在校验与加密整次实验；数据多时请保持页面打开。');const originals={};for(const dataset of record.datasets||[])originals[dataset.id]=await readRawFile(session.user.username,session.key,dataset.id);
+      const bundle=await packWholeExperiment(record,originals,passphrase);download(`${safeFilename(record.sampleId||record.id)}-whole-run-${day()}.yanxi.json`,JSON.stringify(bundle));toast(`整次实验档案已发起下载：${(record.datasets||[]).length} 组数据、${(record.figures||[]).length} 张图${bundle.missingOriginals.length?`；${bundle.missingOriginals.length} 个仪器原文件在本机缺失`:'，并含现存仪器原文件'}。请确认文件已保存。`);return;
+    }
+    if(action==='pick-experiment-package'){document.querySelector('#experiment-package-file')?.click();return;}
     if(action==='cloud-reset'&&session.cloud){await cloudClient.reset(session.user.email);toast('如果邮箱可用，密码重置邮件已发出。请注意：未同步的旧密码缓存无法凭新密码恢复。');return;}
     if(action==='retry-cloud'&&session.cloud){if(!navigator.onLine)throw new Error('当前设备没有网络连接。');if(session.offline){toast('请先退出，再联网登录云账号以恢复同步。');return;}await flush();toast(session.dirty?'同步仍未完成，请查看错误提示并先导出备份。':'云端同步已完成。');return;}
     if(action==='new-experiment'){view='experiments';experimentMode='new';draftDatasets=[];draftFigures=[];}
@@ -541,6 +580,29 @@ document.addEventListener('submit',async event=>{
       await request('/api/reset-password','POST',{token:authToken,newPassword:values.newPassword});authToken='';history.replaceState(null,'',location.pathname);authTab='login';toast('密码已重置，请重新登录。');return;
     }
     if(!session)return;
+    if(['run-comparison','run-event','sample-handover','outcome-review'].includes(form.dataset.form)){
+      const next=structuredClone(session.vault),record=next.experiments.find(item=>item.id===values.experimentId);if(!record)throw new Error('没有找到实验记录。');const stamp=new Date().toISOString();
+      if(form.dataset.form==='run-comparison'){
+        const fields={};for(const {key} of RUN_PARAMETERS){const read=s=>{const value=String(values[`${key}_${s}`]??'').trim();if(value==='')return null;const number=Number(value);if(!Number.isFinite(number))throw new Error(`${key} 的数值无效。`);return number;};fields[key]={planned:read('planned'),actual:read('actual'),reason:String(values[`${key}_reason`]||'').trim().slice(0,500)};}
+        record.runComparison={fields,updatedAt:stamp};
+      }
+      if(form.dataset.form==='run-event'){
+        if((record.runEvents||[]).length>=300)throw new Error('本次实验事件已达到 300 条上限，请导出档案后另建实验。');
+        for(const [key,items] of [['sampleNodeId',record.lineage],['datasetId',record.datasets],['figureId',record.figures]])if(values[key]&&!items?.some(item=>item.id===values[key]))throw new Error('关联的样品、数据或图片已不存在。');
+        record.runEvents=[...(record.runEvents||[]),{id:newId('event'),occurredAt:new Date(values.occurredAt).toISOString(),recordedAt:stamp,type:EVENT_TYPES.includes(values.type)?values.type:'其他',title:String(values.title||'').trim().slice(0,150),description:String(values.description||'').trim().slice(0,2000),operator:String(values.operator||'').trim().slice(0,100),sampleNodeId:values.sampleNodeId||'',datasetId:values.datasetId||'',figureId:values.figureId||''}].sort((a,b)=>a.occurredAt.localeCompare(b.occurredAt));
+      }
+      if(form.dataset.form==='sample-handover'){
+        const node=record.lineage?.find(item=>item.id===values.nodeId);if(!node)throw new Error('样品节点不存在。');
+        const locationText=String(values.location||'').trim();if(!locationText)throw new Error('请填写新存放位置。');node.handoverHistory||=[];if(node.handoverHistory.length>=100)throw new Error('该样品交接记录已达上限。');
+        node.handoverHistory.push({id:newId('handover'),occurredAt:new Date(values.occurredAt).toISOString(),from:String(values.from||'').trim().slice(0,100),to:String(values.to||'').trim().slice(0,100),location:locationText.slice(0,200),notes:String(values.notes||'').trim().slice(0,500)});node.storageLocation=locationText.slice(0,200);
+      }
+      if(form.dataset.form==='outcome-review'){
+        if(values.controlExperimentId&&!next.experiments.some(item=>item.id===values.controlExperimentId&&item.id!==record.id))throw new Error('对照实验不存在。');
+        record.outcomeReviews||=[];if(record.outcomeReviews.length>=100)throw new Error('复盘记录已达 100 条上限。');
+        record.outcomeReviews.push({id:newId('outcome'),recordedAt:stamp,status:['成功','失败','待确认'].includes(values.status)?values.status:'待确认',hypothesis:String(values.hypothesis||'').trim().slice(0,1000),expected:String(values.expected||'').trim().slice(0,1000),observed:String(values.observed||'').trim().slice(0,1000),cause:String(values.cause||'').trim().slice(0,1000),nextVariable:String(values.nextVariable||'').trim().slice(0,1000),controlExperimentId:values.controlExperimentId||''});
+      }
+      record.updatedAt=stamp;await commit(next);toast('实验记录已保存，原始仪器数据未修改。');return;
+    }
     if(form.dataset.form==='experiment'){
       const existing=session.vault.experiments.find(x=>x.id===values.id),schedule=parseSchedule(values.scheduleText),qualityCriteria=QUALITY_METRICS.map(item=>({...item,operator:values[`criterion_${item.key}_operator`]||item.operator,threshold:Number.isFinite(Number(values[`criterion_${item.key}`]))?Number(values[`criterion_${item.key}`]):item.threshold})),record=normalizeExperiment({...existing,...values,id:existing?.id||newId('exp'),schedule,datasets:draftDatasets||[],figures:draftFigures||[],qualityCriteria,createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()});
       const next=structuredClone(session.vault);next.experiments=existing?next.experiments.map(x=>x.id===record.id?record:x):[record,...next.experiments];
@@ -593,6 +655,10 @@ document.addEventListener('submit',async event=>{
 });
 
 document.addEventListener('change',async event=>{
+  if(event.target.id==='experiment-package-file'){
+    const file=event.target.files?.[0];event.target.value='';if(!file)return;
+    try{if(file.size>170_000_000)throw new Error('整次实验档案过大；请用单数据集复现包拆分。');const passphrase=askPackagePassphrase('导入整次实验复现档案');if(passphrase===null)return;toast('正在解密并校验整次实验；完成前不会覆盖现有记录。');const payload=await unpackWholeExperiment(await file.text(),passphrase);if(!confirm(`将“${payload.experiment.sampleId}”作为新副本导入：${payload.experiment.datasets.length} 组数据、${payload.experiment.figures?.length||0} 张图。现有记录不会覆盖。继续？`))return;const record=await restoreWholeExperiment(payload);toast(`已导入 ${record.sampleId}。${payload.missingOriginals.length?`注意：${payload.missingOriginals.length} 个仪器原文件在导出设备上缺失；完整解析行仍在。`:'仪器原文件已按档案内容恢复。'}`);}catch(error){toast(userFacingError(error));}return;
+  }
   if(event.target.id==='correlation-x'||event.target.id==='correlation-y'){if(event.target.id==='correlation-x')correlationX=event.target.value;else correlationY=event.target.value;render();return;}
   if(event.target.dataset.pipelineStep||event.target.dataset.pipelineParam){
     const id=event.target.dataset.pipelineStep||event.target.dataset.pipelineParam,index=Number(event.target.dataset.stepIndex);

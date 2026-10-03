@@ -17,7 +17,7 @@ const store=await openDatabase(resolve(dataDir,'workbench.sqlite'));
 const mailer=lanMode?{close:()=>{}}:createMailer({origin,dataDir});
 if(process.env.NODE_ENV==='production'&&!lanMode)await mailer.verify();
 let setupToken=await store.countUsers()?null:randomBytes(18).toString('base64url');
-const attempts=new Map(),assets=new Set(['index.html','styles.css','app.mjs','core.mjs','offline.mjs','research-package.mjs','runtime.mjs','catalog.json','sw.js','favicon.svg','manifest.webmanifest']);
+const attempts=new Map(),assets=new Set(['index.html','styles.css','app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','runtime.mjs','catalog.json','sw.js','favicon.svg','manifest.webmanifest']);
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.webmanifest':'application/manifest+json; charset=utf-8'};
 const send=(res,status,data,headers={})=>{res.writeHead(status,{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...headers});res.end(JSON.stringify(data));};
 const fail=(res,status,message)=>send(res,status,{error:message});

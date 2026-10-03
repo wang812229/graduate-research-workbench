@@ -46,7 +46,7 @@ export async function packResearchDataset(experiment,dataset,originalBytes,passp
   if(!dataset?.id||!Array.isArray(dataset.rows)||!dataset.rows.length)throw new Error('没有可打包的完整数据。');
   const sourceBytes=originalBytes instanceof Uint8Array?originalBytes:null;
   if(sourceBytes&&dataset.source?.sha256&&await sha256(sourceBytes)!==dataset.source.sha256)throw new Error('仪器原文件校验值不一致，已停止打包。');
-  const contextKeys=['id','sampleId','material','batch','date','method','project','ratio','agent','vessel','atmosphere','sourceTemp','growthTemp','peakTemp','holdTime','coolingRate','postTreatment','crystalSize','yield','measurements','results','quality','notes','schedule','lineage','qualityCriteria','figures'];
+  const contextKeys=['id','sampleId','material','batch','date','method','project','ratio','agent','vessel','atmosphere','sourceTemp','growthTemp','peakTemp','holdTime','coolingRate','postTreatment','crystalSize','yield','measurements','results','quality','notes','schedule','lineage','qualityCriteria','figures','runComparison','runEvents','outcomeReviews'];
   const context=Object.fromEntries(contextKeys.map(key=>[key,experiment?.[key]??(key==='schedule'||key==='lineage'||key==='qualityCriteria'||key==='figures'?[]:'')]));
   const payload={format:'yanxi-research-dataset',version:1,createdAt:new Date().toISOString(),experiment:context,dataset,originalBytes:sourceBytes?b64(sourceBytes):null};
   const plaintext=encoder.encode(JSON.stringify(payload));
@@ -74,6 +74,46 @@ export async function unpackResearchDataset(packageValue,passphrase){
 }
 
 export function originalFileBytes(payload){return payload?.originalBytes==null?null:unb64(payload.originalBytes);}
+
+// A whole-run archive is intentionally distinct from the single-dataset format.
+// Importers must verify every raw file before changing the local vault.
+export async function packWholeExperiment(experiment,rawFiles={},passphrase){
+  if(!experiment?.id||!Array.isArray(experiment.datasets))throw new Error('没有可打包的实验记录。');
+  const originals={},missingOriginals=[];
+  for(const dataset of experiment.datasets){
+    const bytes=rawFiles[dataset.id];
+    if(bytes==null){missingOriginals.push(dataset.id);continue;}
+    if(!(bytes instanceof Uint8Array))throw new Error('原始文件必须是字节数据。');
+    if(dataset.source?.sha256&&await sha256(bytes)!==dataset.source.sha256)throw new Error(`${dataset.name||dataset.id} 的仪器原文件校验失败。`);
+    originals[dataset.id]=b64(bytes);
+  }
+  const payload={format:'yanxi-whole-experiment',version:1,createdAt:new Date().toISOString(),experiment,originals,missingOriginals};
+  const plaintext=encoder.encode(JSON.stringify(payload));
+  if(plaintext.length>MAX_PLAINTEXT)throw new Error('整次实验档案超过 120 MB，请先分数据集导出复现包。');
+  const {bytes,compression}=await compress(plaintext),salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+  const key=await derive(passphrase,salt),ciphertext=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,bytes));
+  return {format:'yanxi-encrypted-experiment-package',version:1,compression,kdf:'PBKDF2-SHA256-260000',cipher:'AES-256-GCM',salt:b64(salt),iv:b64(iv),sha256:await sha256(plaintext),plaintextBytes:plaintext.length,ciphertext:b64(ciphertext),missingOriginals};
+}
+export async function unpackWholeExperiment(packageValue,passphrase){
+  const bundle=typeof packageValue==='string'?JSON.parse(packageValue):packageValue;
+  if(bundle?.format!=='yanxi-encrypted-experiment-package'||bundle.version!==1||bundle.kdf!=='PBKDF2-SHA256-260000'||bundle.cipher!=='AES-256-GCM')throw new Error('不是受支持的整次实验复现档案。');
+  if(!Number.isSafeInteger(bundle.plaintextBytes)||bundle.plaintextBytes<1||bundle.plaintextBytes>MAX_PLAINTEXT||typeof bundle.ciphertext!=='string'||bundle.ciphertext.length>170_000_000)throw new Error('档案大小或格式无效。');
+  let plaintext;
+  try{const key=await derive(passphrase,unb64(bundle.salt));const bytes=new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(bundle.iv)},key,unb64(bundle.ciphertext)));plaintext=await decompress(bytes,bundle.compression);}
+  catch(error){if(error.message?.includes('口令'))throw error;throw new Error('口令错误、档案损坏或解压失败，未修改任何记录。');}
+  if(plaintext.length!==bundle.plaintextBytes||await sha256(plaintext)!==bundle.sha256)throw new Error('档案校验失败，未修改任何记录。');
+  const payload=JSON.parse(decoder.decode(plaintext));
+  if(payload.format!=='yanxi-whole-experiment'||payload.version!==1||!payload.experiment?.id||!Array.isArray(payload.experiment.datasets)||payload.experiment.datasets.length>12||!payload.originals||typeof payload.originals!=='object')throw new Error('档案数据结构无效。');
+  const ids=new Set(payload.experiment.datasets.map(item=>item.id));
+  if(ids.size!==payload.experiment.datasets.length||Object.keys(payload.originals).some(key=>!ids.has(key)))throw new Error('档案中的数据集标识无效。');
+  const originals={};for(const [datasetId,value] of Object.entries(payload.originals)){
+    if(typeof value!=='string'||value.length>35_000_000)throw new Error('仪器原文件格式无效。');
+    const bytes=unb64(value),dataset=payload.experiment.datasets.find(item=>item.id===datasetId);
+    if(dataset.source?.sha256&&await sha256(bytes)!==dataset.source.sha256)throw new Error('仪器原文件校验失败，未修改任何记录。');
+    originals[datasetId]=bytes;
+  }
+  return {experiment:payload.experiment,originals,missingOriginals:payload.missingOriginals||[]};
+}
 
 export function splitCloudPackage(bundle,chunkSize=500_000){
   const serialized=JSON.stringify(bundle),bytes=encoder.encode(serialized).length;

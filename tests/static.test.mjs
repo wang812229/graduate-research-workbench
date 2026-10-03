@@ -5,9 +5,13 @@ import { execFileSync } from 'node:child_process';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import vm from 'node:vm';
-import { emptyVault, escapeHtml, normalizeMeasurementDataset } from '../core.mjs';
+import { emptyVault, escapeHtml, normalizeExperiment, normalizeMeasurementDataset } from '../core.mjs';
 import { registerLocalAccount, unlockOffline, saveOffline, listLocalAccounts, deleteLocalAccount, saveRawFile, readRawFile, changeLocalPassword } from '../offline.mjs';
 import { validateCloudConfig } from '../cloud-client.mjs';
+import {normalizeRunComparison,runDeviation,sampleLink} from '../experiment-journal.mjs';
+import {renderExperimentJournal} from '../experiment-journal-ui.mjs';
+import {packWholeExperiment,unpackWholeExperiment,sha256} from '../research-package.mjs';
+import qrcode from '../qrcode-vendor.mjs';
 
 test('device-local profiles require their own password and never overwrite an existing name',async()=>{
   const vault=emptyVault(),created=await registerLocalAccount('member','研究成员','long-password-1',vault);
@@ -44,6 +48,9 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(files.includes('cloud-config.json'));
   assert.ok(files.includes('cloud-client.bundle.mjs'));
   assert.ok(files.includes('research-package.mjs'));
+  assert.ok(files.includes('experiment-journal.mjs'));
+  assert.ok(files.includes('experiment-journal-ui.mjs'));
+  assert.ok(files.includes('qrcode-vendor.mjs'));
   assert.match(await readFile(resolve(out,'runtime.mjs'),'utf8'),/STATIC_MODE=true/);
   const html=await readFile(resolve(out,'index.html'),'utf8');
   const app=await readFile(resolve(out,'app.mjs'),'utf8');
@@ -54,6 +61,7 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.match(html,new RegExp(`styles\\.css\\?v=${version}`));
   assert.match(app,new RegExp(`core\\.mjs\\?v=${version}`));
   assert.match(app,new RegExp(`research-package\\.mjs\\?v=${version}`));
+  assert.match(app,new RegExp(`experiment-journal-ui\\.mjs\\?v=${version}`));
   assert.match(app,/pick-measurement/);
   assert.match(app,/TABLE \+ LIVE PLOT/);
   assert.match(app,/多样品叠图比较/);
@@ -85,6 +93,37 @@ test('cloud mode requires complete Firebase config and owner-only verified-email
   assert.match(rules.vaults.$uid['.read'],/auth\.uid === \$uid/);
   assert.match(rules.vaults.$uid['.write'],/email_verified/);
   assert.match(rules.rawDatasets.$uid['.read'],/auth\.uid === \$uid/);
+});
+
+test('run journal preserves events, deviation, handovers and negative results across normalization',()=>{
+  const raw={id:'exp-1',sampleId:'CVT-026',material:'RuCl3',runComparison:{fields:{sourceTemp:{planned:900,actual:895,reason:'控温偏差'}}},runEvents:[{id:'event-1',occurredAt:'2026-10-03T10:00:00Z',type:'装炉',title:'装入原料',sampleNodeId:'sample-1'}],lineage:[{id:'sample-1',label:'晶体 A',storageLocation:'柜 A/盒 2',handoverHistory:[{id:'handover-1',occurredAt:'2026-10-03T11:00:00Z',from:'甲',to:'乙',location:'柜 A/盒 2'}]}],outcomeReviews:[{id:'outcome-1',status:'失败',hypothesis:'高温区提高尺寸',observed:'未长出晶体',nextVariable:'只调整 I₂ 浓度'}]};
+  const record=normalizeExperiment(raw),again=normalizeExperiment(record);
+  assert.equal(again.runEvents[0].title,'装入原料');
+  assert.equal(again.lineage[0].storageLocation,'柜 A/盒 2');
+  assert.equal(again.lineage[0].handoverHistory[0].to,'乙');
+  assert.equal(again.outcomeReviews[0].nextVariable,'只调整 I₂ 浓度');
+  assert.deepEqual(runDeviation(again.runComparison.fields.sourceTemp),{absolute:-5,percent:-5/900*100});
+  assert.equal(runDeviation(normalizeRunComparison().fields.peakTemp),null);
+  const html=renderExperimentJournal(again,[again],escapeHtml);
+  assert.match(html,/计划值与实际值/);assert.match(html,/实验事件时间轴/);assert.match(html,/样品标签、位置与交接/);assert.match(html,/失败实验与对照组/);
+  const url=sampleLink('https://wang812229.github.io/graduate-research-workbench/','sample-1');
+  assert.match(url,/#sample=sample-1$/);
+  const qr=qrcode(0,'M');qr.addData(url);qr.make();assert.match(qr.createSvgTag({cellSize:3,margin:8}),/<svg/);
+});
+
+test('whole experiment archive encrypts complete rows and raw file, rejects corruption',async()=>{
+  const original=new Uint8Array([0,1,2,255,42]);
+  const experiment=normalizeExperiment({id:'exp-1',sampleId:'CVT-026',material:'RuCl3',datasets:[{id:'data-1',name:'R(T)',columns:['T','R'],rows:[[2,.1],[300,1.2]],source:{sha256:await sha256(original)}}],figures:[],runEvents:[{title:'装炉',type:'装炉',occurredAt:'2026-10-03T10:00:00Z'}]});
+  const bundle=await packWholeExperiment(experiment,{'data-1':original},'strong-passphrase-123');
+  assert.equal(bundle.format,'yanxi-encrypted-experiment-package');
+  assert.equal(JSON.stringify(bundle).includes('CVT-026'),false);
+  const unpacked=await unpackWholeExperiment(bundle,'strong-passphrase-123');
+  assert.equal(unpacked.experiment.datasets[0].rows.length,2);
+  assert.deepEqual(unpacked.originals['data-1'],original);
+  await assert.rejects(unpackWholeExperiment(bundle,'incorrect-passphrase'),/口令错误|损坏/);
+  await assert.rejects(packWholeExperiment(experiment,{'data-1':new Uint8Array([8])},'strong-passphrase-123'),/校验失败/);
+  const missing=await packWholeExperiment(experiment,{},'strong-passphrase-123');
+  assert.deepEqual(missing.missingOriginals,['data-1']);
 });
 
 test('portable package restores full rows over a cloud preview without losing prior analysis',async()=>{
