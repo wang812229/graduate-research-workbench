@@ -30,8 +30,6 @@ jobs:
           package-manager-cache: false
       - run: npm install -g pnpm@11.19.0
       - run: pnpm install --frozen-lockfile
-      - name: Sync public literature reports
-        run: node scripts/sync-literature.mjs
       - run: pnpm test
       - run: pnpm build:static
       - name: Preserve refreshed public catalog

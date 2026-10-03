@@ -1,5 +1,51 @@
 [
   {
+    "id": "doi:10.1021/acsnano.6c07014",
+    "title": "Unexpected 4 × 4 Charge Density Wave in 1H-NbTe2 Monolayer",
+    "authors": "Noor ul Ain, Alireza Amiri, Fabian Calleja, Beatriz Muñiz Cano, Archit Dhingra, Riccardo Rurali, Amadeo L. Vázquez de Parga, Rodolfo Miranda, Miguel A. Valbuena, Enric Canadell, Jose Angel Silva-Guillén, Manuela Garnica",
+    "journal": "ACS Nano（正式期刊；Online First）",
+    "year": null,
+    "doi": "10.1021/acsnano.6c07014",
+    "url": "https://doi.org/10.1021/acsnano.6c07014",
+    "material": "单层 1H-NbTe₂",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "MBE",
+      "电荷密度波",
+      "STM/ARPES",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-03",
+    "access": "摘要级：ACS 论文页本轮返回 403；实际核对 Crossref 的出版社提交摘要、作者及 2026-10-03 online 日期，未读取 ACS 正文、Methods 或 SI，也未取得合法公开作者稿。",
+    "summary": "块体 NbTe₂ 常以 1T 多型讨论，这篇工作却在石墨烯/Ir(111) 上做出亚稳的单层 1H 岛。其低温 STM/STS 看到 4×4 周期电荷调制，再用 ARPES 与 DFT 连起金属性和声子失稳；关键故事是“先控制多型，才能判对 CDW”，但声子驱动机制仍需正文与独立振动谱核实。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-03/#paper-1"
+  },
+  {
+    "id": "doi:10.1038/s41524-026-02337-x",
+    "title": "Unsupervised machine learning for automated crystal orientation mapping on noisy 4D-STEM data",
+    "authors": "Kai Kamijo, Motoki Shiga, Shusuke Kanomi, Tomohiro Miyata, Hiroshi Jinnai",
+    "journal": "npj Computational Materials（正式期刊；开放获取）",
+    "year": null,
+    "doi": "10.1038/s41524-026-02337-x",
+    "url": "https://doi.org/10.1038/s41524-026-02337-x",
+    "material": "iPS 球晶／4D-STEM",
+    "tags": [
+      "正式期刊",
+      "全文精读",
+      "晶体质量表征",
+      "4D-STEM",
+      "方法论文",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-03",
+    "access": "全文精读：实际读取作者公开预印本正文的 Results、Methods、Fig.1–9 与 Table 1；正式期刊官网可核摘要和 DOI，但本轮页面触发 Client Challenge；未读取正式版 SI，未逐页校对正式版与预印本差异。",
+    "summary": "论文讲的是如何把原本必须由专家逐张判读的低剂量 4D-STEM 衍射图，变成可复核的取向图：先利用相邻扫描位置做自监督去噪，再把旋转后的衍射图视作同一晶体分量做无监督分解。实验球晶中，主层片的方向与人工判读相符，还显出此前未标注的弱分量；这些弱分量尚不能自动给出可靠晶向。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-03/#paper-2"
+  },
+  {
     "id": "arxiv:2610.02006",
     "title": "Magnetic Phase Diagrams and Spin Hamiltonian of Monoclinic $\\alpha$-RuCl$_3$ from Angle-Dependent Torque Studies",
     "authors": "Antoniou, Daniel, Ni, Danrui, Pearce, John S., Cava, Robert J., Coldea, Amalia I., Coldea, Radu",

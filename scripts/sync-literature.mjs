@@ -51,13 +51,29 @@ async function getJson(url){
 }
 
 async function remoteReports(){
-  const listing=await getJson(`https://api.github.com/repos/${sourceRepo}/contents/content/reports?ref=main`);
-  if(!Array.isArray(listing))throw new Error('公开简报目录无效');
-  const files=listing.filter(item=>/^\d{4}-\d{2}-\d{2}\.json$/.test(item.name)&&item.download_url);
-  if(!files.length)throw new Error('公开简报目录为空，保留现有书目');
+  // The unauthenticated GitHub contents API may return 403 in Actions. The
+  // deployed search index is public and supplies the report dates; fetch the
+  // source JSON from the public raw endpoint without a personal token.
+  const index=await getJson(`${briefBase}/assets/search-index.json`);
+  if(!Array.isArray(index)||!index.length)throw new Error('公开搜索索引为空，保留现有书目');
+  const dates=new Set(index.map(item=>String(item.reportUrl||'').match(/\/reports\/(\d{4}-\d{2}-\d{2})\//)?.[1]).filter(Boolean));
+  // Pages can lag a newly pushed report. Also probe today and yesterday in
+  // Beijing time so the workbench does not wait for its static deployment.
+  const today=new Date(Date.now()+8*3600000);
+  for(let offset=0;offset<2;offset++)dates.add(new Date(today.getTime()-offset*86400000).toISOString().slice(0,10));
+  const files=[...dates].sort();
+  if(!files.length)throw new Error('公开简报日期为空，保留现有书目');
   const reports=[];
   for(let offset=0;offset<files.length;offset+=5){
-    reports.push(...await Promise.all(files.slice(offset,offset+5).map(item=>getJson(item.download_url))));
+    const batch=await Promise.all(files.slice(offset,offset+5).map(async date=>{
+      const url=`https://raw.githubusercontent.com/${sourceRepo}/main/content/reports/${date}.json`;
+      try{return await getJson(url)}catch(error){
+        // A new calendar date may legitimately have no reviewed report yet.
+        if(error.message.includes('HTTP 404')&&date>=new Date(today.getTime()-86400000).toISOString().slice(0,10))return null;
+        throw error;
+      }
+    }));
+    reports.push(...batch.filter(Boolean));
   }
   return reports;
 }

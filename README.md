@@ -116,7 +116,7 @@ docker compose exec -T db pg_dump -U yanxi -d yanxi -Fc > yanxi-backup.dump
 
 原网站“我的研究”页面提供 **迁移到研究生工作平台** 按钮，会导出 `research-workbench-transfer.json`。平台“数据与设置”可直接导入此文件，也接受原有的 `experiment-records.json`、`experiment-records.csv` 和 `paper-projects.json`。旧分组文件只有论文 ID；平台附带原网站公开书目索引用于匹配，匹配不到的条目会标记“待补全文献信息”。
 
-公开文献与私人导入是两条独立数据流。维护者可运行 `node scripts/sync-literature.mjs` 从简报 GitHub 仓库读取 `content/reports/*.json`，或用 `--local-source=本地简报目录/content/reports` 在未联网时同步；程序按 DOI、arXiv ID 和标题去重，保留原有书目 ID，以免个人收藏的匹配断开。工作台的 GitHub Actions 在推送、手动触发和每天北京时间 12:30 执行同一同步，并将有变化的 `catalog.json` 提交到工作台仓库。公开详情展示结论与原简报链接；完整证据链仍以“每日文献简报”为准。
+公开文献与私人导入是两条独立数据流。每日简报发布时，维护者运行 `node scripts/sync-literature.mjs --local-source=本地简报目录/content/reports`，核对新增篇数及 DOI 后，将更新的 `catalog.json` 与简报分开提交到工作台仓库。脚本也支持从公开站点读取，但不依赖 GitHub 的未认证 Contents API。程序按 DOI、arXiv ID 和标题去重，保留原有书目 ID，以免个人收藏的匹配断开。GitHub Actions 只测试、构建和部署已审阅并提交的目录；不会在部署时抓取外部内容或覆盖本次目录。公开详情展示结论与原简报链接；完整证据链仍以“每日文献简报”为准。
 
 ## 隐私与离线边界
 
