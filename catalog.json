@@ -520,46 +520,6 @@
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-06/#paper-26"
   },
   {
-    "id": "arxiv:2603.15485",
-    "title": "Single-Crystal Growth and Physical Properties of the Antiferromagnetic Double Perovskite Ba_2CoMoO_6",
-    "authors": "A.R.N. Hanna; M. M. Ferreira-Carvalho; S.H. Chen; C. F. Chang; C. Y. Kuo; A.T.M.N. Islam; R. Feyerherm; L.H. Tjeng; B. Lake",
-    "journal": "arXiv:2603.15485（10 月 6 日官方列表）",
-    "year": 2026,
-    "doi": "",
-    "url": "https://arxiv.org/abs/2603.15485",
-    "material": "Ba₂CoMoO₆ 双钙钛矿单晶",
-    "tags": [
-      "arXiv",
-      "摘要级",
-      "晶体生长和物性调控"
-    ],
-    "category": "晶体生长和物性调控",
-    "date": "2026-10-06",
-    "access": "仅摘要/元数据：已核对 arXiv 官方题名、完整作者和摘要；正文/Methods/SI 未读，需后续补读。",
-    "summary": "10 月 6 日列表的修订稿摘要明确以浮区和 Czochralski 两种路线制单晶，Fm-3m 结构、TN≈20.1 K、26.5 kOe 自旋翻转，适合比对两种生长法的杂质和残余应力。但原始提交在 3 月，修订差异未核，本期仅作“需版本对照”不把整篇当新论文。",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-06/#paper-27"
-  },
-  {
-    "id": "arxiv:2605.13444",
-    "title": "A thermodynamic reference for field-induced phenomena in α-RuCl_3: two coexisting polymorphs account for multiple magnetic phase transitions",
-    "authors": "Hamza Nasir; Daniel Balazs; Muhammad Nauman; Vikram Nagarajan; Ezekiel Horsley; Subin Kim; Young-June Kim; K. A. Modic",
-    "journal": "arXiv:2605.13444（10 月 6 日官方列表）",
-    "year": 2026,
-    "doi": "",
-    "url": "https://arxiv.org/abs/2605.13444",
-    "material": "α-RuCl₃ 多型单晶",
-    "tags": [
-      "arXiv",
-      "摘要级",
-      "磁性、拓扑与自旋"
-    ],
-    "category": "磁性、拓扑与自旋",
-    "date": "2026-10-06",
-    "access": "仅摘要/元数据：已核对 arXiv 官方题名、完整作者和摘要；正文/Methods/SI 未读，需后续补读。",
-    "summary": "10 月 6 日修订列表的作者稿指出 C2/m 单斜纳克单晶与菱方样品的相边界相似但整体向较高温/临界场移动，多型共存可解释部分“多磁转变”争议。未完成 v1/v2 差异核对，暂不把旧结果当当天新发现。",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-06/#paper-28"
-  },
-  {
     "id": "doi:10.1063/5.0347349",
     "title": "Anisotropic magnetic damping and interface spin transport in fully epitaxial cubic Fe74V26/Pt heterostructure",
     "authors": "Yangping Wang; Hongyan Zhou; Zhenhua Li; Qingfeng Zhan",
@@ -10305,6 +10265,46 @@
     "access": "仅摘要/元数据",
     "summary": "",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-08-28/#paper-4"
+  },
+  {
+    "id": "arxiv:2603.15485",
+    "title": "Single-Crystal Growth and Physical Properties of the Antiferromagnetic Double Perovskite Ba_2CoMoO_6",
+    "authors": "A.R.N. Hanna; M. M. Ferreira-Carvalho; S.H. Chen; C. F. Chang; C. Y. Kuo; A.T.M.N. Islam; R. Feyerherm; L.H. Tjeng; B. Lake",
+    "journal": "arXiv:2603.15485（10 月 6 日官方列表）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2603.15485",
+    "material": "Ba₂CoMoO₆ 双钙钛矿单晶",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-06",
+    "access": "仅摘要/元数据：已核对 arXiv 官方题名、完整作者和摘要；正文/Methods/SI 未读，需后续补读。",
+    "summary": "10 月 6 日列表的修订稿摘要明确以浮区和 Czochralski 两种路线制单晶，Fm-3m 结构、TN≈20.1 K、26.5 kOe 自旋翻转，适合比对两种生长法的杂质和残余应力。但原始提交在 3 月，修订差异未核，本期仅作“需版本对照”不把整篇当新论文。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-06/#paper-27"
+  },
+  {
+    "id": "arxiv:2605.13444",
+    "title": "A thermodynamic reference for field-induced phenomena in α-RuCl_3: two coexisting polymorphs account for multiple magnetic phase transitions",
+    "authors": "Hamza Nasir; Daniel Balazs; Muhammad Nauman; Vikram Nagarajan; Ezekiel Horsley; Subin Kim; Young-June Kim; K. A. Modic",
+    "journal": "arXiv:2605.13444（10 月 6 日官方列表）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2605.13444",
+    "material": "α-RuCl₃ 多型单晶",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-06",
+    "access": "仅摘要/元数据：已核对 arXiv 官方题名、完整作者和摘要；正文/Methods/SI 未读，需后续补读。",
+    "summary": "10 月 6 日修订列表的作者稿指出 C2/m 单斜纳克单晶与菱方样品的相边界相似但整体向较高温/临界场移动，多型共存可解释部分“多磁转变”争议。未完成 v1/v2 差异核对，暂不把旧结果当当天新发现。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-06/#paper-28"
   },
   {
     "id": "arxiv:2609.03994",
