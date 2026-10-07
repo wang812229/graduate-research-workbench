@@ -1,5 +1,645 @@
 [
   {
+    "id": "doi:10.35848/1347-4065/aea0db",
+    "title": "Investigation of crystallization behaviours of SrMg\n                    2\n                    V\n                    2\n                    O\n                    8\n                    and BaMg\n                    2\n                    V\n                    2\n                    O\n                    8\n                    from stoichiometric and MgO-poor solutions",
+    "authors": "Sota Sekiguchi; Shohei Kodama; Yosuke Hamasaki; Mitsuru Itoh; Ikuo Yanase; Hiroaki Takeda",
+    "journal": "Japanese Journal of Applied Physics",
+    "year": 2026,
+    "doi": "10.35848/1347-4065/aea0db",
+    "url": "https://doi.org/10.35848/1347-4065/aea0db",
+    "material": "SrMg₂V₂O₈/BaMg₂V₂O₈",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅元数据：已核 Crossref DOI、题名、作者与在线日期；出版社页面 HTTP 403/正文不可读，未取得合法公开作者稿；机构认证未登录。摘要、Methods、图和 SI 均未读。",
+    "summary": "Crossref 题名直接比较化学计量与 MgO 贫化溶液的结晶行为，未核正文参数。本站不据题名推断实际晶体质量、测量结果或因果机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-1"
+  },
+  {
+    "id": "doi:10.1021/jacs.6c11350",
+    "title": "Improved Crystallization-Front\nDynamics Reduce Buried-Interface\nDefects in Perovskite Solar Cells",
+    "authors": "Yi Yang; Xianfu Zhang; Cheng Liu; Justina Mikuciunaite; Chu Li; Deimante Krisiune; Naoyuki Shibayama; Jiale Zhuang; Pengju Shi; Donghoon Shin; Ubaid H. Kazianga; Zixu Huang; Isaiah W. Gilley; Rafael López-Arteaga; David S. Ginger; Vytautas Getautis; Hao Chen; Kasparas Rakstys; Bin Chen; Mercouri G. Kanatzidis; Edward H. Sargent",
+    "journal": "Journal of the American\nChemical Society",
+    "year": 2026,
+    "doi": "10.1021/jacs.6c11350",
+    "url": "https://doi.org/10.1021/jacs.6c11350",
+    "material": "卤化物钙钛矿埋底界面",
+    "tags": [
+      "正式期刊",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅元数据：已核 Crossref DOI、题名、作者与在线日期；出版社页面 HTTP 403/正文不可读，未取得合法公开作者稿；机构认证未登录。摘要、Methods、图和 SI 均未读。",
+    "summary": "论文题名提示前沿动力学和埋底缺陷关联，尚未见可核摘要或正文。本站不据题名推断实际晶体质量、测量结果或因果机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-2"
+  },
+  {
+    "id": "arxiv:2610.07007",
+    "title": "Identifying Plastic Inorganic Semiconductors Requires More Rigorous Criteria",
+    "authors": "Qiao Wang",
+    "journal": "arXiv:2610.07007",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07007",
+    "material": "层状 GeSe",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 层状 GeSe，通过 宏观压缩/弯曲与微柱变形 回答 23% 压缩应变和弯曲/微柱脆裂反例；最强可确认信息来自官方摘要。本站判断：不同载荷路径和取向不能互称塑性，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-3"
+  },
+  {
+    "id": "arxiv:2610.07113",
+    "title": "Direct-Write Chemical Vapor Deposition",
+    "authors": "Eeshan Ketkar; Swarnabha Chattaraj; Koichi Tanaka; Samy Kouidri; Supratik Guha",
+    "journal": "arXiv:2610.07113",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07113",
+    "material": "Al/TiN/Si 局域沉积",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "全文精读：已读 HTML 的 Introduction、Results、图1–4、Methods（Knudsen 发射/表面扩散）和相应图注；SI 未读。",
+    "summary": "研究聚焦 Al/TiN/Si 局域沉积，通过 直写 CVD；表面扩散长度 回答 图 2–4 的 165/185/205 °C 形貌与 Ld 拟合；最强可确认信息来自已读正文与图注。本站判断：气相射流与表面迁移均会展宽线条，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-4"
+  },
+  {
+    "id": "arxiv:2610.07837",
+    "title": "Determination of Burgers-vector directions of threading edge dislocations in GaN by phase-contrast microscopy",
+    "authors": "Yukari Ishikawa; Maki Shimizu; Koji Sato; Kisara Matsumoto; Kazuki Ohnishi; Yongzhao Yao; Ryo Hattori",
+    "journal": "arXiv:2610.07837",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07837",
+    "material": "铵热与 HVPE GaN",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 铵热与 HVPE GaN，通过 相衬显微镜/弱束 TEM 回答 位错亮暗对 Burgers 矢量的盲测；最强可确认信息来自官方摘要。本站判断：衬度依赖成像方位与离焦，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-5"
+  },
+  {
+    "id": "arxiv:2610.07862",
+    "title": "A self-learning scientific agent for X-ray diffraction",
+    "authors": "Bin Cao; Huichi Zhou; Runyu Yang; Jingsong Li; Shuchen Sun; Yan Song; Hanyu Gao; Zhongwei Yu; Tong-Yi Zhang; Jun Wang",
+    "journal": "arXiv:2610.07862",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07862",
+    "material": "多相粉末 XRD",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 多相粉末 XRD，通过 物理约束全谱建模工具 回答 FullProf/GSAS-II 留出集的相识别与精修；最强可确认信息来自官方摘要。本站判断：算法提高评分仍可能漏低含量杂相，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-6"
+  },
+  {
+    "id": "arxiv:2610.08013",
+    "title": "Defect-limited thermal transport in AlN using pretrained machine-learning interatomic potentials",
+    "authors": "Minseok Moon; Wonjun Choi; Seungwu Han; Youngho Kang",
+    "journal": "arXiv:2610.08013",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08013",
+    "material": "AlN 氧缺陷",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 AlN 氧缺陷，通过 ML 势分子动力学与声子输运 回答 VAl(ON)₃ 复合缺陷的散射预测；最强可确认信息来自官方摘要。本站判断：训练势对缺陷构型能量可能失准，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-7"
+  },
+  {
+    "id": "arxiv:2610.08536",
+    "title": "Programming electronic states in conductive metal-organic frame-works through crystallization-enabled proton management",
+    "authors": "Hao Chen; Tongyang Zhao; Weishan Li; Jinkun Guo; Jia-Xiang Zhang; Ze-Fan Yao; Maojun Zheng; Jin-Hu Dou",
+    "journal": "arXiv:2610.08536",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08536",
+    "material": "Co₉HHTP₄ 导电 MOF 单晶",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 Co₉HHTP₄ 导电 MOF 单晶，通过 晶化中质子环境控制电导 回答 HNO₃/NaOAc 样品电导 8.4×10⁻²/1.7×10⁻⁵ S cm⁻¹；最强可确认信息来自官方摘要。本站判断：酸也可能改变缺陷/尺寸和电极接触，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-8"
+  },
+  {
+    "id": "arxiv:2610.07656",
+    "title": "Luttinger Liquid Behavior in a Single-Layer Nickelate La1.4Sr0.6NiO4",
+    "authors": "Yinqi Hu; Yidian Li; Xian Du; Wenxuan Zhao; Kaiyi Zhai; Senyao Zhang; Jiawei Shao; Mingxin Mao; Houke Chen; Jieyi Liu; Donghui Lu; Makoto Hashimoto; Fangyuan Zhu; Zhengtai Liu; Dawei Shen; Yaobo Huang; Zhongkai Liu; D. Prabhakaran; Yanpeng Qi; Yilin Wang; Yulin Chen; Lexian Yang",
+    "journal": "arXiv:2610.07656",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07656",
+    "material": "La₁.₄Sr₀.₆NiO₄ 单层镍酸盐",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 La₁.₄Sr₀.₆NiO₄ 单层镍酸盐，通过 高分辨 ARPES 与理论 回答 直费米面、轨道依赖重整化和 Luttinger 液体判据；最强可确认信息来自官方摘要。本站判断：准一维谱形不直接等于超导，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-9"
+  },
+  {
+    "id": "arxiv:2610.08336",
+    "title": "Quantum geometry of collective pairing fluctuations in the superfluid weight of multiband superconductors",
+    "authors": "R. N. Kalkan; M. Iskin",
+    "journal": "arXiv:2610.08336",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08336",
+    "material": "多带超导 Lieb 晶格",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 多带超导 Lieb 晶格，通过 配对涨落核与超流刚度 回答 Goldstone 支的动量曲率和轨道嵌入不变性；最强可确认信息来自官方摘要。本站判断：平均场模型不能代替样品的穿透深度，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-10"
+  },
+  {
+    "id": "arxiv:2610.07146",
+    "title": "Heavy-fermion hybridization waves from Dirac spinons near a Kondo-breakdown quantum phase transition",
+    "authors": "Pedro M. Cônsoli; Matthias Vojta; Onur Erten",
+    "journal": "arXiv:2610.07146",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07146",
+    "material": "受挫 Kondo 晶格",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 受挫 Kondo 晶格，通过 parton 平均场；杂化波 回答 Dirac spinon 节点与导带低能态连接动量 Q；最强可确认信息来自官方摘要。本站判断：表面电荷序也可产生空间调制，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-11"
+  },
+  {
+    "id": "arxiv:2610.06951",
+    "title": "mathcal{PT}-symmetry as Effective Time Reversal Symmetry for Anderson Localization in a Collinear Antiferromagnet",
+    "authors": "Kim-Khuong Huynh; Takuma Ogasawara; Motoi Kimata; Sofie Søby Leiszner; Nhu-Quynh Thi Phan; Michael Anthony Quintero; Frej Søren Rattenborg; Denis Arčon; Bo Brummerstedt Iversen; Katsumi Tanigaki",
+    "journal": "arXiv:2610.06951",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.06951",
+    "material": "BaMn₂Bi₂ 反铁磁体",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "全文精读：已读 HTML 主文图1–3与补充图 S1–S3；生长细节在已读部分不完整。",
+    "summary": "研究聚焦 BaMn₂Bi₂ 反铁磁体，通过 角分辨磁电导与局域化 回答 图 2–3 的 H∥c/H⊥c 磁电导缩放；最强可确认信息来自已读正文与图注。本站判断：轨道磁阻、磁畴翻转可能混入 PT 破缺，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-12"
+  },
+  {
+    "id": "arxiv:2610.07291",
+    "title": "Odd-parity magnon spin polarization from chiral four-spin exchange in a honeycomb antiferromagnet",
+    "authors": "Bektur Murzaliev; Mikhail Titov",
+    "journal": "arXiv:2610.07291",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07291",
+    "material": "MnPS₃ 启发的蜂窝反铁磁模型",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 MnPS₃ 启发的蜂窝反铁磁模型，通过 四自旋手性交换与磁振子 回答 cosθ sin²θ 自旋极化角度依赖；最强可确认信息来自官方摘要。本站判断：目标四自旋项在实际 MnPS₃ 尚待实现，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-13"
+  },
+  {
+    "id": "arxiv:2610.07494",
+    "title": "Conditions for Altermagnetism in RuO2",
+    "authors": "Himanshu Mavani; Zhonglin He; Evgeny Y. Tsymbal",
+    "journal": "arXiv:2610.07494",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07494",
+    "material": "RuO₂ 金红石薄膜",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 RuO₂ 金红石薄膜，通过 外延应变/缺陷的第一性原理 回答 基底取向和应变诱导交替磁的条件；最强可确认信息来自官方摘要。本站判断：薄膜磁响应并非块体均匀交替磁证据，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-14"
+  },
+  {
+    "id": "arxiv:2610.08030",
+    "title": "Finite-Momentum Antiferromagnetic Magnon Dynamics across the Morin Transition in Hematite",
+    "authors": "Jiaqi Gong; Yuanzhe Tian; Jun Cui; Meiye Hou; Yuxuan Mu; Di Wang; Xiangang Wan; Di Wu; Qi Zhang",
+    "journal": "arXiv:2610.08030",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08030",
+    "material": "α-Fe₂O₃ 赤铁矿单晶",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "全文精读：已读 HTML Introduction、Experiment、图1–4及结论；SI 未读。",
+    "summary": "研究聚焦 α-Fe₂O₃ 赤铁矿单晶，通过 低波数磁 Raman；Morin 转变 回答 图 1–4 的 k=0 与有限 k 模式和 255 K 软化；最强可确认信息来自已读正文与图注。本站判断：激光共振和折射率影响模态强度与推算 k，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-15"
+  },
+  {
+    "id": "arxiv:2610.08221",
+    "title": "Unraveling hidden Raman modes in α-MnTe: Effects of long-range dipole-dipole interactions on phonon bands",
+    "authors": "Susmita Jana; Rajib Sarkar; Dhavala Suri; B.R.K Nanda",
+    "journal": "arXiv:2610.08221",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08221",
+    "material": "α-MnTe 交替磁体",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 α-MnTe 交替磁体，通过 长程偶极修正与 Raman 回答 175 cm⁻¹ 峰的模式重新分配；最强可确认信息来自官方摘要。本站判断：激光偏振与畴结构也影响峰强，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-16"
+  },
+  {
+    "id": "arxiv:2610.08266",
+    "title": "Gradual Localization of Itinerant Cobalt 3d Electrons in the Pyrochlore Ferromagnetic Metal LuInCo4",
+    "authors": "Taiki Shiotani; Subaru Yoshimoto; Yoshikazu Tabata; Yusuke Nambu; Katsuki Kinjo; Kazuhiro Nawa; Taku J. Sato; Takeshi Waki; Hiroyuki Nakamura",
+    "journal": "arXiv:2610.08266",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08266",
+    "material": "LuInCo₄ 焦绿石金属",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "全文精读：已读 HTML 的中子实验设置、图1–4、表1 与结论；未读独立 SI。",
+    "summary": "研究聚焦 LuInCo₄ 焦绿石金属，通过 粉末/单晶中子衍射 回答 图 2 的 Co 有序矩和图 3–4 的 q=0 漫散射；最强可确认信息来自已读正文与图注。本站判断：晶体马赛克和多畴可能加宽衍射峰，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-17"
+  },
+  {
+    "id": "arxiv:2610.08356",
+    "title": "Incoherent Spectral Weight Emerging from a Van Hove Singularity in a Kagome Metal",
+    "authors": "C.-y. Lim; J. Deng; A. Korshunov; A. Kar; D. Subires; H. Li; Y. Jiang; H. Hu; E. Modin; P. Törmä; A. Kumar-Sharma; C. Shekhar; A. Louat; T. K. Kim; C. Felser; B. Andrei Bernevig; S. Blanco-Canosa",
+    "journal": "arXiv:2610.08356",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08356",
+    "material": "LuFe₆Ge₆ kagome 金属",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "全文精读：已读 HTML 主文、图1–4和部分 SI 图注；完整谱学 Methods/SI 未全部逐项核。",
+    "summary": "研究聚焦 LuFe₆Ge₆ kagome 金属，通过 偏振 ARPES、STEM、DFT+DMFT 回答 图 1 的 P6/mmm 结构与图 3 的 L 点瀑布谱；最强可确认信息来自已读正文与图注。本站判断：出射电子非弹性损失可伪装强关联，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-18"
+  },
+  {
+    "id": "arxiv:2610.08582",
+    "title": "Temperature dependence of spin-model parameters in ferrimagnets",
+    "authors": "Marta Yanguas; José M. Lendínez; Theodor Griepe; Rubén M. Otxoa; Levente Rózsa; Unai Atxitia",
+    "journal": "arXiv:2610.08582",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08582",
+    "material": "双亚晶格亚铁磁体",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 双亚晶格亚铁磁体，通过 Green 函数与原子自旋动力学 回答 角动量补偿区两极化支刚度差；最强可确认信息来自官方摘要。本站判断：参数化交换常数不保证真实样品可用，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-19"
+  },
+  {
+    "id": "arxiv:2610.08687",
+    "title": "Phase-field insight into the nature of topological polarization structures in uniaxial ferroelectrics",
+    "authors": "Olga Y. Mazur; Pavel Marton; Yuri A. Genenko",
+    "journal": "arXiv:2610.08687",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08687",
+    "material": "单轴铁电三甘氨酸硫酸盐",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 单轴铁电三甘氨酸硫酸盐，通过 三维相场与拓扑极化纹理 回答 横向极化自由度和鞍点链的模拟；最强可确认信息来自官方摘要。本站判断：表面电荷补偿途径未被唯一确定，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-20"
+  },
+  {
+    "id": "arxiv:2610.08767",
+    "title": "Geometric Photon-drag Effect in Unconventional Magnets",
+    "authors": "Bristi Ghosh; Vivek Pandey; Malay Bandyopadhyay; Pankaj Bhalla; Snehasish Nandy",
+    "journal": "arXiv:2610.08767",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08767",
+    "material": "非常规 p/d 波磁体模型",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 非常规 p/d 波磁体模型，通过 有限光子动量非线性光电流 回答 q=0 电流抵消与 p/d 波响应张量差别；最强可确认信息来自官方摘要。本站判断：非线性光热电也可产生日光电流，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-21"
+  },
+  {
+    "id": "arxiv:2610.06912",
+    "title": "Correlated Low-Energy Model of Monolayer 1H-NbS_2: A cRPA+DMFT Study",
+    "authors": "Karollaine C. Leite; Jorge L. B. de Faria; Luiz Antonio Ribeiro Junior; Alexandre C. Dias; Helena Bragança; Alberto S. de Arruda",
+    "journal": "arXiv:2610.06912",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.06912",
+    "material": "单层 1H-NbS₂",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 单层 1H-NbS₂，通过 cRPA+DMFT 回答 1.138 eV 局域 U 与 ARPES/STS van Hove 对照；最强可确认信息来自官方摘要。本站判断：选定 Wannier 子空间改变 U 和带宽，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-22"
+  },
+  {
+    "id": "arxiv:2610.06943",
+    "title": "Time-Reversal Selection Rule for Twist Disorder",
+    "authors": "Peng Kang; Da Wan; Shulin Bai; Pengfei Zhang; Vincent Michaud-Rioux; Zhen Li; Yu Liu; Lei Zheng; Li-Dong Zhao; Huibin Xu",
+    "journal": "arXiv:2610.06943",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.06943",
+    "material": "扭转无序黑磷叠层",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 扭转无序黑磷叠层，通过 对称选择规则与第一性原理输运 回答 64 层电子/空穴电导选择性与 N⁻³ 厚度律；最强可确认信息来自官方摘要。本站判断：无序角度分布、界面污染会改传输统计，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-23"
+  },
+  {
+    "id": "arxiv:2610.07174",
+    "title": "Composite Fermion Theory of Fractional Chern Insulators in Rhombohedral Graphene",
+    "authors": "Peize Ding; Andrew J. Millis; Yongxin Zeng",
+    "journal": "arXiv:2610.07174",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07174",
+    "material": "菱方多层石墨烯",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 菱方多层石墨烯，通过 复合费米子与分数 Chern 带 回答 莫尔填充和 Berry 曲率相对附着通量的带隙预测；最强可确认信息来自官方摘要。本站判断：无序与介电环境影响分数量子 Hall 平台，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-24"
+  },
+  {
+    "id": "arxiv:2610.07179",
+    "title": "Adjoint-State Identifiability of Piezo-Tunable Valley Splitting in 2D Magnetic Heterostructures",
+    "authors": "Suhas Suresh Bharadwaj",
+    "journal": "arXiv:2610.07179",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07179",
+    "material": "MoS₂/CrBr₃",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 MoS₂/CrBr₃，通过 应变—谷分裂逆问题 回答 η≈−0.07 meV 且 95% CI 含零的可辨识性；最强可确认信息来自官方摘要。本站判断：模拟显著不等于器件可测，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-25"
+  },
+  {
+    "id": "arxiv:2610.07203",
+    "title": "Contact-Governed Macroscopic Signatures of Strain-Induced Valley Sorting in MoS_2 Field-Effect Transistors",
+    "authors": "Suhas Suresh Bharadwaj",
+    "journal": "arXiv:2610.07203",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07203",
+    "material": "MoS₂ 场效应晶体管",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 MoS₂ 场效应晶体管，通过 接触含入的漂移扩散模拟 回答 300 nm 沟道、15 nm 接触区应变的电流抑制；最强可确认信息来自官方摘要。本站判断：欧姆障碍与接触隧穿会掩盖谷信号，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-26"
+  },
+  {
+    "id": "arxiv:2610.07429",
+    "title": "Direct synthesis of moiré graphene with twist-tuned hybridization",
+    "authors": "Seunghyun Park; Daniel T. Larson; Zeyu Hao; Takashi Taniguchi; Kenji Watanabe; Efthimios Kaxiras; Yuan Cao; Amir Yacoby",
+    "journal": "arXiv:2610.07429",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07429",
+    "material": "扭转双层石墨烯 MEMS",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "全文精读：已读 HTML 主文、图1–4、Methods 与 SI 中 Raman 接触控制段；未核全部 SI 图。",
+    "summary": "研究聚焦 扭转双层石墨烯 MEMS，通过 原位角度扫描与 Raman 回答 图 2 的 R 峰、图 3 的 2D 峰和图 4 的 G 峰侧带；最强可确认信息来自已读正文与图注。本站判断：压力/污染与角度同步变化，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-27"
+  },
+  {
+    "id": "arxiv:2610.07878",
+    "title": "Negative charging energy in LaAlO_3/SrTiO_3 quantum dots induced by SrTiO_3 polarization",
+    "authors": "J. Czarnecki; A. Sierant; B. Szafran; P. Szumniak; T. S. Jespersen; G. Meucci; T. Jansen; R. Citro; A. Maiellaro; N. Bergeal; M. Bibes; M. Saluzzo; A. Kalaboukhov; P. Wójcik",
+    "journal": "arXiv:2610.07878",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07878",
+    "material": "LaAlO₃/SrTiO₃ 量子点",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 LaAlO₃/SrTiO₃ 量子点，通过 构型相互作用与像电荷 回答 界面 2DEG 厚度控制负充电能窗口；最强可确认信息来自官方摘要。本站判断：强介电常数的温度变化也会改变配对，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-28"
+  },
+  {
+    "id": "arxiv:2610.07918",
+    "title": "Layered spin-crossover metal-organic frameworks for light-induced control of two-dimensional quantum materials",
+    "authors": "Carla Boix-Constant; Alejandro Orellana-Silla; José Antonio Real; Samuel Mañas-Valero; Eugenio Coronado",
+    "journal": "arXiv:2610.07918",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.07918",
+    "material": "自旋交叉 MOF/CrSBr/NbSe₂",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 自旋交叉 MOF/CrSBr/NbSe₂，通过 光热自旋交叉与层间应变 回答 石墨烯、磁性 CrSBr、超导 NbSe₂ 的选择性调制；最强可确认信息来自官方摘要。本站判断：光热效应与应变不可只凭电导区分，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-29"
+  },
+  {
+    "id": "arxiv:2610.08494",
+    "title": "Interfacial Charge Transfer and Morphology Govern Magnetism in Ultrathin VOx/MoSe2 Heterostructures",
+    "authors": "Yasinthara Wadumesthri; Nalaka Kapuruge; Raphael B. de Oliveira; Bruno Ipaves; Guilherme S. L. Fabris; Kinga Lasek; Florence A. Nugera; Jianjun Pan; Xiaomei Jiang; Douglas S. Galvão; Humberto Rodríguez Gutiérrez",
+    "journal": "arXiv:2610.08494",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08494",
+    "material": "VOₓ/MoSe₂ 超薄界面",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 VOₓ/MoSe₂ 超薄界面，通过 氧化物形貌、磁性、PL 回答 簇状/连续膜磁矩和三激子比例；最强可确认信息来自官方摘要。本站判断：氧化态与覆盖率可能同时变，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-30"
+  },
+  {
+    "id": "arxiv:2610.08505",
+    "title": "Ultra-small-angle graphene twistronics with monolayer spacers: From interlayer hybridisation and moiré effects to high-temperature magnetotransport oscillations",
+    "authors": "Benjamin Fuller; Haowei Fan; Agustin Montemurro; Yuyuan Pan; Alexey I. Berdyugin; Vladimir I. Falko; Xiao Li",
+    "journal": "arXiv:2610.08505",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08505",
+    "material": "石墨烯/hBN/石墨烯小角度堆栈",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 石墨烯/hBN/石墨烯小角度堆栈，通过 自洽 Hartree 与磁输运预测 回答 高温 Brown–Zak 与 1/B 振荡的参数窗；最强可确认信息来自官方摘要。本站判断：预测未等于观测，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-31"
+  },
+  {
+    "id": "arxiv:2610.08783",
+    "title": "Quantum twisting microscopy as a momentum-resolved probe of quantum geometry and sublattice symmetries",
+    "authors": "Lucas V. Pupim; Mathias S. Scheurer",
+    "journal": "arXiv:2610.08783",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.08783",
+    "material": "扭转石墨烯量子显微镜",
+    "tags": [
+      "arXiv",
+      "摘要级",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-07",
+    "access": "仅摘要/元数据：arXiv 官方列表题名、作者、摘要已读；正文、Methods、SI 尚待补读，故生长与测量参数仅列摘要明示信息。",
+    "summary": "研究聚焦 扭转石墨烯量子显微镜，通过 亚晶格选择性 QTM 提案 回答 沿扫描动量路径提取量子度规；最强可确认信息来自官方摘要。本站判断：探针亚晶格极化纯度决定反演可信度，因此不能把模型解释当成唯一物理机制。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-07/#paper-32"
+  },
+  {
     "id": "doi:10.1038/s41467-026-78350-x",
     "title": "Symmetry-engineered and electrically tunable in-plane anomalous Hall effect in oxide heterostructures",
     "authors": "Kunjie Dai; Zhen Wang; Wenfeng Wu; Feng Jin; Enda Hua; Nan Liu; Jingdi Lu; Jinfeng Zhang; Yuyue Zhao; Linda Yang; Kai Liu; Huan Ye; Qiming Lv; Zhengguo Liang; Ao Wang; Shengchun Shen; Dazhi Hou; Yang Gao; Jing Tao; Liang Si; Wenbin Wu; Lingfei Wang",
