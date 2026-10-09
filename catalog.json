@@ -1,5 +1,85 @@
 [
   {
+    "id": "arxiv:2610.11731",
+    "title": "Interlayer ferromagnetic order revealed through pressure-enhanced interlayer exchange coupling in Fe3GaTe2",
+    "authors": "Riku Iimori; Takashi Kimura",
+    "journal": "arXiv cond-mat（新提交）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.11731",
+    "material": "Fe₃GaTe₂ CVT 单晶",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-09",
+    "access": "全文精读：实际读取公开 HTML 的引言、实验/Methods、Results、关键图及讨论；独立 SI 未读。",
+    "summary": "这项工作用一炉参数充分公开的 Fe₃GaTe₂ 单晶，把“一个居里温度之外为何还有两处磁异常”拆成磁畴动力学和层间交换两个问题。压力使约 160 K 的 Tinf1 降约 40 K、约 250 K 的 Tinf2 升约 25 K，而 Tc 仅变约 5 K；这组反向响应是层间耦合解释的核心，但 Tinf2 是磁化曲线间接推断的特征温度，并非中子散射直接看到的新磁结构。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-09/#paper-1"
+  },
+  {
+    "id": "arxiv:2610.12257",
+    "title": "Pressure-induced double-dome superconductivity in doped kagome metal Cs(V0.86Ta0.14)3Sb5 without charge density wave",
+    "authors": "Haochen Sun; Jing Wang; Deng Hu; Zhiwei Wang; Shiyan Li",
+    "journal": "arXiv cond-mat（新提交）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.12257",
+    "material": "Cs(V₀.₈₆Ta₀.₁₄)₃Sb₅",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-09",
+    "access": "全文精读：实际读取公开 HTML 的引言、实验/Methods、Results、关键图及讨论；独立 SI 未读。",
+    "summary": "论文用 Ta 替位先压掉可见长程 CDW，再把同类 kagome 晶体推到 47.7 GPa：Tc 从常压 5.29 K 小幅波动后降到 12.3 GPa 的 0.98 K，随后升到 47.7 GPa 的 4.46 K。电阻零值、磁场抑制和压力曲线支持双穹顶存在；高压 Lifshitz 转变、短程 CDW 或配对对称性仍是候选解释，论文没有在压力中直接测到费米面或短程电荷序。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-09/#paper-2"
+  },
+  {
+    "id": "arxiv:2610.11341",
+    "title": "Strain-engineered long-distance supercurrent in an altermagnetic CrSb based Josephson junction",
+    "authors": "Yifan Gao; Jin Yan; Junjie Wei; Yifan Zhang; Zhiyuan Zhou; Tong Zou; Ruiyue Chu; Gui Wang; Kaiwen Shen; Zhiwei Zhang; Fang Chen; Yingfen Wei; Hao Jiang; Xumeng Zhang; Ming Wang; Liyang Liao; Jingli Wang; Yijun Yu; Wu Shi; Qi Yao; Xiaobing Chen; Qihang Liu; Yizheng Wu; Yuhang Li; Xufeng Kou; Cheng Song; Xianzhe Chen; Qi Liu; Xincheng Xie; Ming Liu",
+    "journal": "arXiv cond-mat（新提交）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.11341",
+    "material": "CrSb/Nb 外延约瑟夫森结",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-09",
+    "access": "全文精读：实际读取公开 HTML 的引言、实验/Methods、Results、关键图及讨论；独立 SI 未读。",
+    "summary": "作者在 Al₂O₃ 上生长 10 nm CrSb、接 50 nm Nb 电极，跨越 150 nm 看到约 0.55 K 的零电阻支路与 ±4 mT 干涉节点。无应变同几何结未见相同结果，显示应变/结构对超导近邻至关重要；把长程超流进一步定性为等自旋三重态，需要自旋敏感的相位和自旋轨道耦合控制，不能只依赖一个扩散长度估算。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-09/#paper-3"
+  },
+  {
+    "id": "arxiv:2610.12041",
+    "title": "Emergent gold-induced interfacial magnetism in monolayer FePS3",
+    "authors": "Giuseppe Buccoliero; Anita Polli; Marli dos Reis Cantarino; Rachel Nickel; Aloïs Arrighi; Roberto Sant; Tristan Riccardi; Valérie Reita; Nedjma Bendiab; Laëtitia Marty; Kurt Kummer; Johann Coraux; Nicholas B. Brookes",
+    "journal": "arXiv cond-mat（新提交）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.12041",
+    "material": "单层 FePS₃/Au 界面",
+    "tags": [
+      "arXiv",
+      "全文精读",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-09",
+    "access": "全文精读：实际读取公开 HTML 的引言、实验/Methods、Results、关键图及讨论；独立 SI 未读。",
+    "summary": "这篇论文把二维磁体的“基底选择”提升为电子结构控制旋钮：Au 邻接使 FePS₃ 单层的 Fe 位磁响应增强，而不是只改善剥离。相同厚度 SiO₂ 对照、层数级联、XAS/XMCD 与 RIXS 相互支撑界面电荷转移/杂化；但 9 T 下的 XMCD 是场诱导响应，不等同零场自发铁磁，拟合电荷转移能也不是直接测得的电子化学势。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-09/#paper-4"
+  },
+  {
     "id": "doi:10.1038/s41377-026-02468-2",
     "title": "Spatiotemporal terahertz emission nanoscopy of spintronic photocurrent",
     "authors": "Felix Paries; Reza Rouzegar; Jiahua Cai; Mingcong Dai; Felix Selz; Johanna Koelbel; Geoffrey Lezier; Nicolas Tiercelin; Daniel Molter; Daniel M. Mittleman; Georg von Freymann; Xiaojun Wu; Tom S. Seifert",
