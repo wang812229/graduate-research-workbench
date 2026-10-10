@@ -1,5 +1,56 @@
 [
   {
+    "id": "doi:10.1103/6285-5rms",
+    "title": "Net magnetization and inhomogeneous magnetic order in the high-Tc nickelate superconductor Sm1-x-yEuxCayNiO2",
+    "authors": "Alexander J. Grutter; Nurul Fitriyah; Brian B. Maranville; Saurav Prakash; Andreas Suter; Jochen Stahn; Gianluca Janka; Xing Gao; King Yau Yip; Zaher Salman; Thomas Prokscha; Julie A. Borchers; A. Ariando",
+    "journal": "Physical Review B 114, 194505（正式发表；作者公开稿 arXiv:2512.18005v1）",
+    "year": null,
+    "doi": "10.1103/6285-5rms",
+    "url": "https://doi.org/10.1103/6285-5rms",
+    "material": "Sm₀.₇₅Eu₀.₂₀Ca₀.₀₅NiO₂ 无限层薄膜",
+    "tags": [
+      "正式期刊",
+      "全文精读",
+      "镍酸盐",
+      "薄膜外延",
+      "磁性",
+      "PLD",
+      "低能μSR",
+      "PNR",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-10",
+    "access": "全文精读：实际读取公开作者稿 Introduction、Results、Methods、Figs.1–4 与其文末 Supplementary Information 的 LE-μSR 停止分布/背景、PNR 模型说明；出版社正式 PDF 未取得，不能宣称正式版逐页精读。",
+    "summary": "这篇论文讲的是：镍酸盐超导薄膜不只要问“电阻何时归零”，还要问镍氧层与稀土层是否形成空间均匀磁态。研究组在同一种 Sm–Eu–Ca 无限层薄膜上组合深度可调 μ 子与偏振中子，看到约 200 K 开始的磁冻结及上层较强的场诱导净磁矩；这个磁信号跨过约 29 K 的超导转变仍在。它提示稀土/氧还原形成的磁性可能参与高场重入超导，但数据并未直接测出 Eu 的磁结构，也没有证明零场铁磁与微观超导在同一体积完全共存。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-10/#paper-1"
+  },
+  {
+    "id": "doi:10.1103/85bz-sslm",
+    "title": "Crystallographic imperfections and exotic superconductivity of UBe13",
+    "authors": "Andreas Leithe-Jasper; Markus König; Yusei Shimizu; Konstantin Semeniuk; Primož Koželj; Mitja Krnel; Paul Simon; Wilder Carrillo-Cabrera; Nazar Zaremba; Marcel Naumann; Ulrich Burkhardt; Thomas Doert; Yurii Prots; Alfred Amon; Elena Gati; Matthias Vojta; Yuri Grin; Elena Hassinger; Eteri Svanidze",
+    "journal": "Physical Review B 114, 204504（正式发表；作者公开稿 arXiv:2609.19678v1）",
+    "year": null,
+    "doi": "10.1103/85bz-sslm",
+    "url": "https://doi.org/10.1103/85bz-sslm",
+    "material": "UBe₁₃ 无 Al 微晶 / 重费米子超导",
+    "tags": [
+      "正式期刊",
+      "全文精读",
+      "UBe13",
+      "重费米子超导",
+      "缺陷",
+      "电弧熔炼",
+      "微结构",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-10-10",
+    "access": "全文精读：实际读取公开作者稿 Introduction、Results/Discussion、Experimental/Methods、Figs.1–4，以及 HTML 所含 SI 的样品制备与显微/输运补图 S1–S7；出版社正式 PDF 未取得。",
+    "summary": "这篇正式版为 9 月已介绍的 UBe₁₃ 研究给出了可引用的 PRB DOI。真正要记住的不是“已证明三重态”，而是制备史几乎决定了被测超导态：避开 Al flux、从较大晶粒切出微输运通道后，Tc 可在约 0.65–0.88 K 之间变化，微小晶格参数差异与 Tc 明显相关。热容与局部输运互证了转变不是单个电极假象，但 Be 空位与 U 价态仍是未完全量化的机制候选；正式刊行并未被本站核实为新增物性结果。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-10/#paper-2"
+  },
+  {
     "id": "arxiv:2610.11731",
     "title": "Interlayer ferromagnetic order revealed through pressure-enhanced interlayer exchange coupling in Fe3GaTe2",
     "authors": "Riku Iimori; Takashi Kimura",
@@ -6731,30 +6782,6 @@
     "access": "全文精读：已读取arXiv公开PDF的正文、Methods/实验细节、关键图注及附录/补充材料相关段落；数值未经独立复算",
     "summary": "这篇文章的故事是：让常压块体镍酸盐从条纹绝缘体走向金属时，在两相交界出现超导信号。Pr或Y替代压缩间隔层并破坏条纹序，样品分别在约7 K和15 K呈现可被磁场抑制的电阻骤降、弱抗磁和临界电流；但超导体积分数仅约2%与0.03%，所以论文证明的是共存边界中的局域/非贯通超导证据，而不是均匀块体超导已经解决。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-18/#paper-2"
-  },
-  {
-    "id": "arxiv:2609.19678",
-    "title": "Crystallographic imperfections and exotic superconductivity of UBe$_{13}$",
-    "authors": "Andreas Leithe-Jasper; Markus König; Yusei Shimizu; Konstantin Semeniuk; Primož Koželj; Mitja Krnel; Paul Simon; Wilder Carrillo-Cabrera; Nazar Zaremba; Marcel Naumann; Ulrich Burkhardt; Thomas Doert; Yurii Prots; Alfred Amon; Elena Gati; Matthias Vojta; Yuri Grin; Elena Hassinger; Eteri Svanidze",
-    "journal": "arXiv:2609.19678 v1",
-    "year": 2026,
-    "doi": "",
-    "url": "https://arxiv.org/abs/2609.19678",
-    "material": "UBe₁₃₋ₓ微晶",
-    "tags": [
-      "arXiv v1",
-      "UBe13",
-      "重费米子",
-      "Al flux",
-      "Be空位",
-      "微结构输运",
-      "重费米子与量子临界"
-    ],
-    "category": "重费米子与量子临界",
-    "date": "2026-09-18",
-    "access": "全文精读：已读取arXiv公开PDF的正文、Methods/实验细节、关键图注及附录/补充材料相关段落；数值未经独立复算",
-    "summary": "这篇文章把“样品里几乎看不见的缺陷”推成重费米子超导的主角：传统Al助熔剂单晶会有约0.1 at.% Al占据Be位，退火又可能留下Be空位；作者改由不含Al的U–Be二元熔体制备大晶粒，再从多晶块中微加工出局域单晶通道。晶格体积仅约0.006%的变化就对应约28%的Tc变化，说明比较UBe₁₃的配对或Hc2前必须先分清Al残留、Be空位和微结构历史。",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-09-18/#paper-3"
   },
   {
     "id": "arxiv:2609.20093",

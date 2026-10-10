@@ -4,6 +4,17 @@ import { emptyVault, normalizeExperiment, normalizeMeasurementDataset, datasetQu
 import { packResearchDataset, unpackResearchDataset, originalFileBytes, splitCloudPackage, joinCloudPackage, sha256 } from '../research-package.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
+test('formal DOI supersedes an earlier arXiv catalog record without doubling the paper',()=>{
+  const prior={id:'arxiv:2609.19678',title:'Crystallographic imperfections and exotic superconductivity of UBe13',date:'2026-09-18'};
+  const reports=[
+    {date:'2026-10-10',papers:[{title:prior.title,doi:'https://doi.org/10.1103/85bz-sslm',fullText:'https://arxiv.org/html/2609.19678',journal:'Physical Review B'}]},
+    {date:'2026-09-18',papers:[{title:prior.title,doi:'https://arxiv.org/abs/2609.19678'}]}
+  ];
+  const merged=mergeReports(reports,[prior]);
+  assert.equal(merged.length,1);
+  assert.equal(merged[0].id,'doi:10.1103/85bz-sslm');
+});
+
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
   const old={id:'exp-1',sampleId:'CVT-01',material:'α-RuCl₃',method:'CVT',notes:'第一行\n第二行, 含逗号'};
   const fromJson=parseImport(JSON.stringify([old]),'experiment-records.json');

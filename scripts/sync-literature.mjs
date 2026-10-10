@@ -20,14 +20,21 @@ export function mergeReports(reports,existing=[]){
   if(!Array.isArray(reports)||!Array.isArray(existing))throw new Error('文献数据格式错误');
   const merged=new Map();
   const seenTitles=new Set();
+  const supersededIds=new Set();
   for(const report of [...reports].sort((a,b)=>String(b.date).localeCompare(String(a.date)))){
     if(!/^\d{4}-\d{2}-\d{2}$/.test(report.date)||!Array.isArray(report.papers))throw new Error('简报缺少日期或论文列表');
     for(const [index,p] of report.papers.entries()){
       if(!p.title)continue;
       const id=paperId(p,report.date,index+1);
       const title=String(p.title).normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();
-      if(merged.has(id)||seenTitles.has(title))continue;
+      if(merged.has(id)||seenTitles.has(title)||supersededIds.has(id))continue;
       seenTitles.add(title);
+      // A formally published DOI takes over an earlier arXiv catalog entry.
+      // Keep the report history, but show one current catalog record.
+      if(id.startsWith('doi:')){
+        const arxiv=String(p.fullText||p.versionNote||'').match(/(?:arxiv\.org\/(?:abs|html|pdf)\/|arxiv:)(\d{4}\.\d{4,5})/i);
+        if(arxiv)supersededIds.add(`arxiv:${arxiv[1]}`);
+      }
       const old=existing.find(item=>item.id===id)||{};
       const doi=id.startsWith('doi:')?id.slice(4):'';
       merged.set(id,{
@@ -40,7 +47,7 @@ export function mergeReports(reports,existing=[]){
       });
     }
   }
-  for(const item of existing)if(item?.id&&!merged.has(item.id))merged.set(item.id,item);
+  for(const item of existing)if(item?.id&&!merged.has(item.id)&&!supersededIds.has(item.id))merged.set(item.id,item);
   return [...merged.values()];
 }
 
