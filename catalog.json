@@ -26,6 +26,58 @@
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-11/#paper-1"
   },
   {
+    "id": "doi:10.1038/s43246-026-01317-4",
+    "title": "Sub-nanosecond structural dynamics of the martensitic transformation in Ni-Mn-Ga",
+    "authors": "Yuru Ge; Fabian Ganss; Daniel Schmidt; Daniel Hensel; Mike J. Bruckhoff; Sakshath Sadashivaiah; Bruno Neumann; Mariana Brede; Markus E. Gruner; Peter Gaal; Klara Lünser; Sebastian Fähler",
+    "journal": "Communications Materials，正式发表；公开作者稿 arXiv:2509.06513v2",
+    "year": null,
+    "doi": "10.1038/s43246-026-01317-4",
+    "url": "https://doi.org/10.1038/s43246-026-01317-4",
+    "material": "Ni₅₃Mn₁₈Ga₂₆Cu₃ 外延磁性形状记忆薄膜",
+    "tags": [
+      "正式期刊",
+      "全文精读",
+      "作者公开稿",
+      "外延",
+      "磁控溅射",
+      "Ni-Mn-Ga",
+      "马氏体相变",
+      "时分辨XRD",
+      "晶体质量",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-11",
+    "access": "全文精读（作者公开稿）：实际读取 v2 正文引言、结果第 2–8 节、Methods 的 Film preparation、R(T)、静态/时分辨 XRD、Data Reduction、ML-FF，以及图 1–6、表 1 和 SI 图号说明；正式版网页经 Nature 身份认证跳转，未把未读正式正文冒充已读。",
+    "summary": "这篇论文讲的是“相变有多快”必须由晶体结构直接计时，不能只看电阻或磁光代理信号。作者把 50 nm Cu 掺杂 Ni–Mn–Ga 膜长在高导热 Si/SrTiO₃/Cr 层堆栈上，用飞秒激光加热，在同步辐射上追踪马氏体 (202)₁₄M 与奥氏体 (022)A 两个峰：最低 5 mJ/cm² 已让前者消失、后者出现，约 5 ns 几乎回到初态。相变上限受 X 射线脉冲宽度限制，不能声称固有动力学恰为 90 或 100 ps；较高能量反而使拟合变宽，作者用基底约束热应变与非平衡电子/自旋能量来解释。这对下一炉薄膜的厚度、缓冲层和热沉选择，比单纯追求更强激光更有指导性。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-11/#paper-2"
+  },
+  {
+    "id": "doi:10.1103/rpfv-7nm6",
+    "title": "Optical Readout of the Magnetic State Using Terahertz Electric Fields",
+    "authors": "T. G. H. Blank; C. Bauer; M. X. Na; E. A. Mashkovich; A. K. Zvezdin; A. M. Kalashnikova; A. V. Kimel",
+    "journal": "Physical Review Letters 137, 156901；Editors’ Suggestion",
+    "year": null,
+    "doi": "10.1103/rpfv-7nm6",
+    "url": "https://doi.org/10.1103/rpfv-7nm6",
+    "material": "Ho₃Fe₅O₁₂ 单晶稀土铁石榴石",
+    "tags": [
+      "正式期刊",
+      "仅摘要",
+      "Ho₃Fe₅O₁₂",
+      "稀土铁石榴石",
+      "磁光Faraday",
+      "THz",
+      "单晶",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-11",
+    "access": "仅摘要/元数据：APS 正文与 SI 显示需要订阅/机构认证，当前无有效浙大会话；按题名/作者未找到可核验的公开作者稿或 arXiv，未读正文、Methods 或图表。",
+    "summary": "这篇论文讲的是“看磁态”也可以用 THz 电场瞬时改写磁光读出通道。APS 摘要给出的直接实验事实是 Ho₃Fe₅O₁₂ 单晶在磁化补偿温度以下出现显著的 THz 诱导 Faraday 响应，且 Tb₃Fe₅O₁₂ 也有信号；把它归因于 Ho³⁺ 晶场 f–f 共振属于作者机制解释。由于正文与 SI 需机构权限，具体谱线、温度、场强、样品生长和误差均未核验，不能把作者的亚 100 nm 读出前景当作已经做出的空间分辨实验。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-11/#paper-3"
+  },
+  {
     "id": "doi:10.1103/6285-5rms",
     "title": "Net magnetization and inhomogeneous magnetic order in the high-Tc nickelate superconductor Sm1-x-yEuxCayNiO2",
     "authors": "Alexander J. Grutter; Nurul Fitriyah; Brian B. Maranville; Saurav Prakash; Andreas Suter; Jochen Stahn; Gianluca Janka; Xing Gao; King Yau Yip; Zaher Salman; Thomas Prokscha; Julie A. Borchers; A. Ariando",
