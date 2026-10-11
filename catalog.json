@@ -1,5 +1,31 @@
 [
   {
+    "id": "doi:10.1038/s41467-026-78513-w",
+    "title": "Topological diversity and scintillating dynamics of dipolar surface twists in a van der Waals magnet",
+    "authors": "Xiaowei Lv; Jiazhuan Qin; Yue Hu; Qingping Wang; Hongyuan Hao; Ke Pei; Senfu Zhang; Xuewen Fu; Han-Wen Cheng; Zhipeng Hou; Renchao Che",
+    "journal": "Nature Communications，Article in Press（正式 DOI；后续可能替换为 Version of Record）",
+    "year": null,
+    "doi": "10.1038/s41467-026-78513-w",
+    "url": "https://doi.org/10.1038/s41467-026-78513-w",
+    "material": "Fe₃GaTe₂ 室温范德华铁磁体",
+    "tags": [
+      "正式期刊",
+      "全文精读",
+      "SI精读",
+      "Fe₃GaTe₂",
+      "范德华磁体",
+      "Lorentz TEM",
+      "表面磁纹理",
+      "原位电流",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-11",
+    "access": "全文精读（范围限定）：实际读取出版社公开 36 页 Supplementary Information，重点 Supplementary Figs. 1–12、14–29 与 Note 1 图注/参数；主文仅见摘要，Methods、主图与完整结果段尚未发布或访问重定向。",
+    "summary": "这篇论文讲的是同一块 Fe₃GaTe₂ 的表面与内部不一定共享同一种磁畴运动。作者先在零场看到覆盖在体内条纹域上的表面局域扭转，再借倾角、厚度、剥离对照和微磁模拟区分表面与体内贡献；室温电脉冲下，表面扭转反复生成、湮灭或改手性，而体内斯格明子串偏向有序移动。它提示器件读出表面局域态时不能把整厚度磁纹理视为一体，但“分数拓扑电荷”的赋值依赖三维模型和模拟，不能仅凭单张 Lorentz TEM 明暗图认定。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-11/#paper-1"
+  },
+  {
     "id": "doi:10.1103/6285-5rms",
     "title": "Net magnetization and inhomogeneous magnetic order in the high-Tc nickelate superconductor Sm1-x-yEuxCayNiO2",
     "authors": "Alexander J. Grutter; Nurul Fitriyah; Brian B. Maranville; Saurav Prakash; Andreas Suter; Jochen Stahn; Gianluca Janka; Xing Gao; King Yau Yip; Zaher Salman; Thomas Prokscha; Julie A. Borchers; A. Ariando",
