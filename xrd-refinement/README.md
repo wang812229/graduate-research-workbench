@@ -30,3 +30,5 @@ Origin 可用 File → Import → Single ASCII/CSV 打开 `origin-curves.csv`，
 ## 验证状态
 
 已测试输入完整性、数值合理性、错误拒绝和静态页面构建；此电脑已在 `D:\GSAS` 找到官方 GSAS-II 安装，并用官方 PbSO₄ 实测数据完成真实两阶段端到端精修与 GPX、CIF、Origin CSV、SVG 导出。详细数值与限制见 [验收记录](validation-record.md)。该次 wR 仍约 30.57%，属**需人工复核**而非结构确认。页面在缺少引擎或失败时仍不会伪造输出。
+
+`validate_official_e2e.py` 另从本机桥接 HTTP 接口提交该官方实测谱，核查返回 ZIP 中的 GSAS-II GPX/LST、差谱和 6000 行 Origin CSV。这是手动验收脚本，需自备官方样例文件和已安装的 GSAS-II，不会作为 CI 中的模拟精修运行。
