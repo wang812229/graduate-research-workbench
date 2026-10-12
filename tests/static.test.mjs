@@ -73,6 +73,8 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.match(app,/data-fit-chart/);
   assert.match(app,/大窗口绘图/);
   assert.match(app,/导出 Origin 数据/);
+  assert.match(app,/processing:dataProcessingView/);
+  assert.match(app,/data-select-processing/);
   assert.match(app,/25_000_000/);
   assert.match(core,/parseMeasurementText/);
   assert.match(core,/Curie–Weiss/);
@@ -84,6 +86,28 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.equal(cloudConfig.enabled,true);
   assert.equal(validateCloudConfig(cloudConfig),true);
   for(const forbidden of ['server.mjs','server-v2.mjs','db-local.mjs','db-postgres.mjs','compose.yml','.env'])assert.equal(files.includes(forbidden),false);
+});
+
+test('data processing has its own navigation and saves a real pipeline version',async()=>{
+  const source=(await readFile(resolve('app.mjs'),'utf8')).replace(/^import .*;\r?\n/gm,'').replace(/\bboot\(\);\s*$/,'');
+  const record=normalizeExperiment({id:'exp-processing',sampleId:'CVT-026',material:'RuCl3',datasets:[{id:'data-processing',name:'R(T)',type:'电阻/电阻率',columns:['T','R'],xColumn:'T',yColumn:'R',rows:[[2,2],[100,4],[300,10]]}]});
+  const context={document:{querySelector:()=>({}),addEventListener(){}},window:{addEventListener(){}},STATIC_MODE:true,structuredClone,normalizeMeasurementDataset,runProcessingPipeline:globalThis.runProcessingPipeline,createPipelineVersion:globalThis.createPipelineVersion};
+  const core=await import('../core.mjs');Object.assign(context,core,{h:core.escapeHtml,renderExperimentJournal});
+  vm.runInNewContext(`${source}\nglobalThis.harness={set:v=>{session={user:{username:'member',displayName:'研究成员'},vault:v};},processing:dataProcessingView,experiment:experimentDetail,sidebar};`,context,{filename:'app.mjs'});
+  context.harness.set({experiments:[record],processingTemplates:[]});
+  const processing=context.harness.processing();
+  assert.match(processing,/R\(T\)/);
+  assert.match(processing,/可复现数据处理流水线/);
+  assert.match(processing,/保存当前分析版本/);
+  assert.match(processing,/导出已保存版本到 Origin CSV/);
+  assert.match(context.harness.sidebar(),/数据处理/);
+  const experiment=context.harness.experiment(record);
+  assert.match(experiment,/进入数据处理/);
+  assert.doesNotMatch(experiment,/保存当前分析版本/);
+  const dataset=record.datasets[0];
+  const version=core.createPipelineVersion(dataset,[{type:'扣除常数背景',params:{value:1}}]);
+  assert.equal(version.version,1);
+  assert.equal(core.runProcessingPipeline(dataset,[{type:'扣除常数背景',params:{value:1}}]).rows[0][1],1);
 });
 
 test('cloud mode requires complete Firebase config and owner-only verified-email rules',async()=>{

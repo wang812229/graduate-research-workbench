@@ -102,7 +102,7 @@ def create_handler(token: str, work_dir: Path):
                 archive = io.BytesIO()
                 with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zipped:
                     for path in sorted(output.iterdir()):
-                        if path.is_file() and not path.name.startswith("stage-"):
+                        if path.is_file() and ".bak" not in path.name:
                             zipped.write(path, path.name)
                 return self._response(200, {"result": result, "zip_base64": base64.b64encode(archive.getvalue()).decode("ascii"), "local_directory": str(job_dir)})
             except subprocess.TimeoutExpired:

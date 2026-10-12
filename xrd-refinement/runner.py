@@ -235,7 +235,10 @@ def run(job: dict, out: Path, gsas=None) -> dict:
               "final_cell_esd": phase.get_cell_and_esd()[1],
               "stages": snapshots, "warnings": warnings,
               "interpretation": "wR 低不独自证明结构正确；需核对差谱、杂相、系统误差、参数相关性、结构化学合理性及仪器校准。",
-              "exports": ["refinement.gpx", "refined-structure.cif", "origin-curves.csv", "refinement-plot.svg"] + (["card-reference.csv"] if card_peaks else [])}
+              "exports": ["refinement.gpx", "refinement.lst", "refined-structure.cif", "origin-curves.csv", "refinement-plot.svg"]
+              + [f"stage-{i}.gpx" for i in range(1, len(stages)+1)]
+              + [f"stage-{i}.lst" for i in range(1, len(stages)+1)]
+              + (["card-reference.csv"] if card_peaks else [])}
     (out / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     return result
 

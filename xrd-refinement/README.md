@@ -3,7 +3,7 @@
 本模块在公开工作平台提供输入和结果界面，但计算由**用户电脑上安装的 GSAS-II** 执行。页面不上传原始样品到 GitHub、Firebase 或其他云端。仓库未包含 GSAS-II 或其二进制依赖。请按 [GSAS-II 官方安装指南](https://advancedphotonsource.github.io/GSAS-II-tutorials/install.html) 安装，并使用**该安装环境的 Python** 启动 `bridge.py`：
 
 ```powershell
-python xrd-refinement/bridge.py
+powershell -ExecutionPolicy Bypass -File xrd-refinement/start-gsas-bridge.ps1
 ```
 
 终端会显示 `127.0.0.1:8765` 和随机令牌。打开工作平台的“XRD 结构精修”页，将令牌填入表单后提交。桥接服务仅绑定本机回环地址，浏览器请求受来源白名单和令牌双重限制。实验原始文件和结果默认保存在 `~/Documents/Yanxi-XRD/<随机任务编号>/`。关闭终端可停止桥接服务；重启后令牌会变化。不要把令牌或私人 XRD 文件放入公开仓库。
@@ -29,4 +29,4 @@ Origin 可用 File → Import → Single ASCII/CSV 打开 `origin-curves.csv`，
 
 ## 验证状态
 
-已测试输入完整性、数值合理性、错误拒绝和静态页面构建；此电脑**未安装 GSAS-II**，因此真实 PbSO₄ 等实验数据的端到端精修仍待在装有 GSAS-II 的机器上验收。页面不会在缺少引擎或失败时伪造输出。
+已测试输入完整性、数值合理性、错误拒绝和静态页面构建；此电脑已在 `D:\GSAS` 找到官方 GSAS-II 安装，并用官方 PbSO₄ 实测数据完成真实两阶段端到端精修与 GPX、CIF、Origin CSV、SVG 导出。详细数值与限制见 [验收记录](validation-record.md)。该次 wR 仍约 30.57%，属**需人工复核**而非结构确认。页面在缺少引擎或失败时仍不会伪造输出。
