@@ -51,6 +51,10 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(files.includes('experiment-journal.mjs'));
   assert.ok(files.includes('experiment-journal-ui.mjs'));
   assert.ok(files.includes('qrcode-vendor.mjs'));
+  assert.ok(files.includes('xrd-refinement.html'));
+  assert.ok(files.includes('xrd-refinement.mjs'));
+  assert.equal(files.includes('bridge.py'),false);
+  assert.equal(files.includes('runner.py'),false);
   assert.match(await readFile(resolve(out,'runtime.mjs'),'utf8'),/STATIC_MODE=true/);
   const html=await readFile(resolve(out,'index.html'),'utf8');
   const app=await readFile(resolve(out,'app.mjs'),'utf8');

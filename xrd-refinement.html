@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XRD 结构精修 · 研析</title><link rel="stylesheet" href="./xrd-refinement.css"></head>
+<body><main class="wrap"><a href="./">← 返回研析研究生工作平台</a>
+<header><p class="eyebrow">LOCAL GSAS-II RIETVELD WORKFLOW</p><h1>XRD 结构精修</h1>
+<p>调用你电脑上真实的 GSAS-II 做全谱 Rietveld 精修，导出可继续在 GSAS-II 打开的 GPX、结构 CIF、Origin 可导入曲线 CSV、SVG 图和阶段诊断。计算与原始文件仅在本机；本网页本身不在云端运行精修。</p></header>
+<section class="notice"><strong>关键边界</strong><p>标准卡片的峰位/相对强度只能帮助核相，不能替代含空间群和原子坐标的 CIF。还必须有与本次测量一致、经过校准的 GSAS-II 仪器参数文件。缺少这些输入时不会生成“精修成功”结果。拟合优度也不能单独证明结构正确。</p></section>
+<section class="grid"><form id="refine-form" class="card"><h2>1 · 输入与模型</h2>
+<label>实测 XRD 曲线（2θ、强度、可选 σ；至少 100 点）<input required name="pattern" type="file" accept=".xy,.xye,.csv,.txt"></label>
+<label>候选结构 CIF（必须含原子坐标）<input required name="structure" type="file" accept=".cif"></label>
+<label>GSAS-II 仪器参数（经标准样校准）<input required name="instrument" type="file" accept=".instprm,.prm"></label>
+<label>标准卡片峰表（可选，仅归档参照、不参与计算）<input name="card" type="file" accept=".csv,.txt,.xy,.xye"></label>
+<label class="check"><input name="confirm_card_same_wavelength" type="checkbox"> 若上传标准卡片，我已确认它是 2θ/相对强度两列表，且与实测图波长一致</label>
+<label>背景项数 <input name="background_terms" type="number" min="2" max="8" value="4"></label>
+<label class="check"><input name="refine_cell" type="checkbox" checked> 分阶段精修晶胞参数</label>
+<label class="check"><input name="refine_profile" type="checkbox"> 精修 U、V、W、X、Y 峰形参数（仅确认标准样校准可靠后使用）</label>
+<label class="check"><input required name="confirm_structure_match" type="checkbox"> 我已核对 CIF 对应候选相及化学计量，理解可能存在杂相</label>
+<label class="check"><input required name="confirm_instrument_calibrated" type="checkbox"> 我已核对仪器参数与波长、几何和测量条件一致</label>
+<h2>2 · 本机引擎</h2><p>先在安装 GSAS-II 的 Python 环境运行 <code>python xrd-refinement/bridge.py</code>，把终端打印的本次启动令牌填在下方。勿将令牌发给他人。</p>
+<p>尚未取得本机程序时，请从<a href="https://github.com/wang812229/graduate-research-workbench/tree/main/xrd-refinement" target="_blank" rel="noopener">本项目源码中的 xrd-refinement 目录</a>下载并阅读安装说明。GSAS-II 需按官方安装，网页不提供云端代算。</p>
+<label>本机服务端口 <input name="port" type="number" value="8765" min="1024" max="65535"></label>
+<label>本次启动令牌 <input required name="token" type="password" autocomplete="off"></label>
+<button id="submit" type="submit">运行 GSAS-II 精修并下载结果</button></form>
+<aside class="card"><h2>阶段与科学审查</h2><ol><li>检查实测数据的数值、步长、2θ 范围，保留原文件 SHA-256。</li><li>GSAS-II 读取校准仪器参数与结构 CIF，建立可复开的 GPX。</li><li>先精修背景与尺度；按选择再精修晶胞，最后才考虑峰形。</li><li>保存各阶段 GPX、wR 与晶胞参数；输出全谱拟合及差谱。</li></ol><p>不会自动释放原子坐标、占位率、热参数、零点、位移或择优取向；这些变量互相关联，需在查看差谱与独立质量证据后，由研究者在 GSAS-II 手动决定。多相样品应加入所有必要相后再解释物相含量。</p>
+<div id="status" role="status" aria-live="polite">等待输入。</div><div id="result" hidden></div></aside></section>
+<footer><p>导入 Origin：File → Import → Single ASCII/CSV，选择 <code>origin-curves.csv</code>；第一列设 X，其余列设 Y。<a href="https://gsas-ii.readthedocs.io/en/latest/GSASIIscriptable.html" target="_blank" rel="noopener">GSAS-II 官方脚本接口文档 ↗</a></p></footer></main><script type="module" src="./xrd-refinement.mjs"></script></body></html>

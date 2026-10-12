@@ -5,14 +5,14 @@ import { rollup } from 'rollup';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const root=resolve(import.meta.dirname,'..'),out=resolve(root,'dist-static');
-const files=['index.html','styles.css','app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','QR-CODE-LICENSE.txt','catalog.json','sw.js','favicon.svg','manifest.webmanifest','cloud-config.json'];
+const files=['index.html','styles.css','app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','QR-CODE-LICENSE.txt','catalog.json','sw.js','favicon.svg','manifest.webmanifest','cloud-config.json','xrd-refinement.html','xrd-refinement.css','xrd-refinement.mjs'];
 await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});
 for(const file of files)await cp(resolve(root,file),resolve(out,file));
 const cloudBundle=await rollup({input:resolve(root,'cloud-client.mjs'),plugins:[nodeResolve({browser:true})]});
 await cloudBundle.write({file:resolve(out,'cloud-client.bundle.mjs'),format:'es'});
 await cloudBundle.close();
 await writeFile(resolve(out,'runtime.mjs'),'export const STATIC_MODE=true;\n');
-const versionedAssets=['app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','runtime.mjs','cloud-client.bundle.mjs','styles.css'];
+const versionedAssets=['app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','runtime.mjs','cloud-client.bundle.mjs','styles.css','xrd-refinement.mjs','xrd-refinement.css'];
 const hash=createHash('sha256');
 for(const file of versionedAssets)hash.update(await readFile(resolve(out,file)));
 const version=hash.digest('hex').slice(0,12);
@@ -25,7 +25,11 @@ const html=(await readFile(resolve(out,'index.html'),'utf8'))
   .replace('href="./styles.css"',`href="./styles.css?v=${version}"`)
   .replace('src="./app.mjs"',`src="./app.mjs?v=${version}"`);
 await writeFile(resolve(out,'index.html'),html);
-const worker=(await readFile(resolve(out,'sw.js'),'utf8')).replace(/\bv7\b/,`v8-${version}`);
+const xrdHtml=(await readFile(resolve(out,'xrd-refinement.html'),'utf8'))
+  .replace('href="./xrd-refinement.css"',`href="./xrd-refinement.css?v=${version}"`)
+  .replace('src="./xrd-refinement.mjs"',`src="./xrd-refinement.mjs?v=${version}"`);
+await writeFile(resolve(out,'xrd-refinement.html'),xrdHtml);
+const worker=(await readFile(resolve(out,'sw.js'),'utf8')).replace(/\bv8\b/,`v8-${version}`);
 await writeFile(resolve(out,'sw.js'),worker);
 await writeFile(resolve(out,'.nojekyll'),'');
 console.log(`静态站点已生成：${out}（不含服务端、数据库或私人记录）`);

@@ -11,4 +11,5 @@ jobs:
       - run: npm install -g pnpm@11.19.0
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
+      - run: python3 -m unittest discover -s xrd-refinement -p 'test_*.py'
       - run: pnpm build

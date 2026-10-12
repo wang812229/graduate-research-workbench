@@ -44,3 +44,4 @@
 .outcome-note .count-pill{justify-self:start}
 .section-block details{margin-top:1rem}.section-block details>summary{cursor:pointer;color:#456de4;font-weight:600}
 @media(max-width:680px){.detail-head .button-group{flex-wrap:wrap}.journal-timeline li{display:block}.journal-timeline time{display:block;margin-bottom:.35rem}.sample-track{align-items:flex-start;flex-direction:column}.run-table{min-width:580px}}
+.xrd-nav-link{display:block;margin:12px 16px;padding:11px 14px;border:1px solid #aac8df;border-radius:10px;color:#dcefff;background:#ffffff12;text-decoration:none;font-weight:650}.xrd-nav-link:hover,.xrd-nav-link:focus-visible{background:#ffffff25}
