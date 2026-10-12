@@ -10,6 +10,7 @@ class Array(list):
 
 class MockHistogram:
     residuals = {"wR": 12.0, "R": 8.0}
+    data = {"Instrument Parameters": [{"Type": ["PXC", "PXC", 0]}]}
 
     def get_wR(self):
         return 12.0

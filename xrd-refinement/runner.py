@@ -89,7 +89,7 @@ def validate_job(job: dict) -> tuple[dict[str, Path], list[tuple[float, float, f
     if not any(k in cif for k in ("_atom_site_fract_x", "_atom_site_cartn_x")):
         raise InputError("CIF 缺少原子坐标；标准卡片/峰表不是可精修的结构模型")
     instrument = paths["instrument"].read_text(encoding="utf-8-sig", errors="replace").replace(" ", "")
-    if "CorrectionCode" in instrument:
+    if "correctioncode" in instrument.lower():
         raise InputError("仪器参数文件含可执行 CorrectionCode；为保护本机安全，请在 GSAS-II 中审查并另存无脚本版本")
     if paths["instrument"].suffix.lower() == ".instprm":
         if "Type:PXC" not in instrument:
@@ -182,6 +182,10 @@ def run(job: dict, out: Path, gsas=None) -> dict:
     xye.write_text("# 2theta intensity sigma\n" + "".join(f"{x:.8f} {y:.8f} {s:.8f}\n" for x,y,s in points), encoding="utf-8")
     project = gsas.G2Project(newgpx=str(out / "refinement.gpx"))
     hist = project.add_powder_histogram(str(xye), str(paths["instrument"]))
+    raw_type = hist.data["Instrument Parameters"][0]["Type"]
+    instrument_type = raw_type[0] if isinstance(raw_type, (list, tuple)) else raw_type
+    if instrument_type != "PXC":
+        raise InputError(f"GSAS-II 识别的仪器类型为 {instrument_type}，不是常波长粉末 XRD PXC；已停止精修")
     phase = project.add_phase(str(paths["structure"]), phasename="Sample phase", histograms=[hist], fmthint="CIF", useNet=False)
     initial_cell = phase.get_cell()
     snapshots = []
