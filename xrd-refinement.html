@@ -4,7 +4,7 @@
 <body><main class="wrap"><a href="./">← 返回研析研究生工作平台</a>
 <header><p class="eyebrow">LOCAL GSAS-II RIETVELD WORKFLOW</p><h1>XRD 结构精修</h1>
 <p>调用你电脑上真实的 GSAS-II 做全谱 Rietveld 精修，导出可继续在 GSAS-II 打开的 GPX、结构 CIF、Origin 可导入曲线 CSV、SVG 图和阶段诊断。计算与原始文件仅在本机；本网页本身不在云端运行精修。</p></header>
-<section class="notice"><strong>关键边界</strong><p>标准卡片的峰位/相对强度只能帮助核相，不能替代含空间群和原子坐标的 CIF。还必须有与本次测量一致、经过校准的 GSAS-II 仪器参数文件。缺少这些输入时不会生成“精修成功”结果。拟合优度也不能单独证明结构正确。</p></section>
+<section class="notice"><strong>关键边界 · 真实数据验收待完成</strong><p>标准卡片的峰位/相对强度只能帮助核相，不能替代含空间群和原子坐标的 CIF。还必须有与本次测量一致、经过校准的 GSAS-II 仪器参数文件。缺少这些输入时不会生成“精修成功”结果。拟合优度也不能单独证明结构正确。本机尚未装 GSAS-II，当前只验证了输入、桥接和导出编排；请在装有 GSAS-II 的电脑上用标准样与真实样品完成端到端验收。</p></section>
 <section class="grid"><form id="refine-form" class="card"><h2>1 · 输入与模型</h2>
 <label>实测 XRD 曲线（2θ、强度、可选 σ；至少 100 点）<input required name="pattern" type="file" accept=".xy,.xye,.csv,.txt"></label>
 <label>候选结构 CIF（必须含原子坐标）<input required name="structure" type="file" accept=".cif"></label>
