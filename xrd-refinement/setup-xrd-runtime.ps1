@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$RuntimeDir = (Join-Path $PSScriptRoot '.runtime'),
   [string]$BasePython = 'python'
 )
@@ -7,7 +7,7 @@ $runtimePath = [IO.Path]::GetFullPath($RuntimeDir)
 if ($runtimePath -eq [IO.Path]::GetPathRoot($runtimePath)) { throw '独立环境不能设在磁盘根目录' }
 $gsasCommit = '2b4aba1bc44de63a3da9d4495944c3b99e389399'
 $skillCommit = '62b7ab5eac2c8c0e49584ab1ab37b61a25493e97'
-$version = & $BasePython -c 'import sys; print(str(sys.version_info.major)+"."+str(sys.version_info.minor))'
+$version = & $BasePython -c 'import sys; print(str(sys.version_info.major)+chr(46)+str(sys.version_info.minor))'
 if ($LASTEXITCODE -ne 0 -or $version -notin @('3.12','3.13')) { throw '请使用 Windows 64 位 Python 3.12 或 3.13；无需已有 GSAS-II 安装' }
 $downloads = Join-Path $runtimePath 'downloads'
 New-Item -ItemType Directory -Force -Path $downloads | Out-Null
@@ -44,14 +44,14 @@ if ($LASTEXITCODE -ne 0) { throw '计算组件解压失败' }
 $pythonRoot = Join-Path $runtimePath 'python'
 $python = Join-Path $pythonRoot 'Scripts\python.exe'
 if (!(Test-Path -LiteralPath $python)) { & $BasePython -m venv $pythonRoot; if ($LASTEXITCODE -ne 0) { throw '独立 Python 环境创建失败' } }
-$installedVersion = & $python -c 'import sys; print(str(sys.version_info.major)+"."+str(sys.version_info.minor))'
+$installedVersion = & $python -c 'import sys; print(str(sys.version_info.major)+chr(46)+str(sys.version_info.minor))'
 if ($installedVersion -ne $version) { throw '现有独立环境的 Python 版本不匹配，请选择新的 RuntimeDir' }
 & $python -m pip install 'numpy==2.2.6' 'scipy==1.15.3' 'PyCifRW==5.0.1'
 if ($LASTEXITCODE -ne 0) { throw '科学计算依赖安装失败' }
 $env:PYTHONPATH = $sourceRoot
 $env:GSASII_DIR = $sourceRoot
 $env:PATH = "$binaryRoot;$env:PATH"
-& $python -c 'from GSASII import GSASIIscriptable as G2; import sys; print("Python:",sys.executable); print("GSAS-II:",G2.__file__)'
+& $python -c 'from GSASII import GSASIIscriptable as G2; import sys; print(sys.executable); print(G2.__file__)'
 if ($LASTEXITCODE -ne 0) { throw '真实 GSAS-II 独立环境导入失败' }
 $manifest = @{gsas_commit=$gsasCommit;skill_commit=$skillCommit;python_version=$version;binary_sha256=$binaryDigest;source_root=$sourceRoot;skill_root=$skillRoot;python=$python;source_archive_sha256=(Get-FileHash -LiteralPath $sourceZip -Algorithm SHA256).Hash.ToLower();skill_archive_sha256=(Get-FileHash -LiteralPath $skillZip -Algorithm SHA256).Hash.ToLower()}
 $manifest | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $runtimePath 'runtime.json') -Encoding utf8
