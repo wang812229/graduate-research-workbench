@@ -1,6 +1,6 @@
 const CACHE_PREFIX = `yanxi-shell-${encodeURIComponent(self.registration.scope)}-`;
 const CACHE = `${CACHE_PREFIX}v8`;
-const SHELL = ["./", "./index.html", "./styles.css", "./app.mjs", "./core.mjs", "./processing-workspace.mjs", "./offline.mjs", "./research-package.mjs", "./experiment-journal.mjs", "./experiment-journal-ui.mjs", "./qrcode-vendor.mjs", "./runtime.mjs", "./catalog.json", "./favicon.svg", "./manifest.webmanifest", "./xrd-refinement.html", "./xrd-refinement.css", "./xrd-refinement.mjs", "./xrd-refinement/rigaku-ultima-iv-185.json", "./xrd-refinement/skill-integration.md"];
+const SHELL = ["./", "./index.html", "./styles.css", "./app.mjs", "./core.mjs", "./processing-workspace.mjs", "./xrd-workspace.mjs", "./offline.mjs", "./research-package.mjs", "./experiment-journal.mjs", "./experiment-journal-ui.mjs", "./qrcode-vendor.mjs", "./runtime.mjs", "./catalog.json", "./favicon.svg", "./manifest.webmanifest", "./xrd-refinement.html", "./xrd-refinement.css", "./xrd-refinement.mjs", "./xrd-refinement/rigaku-ultima-iv-185.json", "./xrd-refinement/skill-integration.md"];
 const OPTIONAL_CLOUD = ["./cloud-config.json", "./cloud-client.bundle.mjs"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(async cache => {

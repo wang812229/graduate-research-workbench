@@ -13,6 +13,7 @@ import {renderExperimentJournal} from '../experiment-journal-ui.mjs';
 import {packWholeExperiment,unpackWholeExperiment,sha256} from '../research-package.mjs';
 import qrcode from '../qrcode-vendor.mjs';
 import * as processingWorkspace from '../processing-workspace.mjs';
+import {createXrdWorkspace} from '../xrd-workspace.mjs';
 
 test('device-local profiles require their own password and never overwrite an existing name',async()=>{
   const vault=emptyVault(),created=await registerLocalAccount('member','研究成员','long-password-1',vault);
@@ -55,6 +56,7 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(files.includes('xrd-refinement.html'));
   assert.ok(files.includes('xrd-refinement.mjs'));
   assert.ok(files.includes('processing-workspace.mjs'));
+  assert.ok(files.includes('xrd-workspace.mjs'));
   assert.equal(JSON.parse(await readFile(resolve(out,'xrd-refinement/rigaku-ultima-iv-185.json'),'utf8')).not_a_calibrated_gsasii_instrument_file,true);
   assert.equal(files.includes('bridge.py'),false);
   assert.equal(files.includes('runner.py'),false);
@@ -67,6 +69,7 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(version,'published app URL should change when assets change');
   assert.match(html,new RegExp(`styles\\.css\\?v=${version}`));
   assert.match(app,new RegExp(`core\\.mjs\\?v=${version}`));
+  assert.match(app,new RegExp(`xrd-workspace\\.mjs\\?v=${version}`));
   assert.match(app,new RegExp(`research-package\\.mjs\\?v=${version}`));
   assert.match(app,new RegExp(`experiment-journal-ui\\.mjs\\?v=${version}`));
   assert.match(app,/pick-measurement/);
@@ -219,4 +222,42 @@ test('public search and cloud account entry render without breaking page actions
   assert.match(context.harness.html(),/在此设备创建资料|进入工作台/);
   assert.match(context.harness.errorMessage({code:'auth/operation-not-allowed'}),/电子邮件\/密码注册/);
   assert.match(context.harness.errorMessage({code:'auth/unauthorized-domain'}),/已获授权的网域/);
+});
+
+
+test('XRD round trips retain mounted input state, close on back, and isolate account changes',()=>{
+  const handlers={},focus={isConnected:true,focus(){}},app={inert:false};
+  class Node {
+    constructor(tag){this.tag=tag;this.children=[];this.hidden=false;this.contentWindow={};this.isConnected=true;this.events={};}
+    setAttribute(){} append(...children){this.children.push(...children)}
+    addEventListener(type,fn){this.events[type]=fn} focus(){}
+    querySelector(tag){for(const node of this.children){if(node.tag===tag)return node;const nested=node.querySelector?.(tag);if(nested)return nested;}return null;}
+    remove(){this.isConnected=false;this.hidden=true;}
+  }
+  const body=new Node('body');body.style={overflow:''};
+  const doc={body,activeElement:focus,createElement:tag=>new Node(tag),querySelector:()=>app};
+  const history={state:null,pushState(state,_title,url){this.state=state;this.url=url;},back(){this.state=null;handlers.popstate();}};
+  const win={location:{href:'https://example.test/workbench/',origin:'https://example.test'},history,addEventListener:(type,fn)=>{handlers[type]=fn;}};
+  const workspace=createXrdWorkspace({document:doc,window:win}),user={id:'account-a',displayName:'A'};
+  workspace.open(user);const host=body.children[0],frame=host.querySelector('iframe');
+  frame.files=['original.xy'];frame.review={candidate:'03_zero_only'};
+  assert.equal(app.inert,true);assert.match(history.url,/#xrd$/);
+  handlers.message({origin:'https://evil.test',source:frame.contentWindow,data:{type:'yanxi-xrd-return'}});assert.equal(host.hidden,false);
+  handlers.message({origin:win.location.origin,source:{},data:{type:'yanxi-xrd-return'}});assert.equal(host.hidden,false);
+  handlers.message({origin:win.location.origin,source:frame.contentWindow,data:{type:'yanxi-xrd-return'}});assert.equal(host.hidden,true);assert.equal(app.inert,false);
+  workspace.open(user);assert.equal(body.children.length,1);assert.equal(host.querySelector('iframe'),frame);assert.deepEqual(frame.files,['original.xy']);assert.equal(frame.review.candidate,'03_zero_only');
+  history.state=null;handlers.popstate();assert.equal(host.hidden,true);
+  history.state={yanxiXrdWorkspace:true};handlers.popstate();assert.equal(host.hidden,false);
+  workspace.syncOwner('account-b');assert.equal(host.isConnected,false);assert.equal(app.inert,false);
+  workspace.open({id:'account-b'});assert.notEqual(body.children[1].querySelector('iframe'),frame);
+});
+
+test('all app XRD entries stay inside the unlocked app and help never replaces the refinement document',async()=>{
+  const app=await readFile(resolve('app.mjs'),'utf8'),html=await readFile(resolve('xrd-refinement.html'),'utf8'),code=await readFile(resolve('xrd-refinement.mjs'),'utf8');
+  assert.doesNotMatch(app,/location\.href=['"]\.\/xrd-refinement\.html/);
+  assert.match(app,/data-action="open-xrd"/);assert.match(app,/if\(method\.kind==='xrd'\)\{openXrdWorkspace\(\)/);
+  assert.match(html,/id="xrd-reference-dialog"/);assert.match(html,/id="xrd-reference-close"/);
+  assert.equal((html.match(/data-xrd-reference=/g)||[]).length,3);
+  assert.match(code,/referenceDialog\.showModal\(\)/);assert.match(code,/content\.textContent=/);
+  assert.doesNotMatch(code,/localStorage|sessionStorage/);
 });

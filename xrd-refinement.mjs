@@ -1,4 +1,27 @@
 const form=document.querySelector('#refine-form'),status=document.querySelector('#status'),result=document.querySelector('#result'),submit=document.querySelector('#submit');
+const referenceDialog=document.querySelector('#xrd-reference-dialog');
+let referenceRequest=null,referenceTrigger=null;
+function closeReference(){referenceRequest?.abort();referenceRequest=null;referenceDialog.close();referenceTrigger?.focus();}
+document.querySelector('#xrd-reference-close').addEventListener('click',closeReference);
+referenceDialog.addEventListener('cancel',()=>{referenceRequest?.abort();referenceRequest=null;});
+document.querySelector('#xrd-return').addEventListener('click',event=>{
+  if(window.parent!==window){event.preventDefault();window.parent.postMessage({type:'yanxi-xrd-return'},location.origin);}
+});
+document.addEventListener('click',async event=>{
+  const link=event.target.closest('[data-xrd-reference]');if(!link)return;
+  event.preventDefault();referenceRequest?.abort();referenceRequest=new AbortController();
+  const request=referenceRequest;referenceTrigger=link;
+  const title=document.querySelector('#xrd-reference-title'),content=document.querySelector('#xrd-reference-content'),message=document.querySelector('#xrd-reference-status');
+  title.textContent=link.dataset.xrdReference==='instrument'?'Rigaku Ultima IV 设备档案':'独立计算环境接入说明';content.textContent='';message.textContent='正在读取资料…';
+  if(!referenceDialog.open)referenceDialog.showModal();
+  try{
+    const url=new URL(link.href);if(url.origin!==location.origin)throw new Error('帮助资料必须来自本平台');
+    const response=await fetch(url,{signal:request.signal});if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    const text=await response.text();if(referenceRequest!==request)return;
+    content.textContent=link.dataset.xrdReference==='instrument'?JSON.stringify(JSON.parse(text),null,2):text;
+    message.textContent='关闭此窗口即可继续；上传文件、令牌和计算结果不会因此清除。';
+  }catch(error){if(error.name!=='AbortError'&&referenceRequest===request)message.textContent=`资料暂时无法读取：${error.message}。可直接关闭此窗口返回精修。`;}
+});
 let objectUrls=[];
 const candidateLabels={'01_scale_background':'尺度与背景','02_cell_only':'仅晶胞','03_zero_only':'仅零点','04_cell_zero_simultaneous':'晶胞与零点同时释放','05_cell_then_zero':'先晶胞后零点','06_zero_then_cell':'先零点后晶胞'};
 const candidateLabel=candidate=>candidateLabels[candidate.name]||candidate.name;

@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>XRD 结构精修 · 研析</title><link rel="stylesheet" href="./xrd-refinement.css"></head>
-<body><main class="wrap"><a href="./">← 返回研析研究生工作平台</a>
+<body><main class="wrap"><nav class="xrd-page-nav" aria-label="精修页面导航"><a id="xrd-return" href="./">← 返回工作台</a><span>帮助资料在页面内打开，可关闭后继续精修</span></nav>
 <header><p class="eyebrow">GSAS-II RIETVELD · LOCAL INDEPENDENT ENGINE</p><h1>XRD 结构精修</h1>
 <p>使用独立计算环境和指定 GSAS-II skill 比较精修模型，检查差谱、收敛与参数相关性，再保存选定结果。导出 GPX、结构 CIF、Origin 曲线 CSV、SVG 与审查报告。数据在本机计算，不产生云资源费用，也无需使用原先安装的 GSAS-II 软件。</p></header>
 <section class="notice"><strong>准备实测谱、结构 CIF 和匹配的校准参数</strong><p>标准卡片的峰位/相对强度用于核相；结构精修还需要空间群、原子坐标和本次测量光路对应的仪器参数。平台已用官方 6000 点 PbSO₄ 实测谱验证真实 skill 分支运算；每个新样品仍需检查全谱差谱、杂相和化学合理性。</p></section>
-<section class="notice"><strong>Rigaku Ultima IV · 185 mm 设备档案已加入</strong><p>厂商资料列出最大额定输出 3 kW、管电压 20–60 kV，并提供 185/285 mm 两种测角仪半径；这里按你提供的 185 mm 配置记录。靶材、单色器、狭缝、探测器和扫描几何因具体安装而异；±0.005% 稳定性来自你提供的信息，尚未由本台设备校准记录核实。<a href="./xrd-refinement/rigaku-ultima-iv-185.json">查看完整设备档案</a>。这不是 GSAS-II 可用的已校准仪器参数文件，不能据此推算 U/V/W 或零点。</p><p><a href="https://github.com/R3ze959/gsas-ii-rietveld-refinement-skill" target="_blank" rel="noopener">所请求的 GSAS-II skill</a> 用于分类、分支精修和审计，但其自身明确仍需真实 GSAS-II 引擎、实测谱、结构 CIF 和校准参数；它不是浏览器内独立计算器。<a href="./xrd-refinement/skill-integration.md">查看免费且不上传数据的接入边界与操作</a>。</p></section>
+<section class="notice"><strong>Rigaku Ultima IV · 185 mm 设备档案已加入</strong><p>厂商资料列出最大额定输出 3 kW、管电压 20–60 kV，并提供 185/285 mm 两种测角仪半径；这里按你提供的 185 mm 配置记录。靶材、单色器、狭缝、探测器和扫描几何因具体安装而异；±0.005% 稳定性来自你提供的信息，尚未由本台设备校准记录核实。<a href="./xrd-refinement/rigaku-ultima-iv-185.json" data-xrd-reference="instrument">查看完整设备档案</a>。这不是 GSAS-II 可用的已校准仪器参数文件，不能据此推算 U/V/W 或零点。</p><p><a href="https://github.com/R3ze959/gsas-ii-rietveld-refinement-skill" target="_blank" rel="noopener">所请求的 GSAS-II skill</a> 用于分类、分支精修和审计，但其自身明确仍需真实 GSAS-II 引擎、实测谱、结构 CIF 和校准参数；它不是浏览器内独立计算器。<a href="./xrd-refinement/skill-integration.md" data-xrd-reference="help">查看免费且不上传数据的接入边界与操作</a>。</p></section>
 <section class="grid"><form id="refine-form" class="card"><h2>1 · 输入与模型</h2>
 <label>设备档案<select name="instrument_preset"><option value="rigaku-ultima-iv-185" selected>Rigaku Ultima IV · 185 mm（仅设备规格）</option><option value="other">其他设备</option></select></label>
 <label>本次扫描实际靶材<select name="target" required><option value="">请选择，不根据型号猜测</option><option value="Cu">Cu</option><option value="Cr">Cr</option><option value="Mo">Mo</option><option value="other">其他</option></select></label>
@@ -21,10 +21,10 @@
 <p>默认锁定校准峰形，比较六条晶胞/零点分支。原子坐标、占位率和热参数保持固定，避免无依据地释放变量。</p>
 <label class="check"><input required name="confirm_structure_match" type="checkbox"> 我已核对 CIF 对应候选相及化学计量，理解可能存在杂相</label>
 <label class="check"><input required name="confirm_instrument_calibrated" type="checkbox"> 我已核对仪器参数与波长、几何和测量条件一致</label>
-<h2>2 · 独立计算环境</h2><p>从<a href="https://github.com/wang812229/graduate-research-workbench/tree/main/xrd-refinement" target="_blank" rel="noopener">本项目的 xrd-refinement 目录</a>下载程序，按<a href="./xrd-refinement/skill-integration.md">接入说明</a>运行。第一次用 <code>setup-xrd-runtime.ps1</code> 准备环境；以后运行 <code>start-skill-bridge.ps1</code> 即可。将终端显示的本次令牌填在下方。</p>
+<h2>2 · 独立计算环境</h2><p>从<a href="https://github.com/wang812229/graduate-research-workbench/tree/main/xrd-refinement" target="_blank" rel="noopener">本项目的 xrd-refinement 目录</a>下载程序，按<a href="./xrd-refinement/skill-integration.md" data-xrd-reference="help">接入说明</a>运行。第一次用 <code>setup-xrd-runtime.ps1</code> 准备环境；以后运行 <code>start-skill-bridge.ps1</code> 即可。将终端显示的本次令牌填在下方。</p>
 <label>本机服务端口 <input name="port" type="number" value="8765" min="1024" max="65535"></label>
 <label>本次启动令牌 <input required name="token" type="password" autocomplete="off"></label>
 <button id="submit" type="submit">运行六分支精修并比较候选</button></form>
 <aside class="card"><h2>阶段与结果审查</h2><ol><li>skill 核准单张粉末图，记录原始输入 SHA-256 和所选扫描几何。</li><li>真实 GSAS-II 精修尺度与背景，再比较晶胞、零点及两种先后释放路径。</li><li>逐分支检查收敛、奇异矩阵、相关性与正残差；导出 GPX、差谱和 Origin 曲线。</li><li>检查候选后填写审查记录，选定通过数值门槛的模型，校验报告并归档。</li></ol><p>当前支持单相常波长 Bragg–Brentano 粉末扫描。多相或强杂相、薄膜及其他几何需要相应模型；低残差不能独自证明元素占位或结构正确。</p>
 <div id="status" role="status" aria-live="polite">等待输入。</div><div id="result" hidden></div></aside></section>
-<footer><p>导入 Origin：File → Import → Single ASCII/CSV，选择 <code>origin-curves.csv</code>；第一列设 X，其余列设 Y。<a href="https://gsas-ii.readthedocs.io/en/latest/GSASIIscriptable.html" target="_blank" rel="noopener">GSAS-II 官方脚本接口文档 ↗</a></p></footer></main><script type="module" src="./xrd-refinement.mjs"></script></body></html>
+<footer><p>导入 Origin：File → Import → Single ASCII/CSV，选择 <code>origin-curves.csv</code>；第一列设 X，其余列设 Y。<a href="https://gsas-ii.readthedocs.io/en/latest/GSASIIscriptable.html" target="_blank" rel="noopener">GSAS-II 官方脚本接口文档 ↗</a></p></footer></main><dialog id="xrd-reference-dialog" aria-labelledby="xrd-reference-title"><div class="reference-bar"><h2 id="xrd-reference-title">帮助资料</h2><button type="button" id="xrd-reference-close">← 返回精修页面</button></div><p id="xrd-reference-status" role="status"></p><pre id="xrd-reference-content"></pre></dialog><script type="module" src="./xrd-refinement.mjs"></script></body></html>

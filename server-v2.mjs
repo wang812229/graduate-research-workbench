@@ -17,7 +17,7 @@ const store=await openDatabase(resolve(dataDir,'workbench.sqlite'));
 const mailer=lanMode?{close:()=>{}}:createMailer({origin,dataDir});
 if(process.env.NODE_ENV==='production'&&!lanMode)await mailer.verify();
 let setupToken=await store.countUsers()?null:randomBytes(18).toString('base64url');
-const attempts=new Map(),assets=new Set(['index.html','styles.css','app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','runtime.mjs','catalog.json','sw.js','favicon.svg','manifest.webmanifest','xrd-refinement.html','xrd-refinement.css','xrd-refinement.mjs']);
+const attempts=new Map(),assets=new Set(['index.html','styles.css','app.mjs','core.mjs','offline.mjs','research-package.mjs','experiment-journal.mjs','experiment-journal-ui.mjs','qrcode-vendor.mjs','runtime.mjs','catalog.json','sw.js','favicon.svg','manifest.webmanifest','xrd-refinement.html','xrd-refinement.css','xrd-refinement.mjs','processing-workspace.mjs','xrd-workspace.mjs','xrd-refinement/rigaku-ultima-iv-185.json','xrd-refinement/skill-integration.md']);
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.webmanifest':'application/manifest+json; charset=utf-8'};
 const send=(res,status,data,headers={})=>{res.writeHead(status,{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...headers});res.end(JSON.stringify(data));};
 const fail=(res,status,message)=>send(res,status,{error:message});
@@ -125,7 +125,9 @@ const server=http.createServer(async(req,res)=>{
   try{
     const path=new URL(req.url,'http://localhost').pathname;
     res.setHeader('x-content-type-options','nosniff');res.setHeader('referrer-policy','no-referrer');
-    res.setHeader('content-security-policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
+    // Only the dedicated XRD document can be embedded, only by this origin.
+    const frameAncestors=path==='/xrd-refinement.html'?"'self'":"'none'";
+    res.setHeader('content-security-policy',`default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; frame-ancestors ${frameAncestors}; base-uri 'none'; form-action 'self'`);
     if(origin.startsWith('https://'))res.setHeader('strict-transport-security','max-age=31536000; includeSubDomains');
     if(path.startsWith('/api/'))return await api(req,res,path);
     if(req.method!=='GET'&&req.method!=='HEAD')return fail(res,405,'不支持的请求。');

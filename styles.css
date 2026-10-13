@@ -66,3 +66,10 @@
 .processing-config summary,.processing-preview summary{font-weight:650;cursor:pointer;margin-bottom:14px}
 .processing-step{border:1px solid var(--line,#d9dfeb);border-radius:10px;padding:15px;margin:8px 0}.processing-step legend{font-weight:650;padding:0 6px}
 @media(max-width:650px){.processing-method-grid{grid-template-columns:1fr}.processing-source-controls>*{width:100%}.processing-catalog .search-input{max-width:none}}
+:root .xrd-workspace[hidden]{display:none!important}
+.xrd-workspace{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;background:#f3f7fb}
+.xrd-workspace-bar{display:flex;align-items:center;gap:24px;padding:14px 24px;background:#fff;border-bottom:1px solid #dbe4ed;flex-shrink:0}
+.xrd-workspace-bar div{display:flex;flex-direction:column;gap:4px}.xrd-workspace-bar small{color:#627388}
+.xrd-workspace iframe{flex:1;min-height:0;width:100%;border:0;background:#f3f7fb}
+.xrd-nav-link{width:100%;text-align:left;cursor:pointer;font:inherit}
+@media(max-width:600px){.xrd-workspace-bar{padding:10px 12px;gap:12px}.xrd-workspace-bar small{font-size:11px}}
