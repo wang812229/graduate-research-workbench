@@ -42,13 +42,14 @@ async function decompress(bytes,method){
   return result;
 }
 
-export async function packResearchDataset(experiment,dataset,originalBytes,passphrase){
+export async function packResearchDataset(experiment,dataset,originalBytes,passphrase,scope='experiment'){
+  if(!['experiment','processing'].includes(scope))throw new Error('数据来源无效。');
   if(!dataset?.id||!Array.isArray(dataset.rows)||!dataset.rows.length)throw new Error('没有可打包的完整数据。');
   const sourceBytes=originalBytes instanceof Uint8Array?originalBytes:null;
   if(sourceBytes&&dataset.source?.sha256&&await sha256(sourceBytes)!==dataset.source.sha256)throw new Error('仪器原文件校验值不一致，已停止打包。');
   const contextKeys=['id','sampleId','material','batch','date','method','project','ratio','agent','vessel','atmosphere','sourceTemp','growthTemp','peakTemp','holdTime','coolingRate','postTreatment','crystalSize','yield','measurements','results','quality','notes','schedule','lineage','qualityCriteria','figures','runComparison','runEvents','outcomeReviews'];
   const context=Object.fromEntries(contextKeys.map(key=>[key,experiment?.[key]??(key==='schedule'||key==='lineage'||key==='qualityCriteria'||key==='figures'?[]:'')]));
-  const payload={format:'yanxi-research-dataset',version:1,createdAt:new Date().toISOString(),experiment:context,dataset,originalBytes:sourceBytes?b64(sourceBytes):null};
+  const payload={format:'yanxi-research-dataset',version:1,scope,createdAt:new Date().toISOString(),experiment:context,dataset,originalBytes:sourceBytes?b64(sourceBytes):null};
   const plaintext=encoder.encode(JSON.stringify(payload));
   if(plaintext.length>MAX_PLAINTEXT)throw new Error('单个复现包超过 120 MB，请按扫描段拆分数据。');
   const {bytes,compression}=await compress(plaintext),salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));

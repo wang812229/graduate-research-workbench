@@ -29,7 +29,7 @@ const clean = value => String(value ?? '').trim();
 const uid = prefix => `${prefix}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 
 export function emptyVault() {
-  return { schema: 2, profile: { updatedAt: now(), materials: [], methods: [], measurements: [], journals: [], authors: [] }, experiments: [], papers: [], projects: [], tasks: [], processingTemplates: [] };
+  return { schema: 2, profile: { updatedAt: now(), materials: [], methods: [], measurements: [], journals: [], authors: [] }, experiments: [], papers: [], projects: [], tasks: [], processingTemplates: [], processingDatasets: [] };
 }
 
 const normalizeMetricMap=value=>Object.fromEntries(Object.entries(value&&typeof value==='object'?value:{}).map(([key,item])=>[key,numeric(item)]).filter(([,item])=>item!==null));
@@ -116,7 +116,7 @@ export function normalizeMeasurementDataset(raw={}) {
   const source=raw.source&&typeof raw.source==='object'?raw.source:{};
   const cloudBackup=raw.cloudBackup&&typeof raw.cloudBackup==='object'?raw.cloudBackup:{};
   const qualityReport=raw.qualityReport&&typeof raw.qualityReport==='object'?raw.qualityReport:{};
-  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),instrument:INSTRUMENT_TEMPLATES.includes(raw.instrument)?raw.instrument:'通用表格',columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,sourceRows:Number(raw.sourceRows)||Number(raw.rowCount)||rows.length,sourceBytes:Number(raw.sourceBytes)||0,localRawOnly:Boolean(raw.localRawOnly),importedAt:clean(raw.importedAt)||now(),notes:clean(raw.notes),sampleMeta,analyses,processing:{steps,versions,lastRunAt:clean(processing.lastRunAt),lastResult:processing.lastResult&&typeof processing.lastResult==='object'?processing.lastResult:null},source:{filename:clean(source.filename),sha256:/^[a-f0-9]{64}$/i.test(source.sha256||'')?source.sha256.toLowerCase():'',bytes:Number(source.bytes)||0,originalStored:Boolean(source.originalStored)},acquisition:{sampleNodeId:clean(acquisition.sampleNodeId),acquiredAt:clean(acquisition.acquiredAt),operator:clean(acquisition.operator),instrumentId:clean(acquisition.instrumentId),calibrationAt:clean(acquisition.calibrationAt),calibrationReference:clean(acquisition.calibrationReference),geometry:clean(acquisition.geometry),excitation:clean(acquisition.excitation),scanBranch:clean(acquisition.scanBranch),fieldDirection:clean(acquisition.fieldDirection),notes:clean(acquisition.notes),units,uncertaintyColumns},cloudBackup:{sha256:/^[a-f0-9]{64}$/i.test(cloudBackup.sha256||'')?cloudBackup.sha256.toLowerCase():'',savedAt:clean(cloudBackup.savedAt),bytes:Number(cloudBackup.bytes)||0,hasOriginal:Boolean(cloudBackup.hasOriginal)},qualityReport:{checkedAt:clean(qualityReport.checkedAt),issues:Array.isArray(qualityReport.issues)?qualityReport.issues.map(clean).slice(0,20):[],duplicates:Number(qualityReport.duplicates)||0,missing:Number(qualityReport.missing)||0}};
+  return {id:clean(raw.id)||uid('data'),name:clean(raw.name)||'未命名数据',type:MEASUREMENT_TYPES.includes(raw.type)?raw.type:inferMeasurementType(columns,raw.name),instrument:INSTRUMENT_TEMPLATES.includes(raw.instrument)?raw.instrument:'通用表格',columns,xColumn,yColumn,rows,rowCount:Number(raw.rowCount)||rows.length,sourceRows:Number(raw.sourceRows)||Number(raw.rowCount)||rows.length,sourceBytes:Number(raw.sourceBytes)||0,localRawOnly:Boolean(raw.localRawOnly),importedAt:clean(raw.importedAt)||now(),updatedAt:clean(raw.updatedAt)||clean(raw.importedAt)||now(),archived:Boolean(raw.archived),notes:clean(raw.notes),sampleMeta,analyses,processing:{steps,versions,lastRunAt:clean(processing.lastRunAt),lastResult:processing.lastResult&&typeof processing.lastResult==='object'?processing.lastResult:null},source:{filename:clean(source.filename),sha256:/^[a-f0-9]{64}$/i.test(source.sha256||'')?source.sha256.toLowerCase():'',bytes:Number(source.bytes)||0,originalStored:Boolean(source.originalStored)},acquisition:{sampleNodeId:clean(acquisition.sampleNodeId),acquiredAt:clean(acquisition.acquiredAt),operator:clean(acquisition.operator),instrumentId:clean(acquisition.instrumentId),calibrationAt:clean(acquisition.calibrationAt),calibrationReference:clean(acquisition.calibrationReference),geometry:clean(acquisition.geometry),excitation:clean(acquisition.excitation),scanBranch:clean(acquisition.scanBranch),fieldDirection:clean(acquisition.fieldDirection),notes:clean(acquisition.notes),units,uncertaintyColumns},cloudBackup:{sha256:/^[a-f0-9]{64}$/i.test(cloudBackup.sha256||'')?cloudBackup.sha256.toLowerCase():'',savedAt:clean(cloudBackup.savedAt),bytes:Number(cloudBackup.bytes)||0,hasOriginal:Boolean(cloudBackup.hasOriginal)},qualityReport:{checkedAt:clean(qualityReport.checkedAt),issues:Array.isArray(qualityReport.issues)?qualityReport.issues.map(clean).slice(0,20):[],duplicates:Number(qualityReport.duplicates)||0,missing:Number(qualityReport.missing)||0}};
 }
 
 export function datasetQualityReport(dataset){
@@ -464,7 +464,7 @@ export function temperatureSeries(stages) {
 }
 
 export function parseImport(text, filename = '', catalog = []) {
-  const result = { experiments: [], papers: [], projects: [], tasks: [], processingTemplates: [], profile: null, kind: '' };
+  const result = { experiments: [], papers: [], projects: [], tasks: [], processingTemplates: [], processingDatasets: [], profile: null, kind: '' };
   if (/\.csv$/i.test(filename)) {
     const [head, ...rows] = parseCsv(text);
     if (!head?.includes('sampleId')) throw new Error('CSV 缺少 sampleId 列。');
@@ -478,6 +478,7 @@ export function parseImport(text, filename = '', catalog = []) {
   if (data.format === 'yanxi-workbench' && data.vault) {
     for (const key of ['experiments','papers','projects','tasks']) result[key] = Array.isArray(data.vault[key]) ? data.vault[key].map(item => key === 'experiments' ? normalizeExperiment(item) : key === 'papers' ? normalizePaper(item, catalog) : item) : [];
     result.processingTemplates = Array.isArray(data.vault.processingTemplates) ? data.vault.processingTemplates.slice(0, 100) : [];
+    result.processingDatasets = Array.isArray(data.vault.processingDatasets) ? data.vault.processingDatasets.map(normalizeMeasurementDataset).filter(Boolean) : [];
     result.profile = data.vault.profile || null; result.kind = '研析完整备份'; return result;
   }
   if (data.format === 'daily-literature-research-export' || 'favorites' in data || 'collections' in data || 'preferences' in data) {
@@ -504,6 +505,7 @@ export function mergeVault(current, imported) {
   const result = structuredClone(current);
   for (const key of ['experiments','papers','projects','tasks']) result[key] = mergeItems(result[key], imported[key] || []);
   result.processingTemplates = mergeItems(result.processingTemplates || [], imported.processingTemplates || []);
+  result.processingDatasets = mergeItems(result.processingDatasets || [], imported.processingDatasets || []);
   const currentProfileIsEmpty = !result.profile || PROFILE_KEYS.every(key => !Array.isArray(result.profile[key]) || result.profile[key].length === 0);
   if (imported.profile && (currentProfileIsEmpty || (imported.profile.updatedAt || '') >= (result.profile.updatedAt || ''))) {
     result.profile = { ...result.profile, ...imported.profile };

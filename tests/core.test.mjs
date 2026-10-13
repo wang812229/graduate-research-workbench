@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { emptyVault, normalizeExperiment, normalizeMeasurementDataset, datasetQualityReport, geometryRelativeUncertainty, parseCsv, experimentsCsv, parseImport, mergeVault, parseSchedule, temperatureSeries, parseMeasurementText, measurementCsv, analyzeDataset, analysisProjection, analysisCsv, comparisonSeries, downsampleDataset, runProcessingPipeline, createPipelineVersion, analysisVersionDiff, evaluateSampleQuality, growthPropertySeries } from '../core.mjs';
 import { packResearchDataset, unpackResearchDataset, originalFileBytes, splitCloudPackage, joinCloudPackage, sha256 } from '../research-package.mjs';
+import { PROCESSING_METHODS, processingEntries, locateProcessingDataset, runWorkspaceMethod } from '../processing-workspace.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
 test('formal DOI supersedes an earlier arXiv catalog record without doubling the paper',()=>{
@@ -259,4 +260,22 @@ test('complete backups preserve custom processing templates and figures',()=>{
   const merged=mergeVault(emptyVault(),imported);
   assert.equal(merged.processingTemplates[0].name,'My recipe');
   assert.equal(merged.experiments[0].figures[0].caption,'电阻率拟合');
+});
+test('independent processing data retains its own scope through backup and encrypted transfer',async()=>{
+  const vault=emptyVault(),bytes=new TextEncoder().encode('T,R\n2,2\n100,4\n300,10');
+  const dataset=parseMeasurementText(new TextDecoder().decode(bytes),'standalone.csv');dataset.source={filename:'standalone.csv',sha256:await sha256(bytes)};
+  vault.processingDatasets.push(dataset);
+  vault.experiments.push(normalizeExperiment({id:'linked-exp',sampleId:'A',datasets:[{...dataset,id:'linked-data'}]}));
+  assert.equal(processingEntries(vault).length,2);
+  assert.equal(locateProcessingDataset(vault,dataset.id).experiment,null);
+  assert.equal(locateProcessingDataset(vault,'linked-data').experiment.id,'linked-exp');
+  const method=PROCESSING_METHODS.find(item=>item.name==='扣除常数背景');
+  const result=runWorkspaceMethod(dataset,method,{step_0_value:'1'});
+  assert.equal(result.rows[0][1],1);assert.equal(dataset.rows[0][1],2);assert.equal(dataset.processing.versions.length,1);
+  const imported=parseImport(JSON.stringify({format:'yanxi-workbench',vault}),'backup.json');
+  const merged=mergeVault(emptyVault(),imported);assert.equal(merged.processingDatasets.length,1);assert.equal(merged.experiments.length,1);
+  assert.equal(merged.processingDatasets[0].processing.versions[0].templateName,'扣除常数背景');
+  const packageValue=await packResearchDataset(null,dataset,bytes,'independent-transfer-password','processing');
+  const restored=await unpackResearchDataset(packageValue,'independent-transfer-password');assert.equal(restored.scope,'processing');assert.deepEqual(originalFileBytes(restored),bytes);
+  assert.throws(()=>runWorkspaceMethod({...dataset,localRawOnly:true},method,{step_0_value:'1'}),/完整数据/);
 });

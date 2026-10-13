@@ -84,6 +84,21 @@ class InputTests(unittest.TestCase):
         self.assertEqual(len(points), 120)
         self.assertIn("instrument", paths)
 
+    def test_declared_geometry_and_radius_are_applied_without_guessing_profile(self):
+        self.job["instrument_metadata"] = {"preset": "rigaku-ultima-iv-185", "target": "Cu", "scan_geometry": "bragg-brentano", "goniometer_radius_mm": 185}
+        runner.validate_job(self.job)
+        histogram = type("MetadataOnly", (), {"data": {"Sample Parameters": {}, "Instrument Parameters": [{"Lam1": [1.5406, 1.5406, 0], "U": [0, 0, 0]}]}})()
+        runner.apply_geometry(histogram, self.job["instrument_metadata"])
+        self.assertEqual(histogram.data["Sample Parameters"]["Gonio. radius"], 185)
+        self.assertEqual(histogram.data["Sample Parameters"]["Type"], "Bragg-Brentano")
+        self.assertEqual(histogram.data["Instrument Parameters"][0]["U"], [0, 0, 0])
+        self.job["instrument_metadata"]["target"] = "Mo"
+        with self.assertRaisesRegex(runner.InputError, "波长"):
+            runner.apply_geometry(histogram, self.job["instrument_metadata"])
+        self.job["instrument_metadata"]["scan_geometry"] = "parallel"
+        with self.assertRaisesRegex(runner.InputError, "Bragg"):
+            runner.validate_job(self.job)
+
     def test_card_only_rejected(self):
         self.structure.write_text("data_fake\n_cell_length_a 4.0\n")
         with self.assertRaisesRegex(runner.InputError, "原子坐标"):

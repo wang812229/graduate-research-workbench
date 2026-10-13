@@ -12,6 +12,7 @@ import {normalizeRunComparison,runDeviation,sampleLink} from '../experiment-jour
 import {renderExperimentJournal} from '../experiment-journal-ui.mjs';
 import {packWholeExperiment,unpackWholeExperiment,sha256} from '../research-package.mjs';
 import qrcode from '../qrcode-vendor.mjs';
+import * as processingWorkspace from '../processing-workspace.mjs';
 
 test('device-local profiles require their own password and never overwrite an existing name',async()=>{
   const vault=emptyVault(),created=await registerLocalAccount('member','研究成员','long-password-1',vault);
@@ -53,6 +54,8 @@ test('static build publishes only public assets and enables browser-local mode',
   assert.ok(files.includes('qrcode-vendor.mjs'));
   assert.ok(files.includes('xrd-refinement.html'));
   assert.ok(files.includes('xrd-refinement.mjs'));
+  assert.ok(files.includes('processing-workspace.mjs'));
+  assert.equal(JSON.parse(await readFile(resolve(out,'xrd-refinement/rigaku-ultima-iv-185.json'),'utf8')).not_a_calibrated_gsasii_instrument_file,true);
   assert.equal(files.includes('bridge.py'),false);
   assert.equal(files.includes('runner.py'),false);
   assert.match(await readFile(resolve(out,'runtime.mjs'),'utf8'),/STATIC_MODE=true/);
@@ -92,14 +95,19 @@ test('data processing has its own navigation and saves a real pipeline version',
   const source=(await readFile(resolve('app.mjs'),'utf8')).replace(/^import .*;\r?\n/gm,'').replace(/\bboot\(\);\s*$/,'');
   const record=normalizeExperiment({id:'exp-processing',sampleId:'CVT-026',material:'RuCl3',datasets:[{id:'data-processing',name:'R(T)',type:'电阻/电阻率',columns:['T','R'],xColumn:'T',yColumn:'R',rows:[[2,2],[100,4],[300,10]]}]});
   const context={document:{querySelector:()=>({}),addEventListener(){}},window:{addEventListener(){}},STATIC_MODE:true,structuredClone,normalizeMeasurementDataset,runProcessingPipeline:globalThis.runProcessingPipeline,createPipelineVersion:globalThis.createPipelineVersion};
-  const core=await import('../core.mjs');Object.assign(context,core,{h:core.escapeHtml,renderExperimentJournal});
-  vm.runInNewContext(`${source}\nglobalThis.harness={set:v=>{session={user:{username:'member',displayName:'研究成员'},vault:v};},processing:dataProcessingView,experiment:experimentDetail,sidebar};`,context,{filename:'app.mjs'});
+  const core=await import('../core.mjs');Object.assign(context,core,processingWorkspace,{h:core.escapeHtml,renderExperimentJournal});
+  vm.runInNewContext(`${source}\nglobalThis.harness={set:v=>{session={user:{username:'member',displayName:'研究成员'},vault:v};},select:(method,id)=>{selectedProcessingMethod=method;selectedProcessingDataset=id;},processing:dataProcessingView,experiment:experimentDetail,sidebar};`,context,{filename:'app.mjs'});
   context.harness.set({experiments:[record],processingTemplates:[]});
+  assert.match(context.harness.processing(),/独立导入数据/);
+  context.harness.select('step-4','data-processing');
   const processing=context.harness.processing();
   assert.match(processing,/R\(T\)/);
   assert.match(processing,/可复现数据处理流水线/);
-  assert.match(processing,/保存当前分析版本/);
+  assert.match(processing,/运行并保存处理版本/);
   assert.match(processing,/导出已保存版本到 Origin CSV/);
+  context.harness.select('analysis-0','data-processing');
+  assert.match(context.harness.processing(),/name="type" type="hidden" value="RRR"/);
+  assert.match(context.harness.processing(),/保存当前分析版本/);
   assert.match(context.harness.sidebar(),/数据处理/);
   const experiment=context.harness.experiment(record);
   assert.match(experiment,/进入数据处理/);
@@ -155,7 +163,7 @@ test('whole experiment archive encrypts complete rows and raw file, rejects corr
 });
 
 test('portable package restores full rows over a cloud preview without losing prior analysis',async()=>{
-  const app={innerHTML:''},document={querySelector:()=>app,addEventListener(){}},context={document,window:{addEventListener(){}},STATIC_MODE:true,structuredClone,normalizeMeasurementDataset,originalFileBytes:()=>null,confirm:()=>true};
+  const app={innerHTML:''},document={querySelector:()=>app,addEventListener(){}},context={document,window:{addEventListener(){}},STATIC_MODE:true,structuredClone,normalizeMeasurementDataset,originalFileBytes:()=>null,confirm:()=>true,...processingWorkspace};
   const source=(await readFile(resolve('app.mjs'),'utf8')).replace(/^import .*;\r?\n/gm,'').replace(/\bboot\(\);\s*$/,'');
   vm.runInNewContext(`${source}\ncommit=async next=>{session.vault=next;};render=()=>{};globalThis.harness={restore:restoreDatasetPackage,setVault:vault=>{session={vault,user:{username:'member'},key:{}};},getVault:()=>session.vault};`,context,{filename:'app.mjs'});
   const preview={id:'data-legacy',name:'R(T)',columns:['T','R'],xColumn:'T',yColumn:'R',rows:[[2,.1]],localRawOnly:true,analyses:[{id:'fit-2',type:'RRR',version:2}]};
@@ -166,6 +174,11 @@ test('portable package restores full rows over a cloud preview without losing pr
   assert.equal(restored.rows.length,3);
   assert.equal(restored.localRawOnly,false);
   assert.equal(restored.analyses[0].id,'fit-2');
+  context.harness.setVault({experiments:[],processingDatasets:[preview]});
+  assert.equal(await context.harness.restore({scope:'processing',experiment:{},dataset:full,originalBytes:null},'data-legacy'),true);
+  assert.equal(context.harness.getVault().experiments.length,0);
+  assert.equal(context.harness.getVault().processingDatasets[0].rows.length,3);
+  assert.equal(context.harness.getVault().processingDatasets[0].analyses[0].id,'fit-2');
 });
 
 test('public search and cloud account entry render without breaking page actions',async()=>{

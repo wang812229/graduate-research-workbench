@@ -70,6 +70,17 @@ def parse_pattern(path: Path) -> tuple[list[tuple[float, float, float]], list[st
 def validate_job(job: dict) -> tuple[dict[str, Path], list[tuple[float, float, float]], list[str]]:
     if not isinstance(job, dict):
         raise InputError("任务必须是 JSON 对象")
+    metadata = job.get("instrument_metadata")
+    if metadata is not None:
+        if not isinstance(metadata, dict) or metadata.get("preset") not in {"rigaku-ultima-iv-185", "other"}:
+            raise InputError("设备档案格式不正确")
+        if metadata.get("target") not in {"Cu", "Cr", "Mo", "other"}:
+            raise InputError("必须填写本次扫描的实际靶材；不能从 Ultima IV 型号推定")
+        if metadata.get("scan_geometry") != "bragg-brentano":
+            raise InputError("当前自动精修仅支持 Bragg–Brentano 常波长粉末扫描；不可将平行光束或薄膜扫描套入此模型")
+        radius = metadata.get("goniometer_radius_mm", 185 if metadata.get("preset") == "rigaku-ultima-iv-185" else None)
+        if not isinstance(radius, (int, float)) or not math.isfinite(radius) or not 50 <= radius <= 1000:
+            raise InputError("请填写本次测角仪半径 mm（50–1000）")
     paths = {
         "pattern": checked_file(job.get("pattern", ""), {".xy", ".xye", ".csv", ".txt"}),
         "structure": checked_file(job.get("structure", ""), {".cif"}),
@@ -95,6 +106,8 @@ def validate_job(job: dict) -> tuple[dict[str, Path], list[tuple[float, float, f
         if "Type:PXC" not in instrument:
             raise InputError("此模块仅支持常波长粉末 XRD（GSAS-II Type:PXC）；不接受 TOF、中子或能散射参数冒充 XRD")
     points, warnings = parse_pattern(paths["pattern"])
+    if metadata is not None:
+        warnings.append("设备档案仅记录额定规格；实际波长、光学部件与峰形系数未从型号自动推定，须核对上传的校准参数文件。")
     return paths, points, warnings
 
 
@@ -122,7 +135,22 @@ def parse_card(path: Path) -> list[tuple[float, float]]:
     return peaks
 
 
-def svg_plot(rows: list[tuple[float, float, float, float, float]], path: Path, card: list[tuple[float, float]] | None = None) -> None:
+def apply_geometry(histogram, metadata):
+    """Apply declared acquisition geometry to real GSAS-II histogram metadata."""
+    if not metadata:
+        return
+    sample = histogram.data.setdefault("Sample Parameters", {})
+    sample["Type"] = "Bragg-Brentano"
+    sample["Gonio. radius"] = metadata.get("goniometer_radius_mm", 185)
+    instrument = histogram.data["Instrument Parameters"][0]
+    raw = instrument.get("Lam1", instrument.get("Lam"))
+    wavelength = raw[1] if isinstance(raw, (list, tuple)) else raw
+    expected = {"Cu": (1.53, 1.55), "Cr": (2.28, 2.31), "Mo": (.70, .72)}.get(metadata.get("target"))
+    if expected and (wavelength is None or not expected[0] <= float(wavelength) <= expected[1]):
+        raise InputError("上传的校准文件波长与声明的靶材不一致；请核对原扫描头信息和仪器参数")
+
+
+def svg_plot(rows: list[tuple[float, float, float, float, float]], path: Path, card: list[tuple[float, float]] | None = None, reflections: list[float] | None = None) -> None:
     """Original vector plot from calculated numeric values; no publisher graphics."""
     width, height = 1100, 650
     margin = 74
@@ -145,17 +173,33 @@ def svg_plot(rows: list[tuple[float, float, float, float, float]], path: Path, c
            '<text x="10" y="58" font-family="sans-serif">Intensity</text>',
            f'<polyline fill="none" stroke="#1e293b" stroke-width="1" points="{curve(1, 405, 345, ymax)}"/>',
            f'<polyline fill="none" stroke="#d03b33" stroke-width="1.4" points="{curve(2, 405, 345, ymax)}"/>',
-           f'<polyline fill="none" stroke="#2563eb" stroke-width="1" points="{curve(4, 565, 90, dmax)}"/>',
+           f'<polyline fill="none" stroke="#b27821" stroke-width="1" stroke-dasharray="4 3" points="{curve(3, 405, 345, ymax)}"/>',
+           '<path d="M74 525H1026" stroke="#95a8c0" stroke-dasharray="3 3"/>',
+           f'<polyline fill="none" stroke="#2563eb" stroke-width="1" points="{curve(4, 525, 60, dmax)}"/>',
            '<text x="790" y="64" font-family="sans-serif" fill="#1e293b">Observed</text>',
            '<text x="885" y="64" font-family="sans-serif" fill="#d03b33">Calculated</text>',
            '<text x="790" y="84" font-family="sans-serif" fill="#2563eb">Difference (separate scale)</text>',
-           f'<text x="{margin}" y="{height-32}" font-family="sans-serif">{xmin:.2f}°</text>',
-           f'<text x="{width-margin-50}" y="{height-32}" font-family="sans-serif">{xmax:.2f}°</text>',
-           '<text x="790" y="104" font-family="sans-serif" fill="#23845d">Card ticks: reference only</text>']
+           '<text x="790" y="104" font-family="sans-serif" fill="#b27821">Background</text>',
+           '<text x="80" y="448" font-family="sans-serif" fill="#23845d">Model Bragg positions</text>']
+    for index in range(5):
+        y = 405 - index / 4 * 345
+        xml.append(f'<path d="M68 {y:.1f}H74" stroke="#333"/><text x="66" y="{y+4:.1f}" text-anchor="end" font-size="11" font-family="sans-serif">{ymax*index/4:.4g}</text>')
+    for index in range(6):
+        x = margin + index / 5 * (width - 2 * margin)
+        xml.append(f'<path d="M{x:.1f} 600v5" stroke="#333"/><text x="{x:.1f}" y="618" text-anchor="middle" font-size="12" font-family="sans-serif">{xmin+(xmax-xmin)*index/5:.2f}</text>')
+    for value in (-dmax, 0, dmax):
+        y = 525 - value / dmax * 60
+        xml.append(f'<text x="66" y="{y+4:.1f}" text-anchor="end" font-size="11" font-family="sans-serif" fill="#2563eb">{value:.3g}</text>')
+    for position in reflections or []:
+        if xmin <= position <= xmax:
+            x = margin + (position-xmin)/(xmax-xmin)*(width-2*margin)
+            xml.append(f'<path d="M{x:.1f} 420v12" stroke="#23845d" stroke-width="1"/>')
+    if card:
+        xml.append('<text x="790" y="124" font-family="sans-serif" fill="#23845d">Card ticks: reference only</text>')
     for x, intensity in (card or []):
         if xmin <= x <= xmax:
             px = margin + (x-xmin)/(xmax-xmin)*(width-2*margin)
-            xml.append(f'<path d="M{px:.1f} 598v{-6-intensity*.12:.1f}" stroke="#23845d" stroke-width="1"/>')
+            xml.append(f'<path d="M{px:.1f} 459v{-6-intensity*.12:.1f}" stroke="#23845d" stroke-width="1"/>')
     xml.append('</svg>')
     path.write_text("\n".join(xml), encoding="utf-8")
 
@@ -182,6 +226,7 @@ def run(job: dict, out: Path, gsas=None) -> dict:
     xye.write_text("# 2theta intensity sigma\n" + "".join(f"{x:.8f} {y:.8f} {s:.8f}\n" for x,y,s in points), encoding="utf-8")
     project = gsas.G2Project(newgpx=str(out / "refinement.gpx"))
     hist = project.add_powder_histogram(str(xye), str(paths["instrument"]))
+    apply_geometry(hist, job.get("instrument_metadata"))
     raw_type = hist.data["Instrument Parameters"][0]["Type"]
     instrument_type = raw_type[0] if isinstance(raw_type, (list, tuple)) else raw_type
     if instrument_type != "PXC":
@@ -231,6 +276,8 @@ def run(job: dict, out: Path, gsas=None) -> dict:
             writer.writerows(card_peaks)
         warnings.append("标准卡片仅以绿色刻线叠加作参照，不参与 GSAS-II 最小二乘精修。")
     result = {"engine": "GSAS-II GSASIIscriptable", "status": "completed_with_review_required", "input": manifest,
+              "instrument_metadata": job.get("instrument_metadata"),
+              "instrument_calibration": "用户声明上传参数文件与本次扫描匹配；程序未根据型号生成或独立核准仪器峰形参数",
               "points": len(points), "initial_cell": initial_cell, "final_cell": phase.get_cell(),
               "final_cell_esd": phase.get_cell_and_esd()[1],
               "stages": snapshots, "warnings": warnings,

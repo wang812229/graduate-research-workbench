@@ -10,6 +10,9 @@ import base64
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import io
 import json
+import os
+import re
+import signal
 from pathlib import Path
 import secrets
 import subprocess
@@ -32,8 +35,47 @@ EXTENSIONS = {
 MAX_REQUEST = 90 * 1024 * 1024
 
 
+def run_engine(command, *, timeout, cwd):
+    """Bound a job and terminate its child refinement processes on timeout."""
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               text=True, encoding="utf-8", errors="replace", cwd=cwd,
+                               start_new_session=os.name != "nt",
+                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        if os.name == "nt":
+            subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                           capture_output=True, check=False,
+                           creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        else:
+            os.killpg(process.pid, signal.SIGKILL)
+        if process.poll() is None:
+            process.kill()
+        process.communicate()
+        raise
+    return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+
+
 def create_handler(token: str, work_dir: Path):
     class Handler(BaseHTTPRequestHandler):
+        def _package(self, output, job_dir):
+            result = json.loads((output / "result.json").read_text(encoding="utf-8"))
+            archive = io.BytesIO()
+            paths = [path for path in sorted(output.rglob("*")) if path.is_file() and not path.is_symlink() and ".bak" not in path.name]
+            if sum(path.stat().st_size for path in paths) > 150 * 1024 * 1024:
+                raise ValueError("结果超过 150 MB；请在本地任务目录读取并按候选拆分导出")
+            with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zipped:
+                for path in paths:
+                    zipped.write(path, str(path.relative_to(output)).replace("\\", "/"))
+            previews = {}
+            for candidate in result.get("candidates", []):
+                if re.fullmatch(r"[a-z0-9_]{1,80}", candidate["name"]):
+                    path = output / "curves" / candidate["name"] / "refinement-plot.svg"
+                    if path.is_file() and path.stat().st_size < 2 * 1024 * 1024:
+                        previews[candidate["name"]] = path.read_text(encoding="utf-8")
+            return {"result": result, "zip_base64": base64.b64encode(archive.getvalue()).decode("ascii"), "preview_svg": previews, "local_directory": str(job_dir), "job_id": job_dir.name}
+
         def _response(self, code, payload):
             body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
             self.send_response(code)
@@ -64,18 +106,40 @@ def create_handler(token: str, work_dir: Path):
             self.end_headers()
 
         def do_POST(self):
-            if self.path != "/refine" or not self._authorized():
+            if self.path not in {"/refine", "/select"} or not self._authorized():
                 return self._response(403, {"error": "本地精修服务令牌或来源不正确"})
             try:
                 length = int(self.headers.get("Content-Length", "0"))
                 if not 1 <= length <= MAX_REQUEST:
                     return self._response(413, {"error": "请求过大或为空"})
                 request = json.loads(self.rfile.read(length))
+                if self.path == "/select":
+                    job_id = request.get("job_id", "")
+                    if not isinstance(job_id, str) or not re.fullmatch(r"[a-f0-9]{32}", job_id):
+                        raise ValueError("精修任务编号无效")
+                    job_dir = (work_dir / job_id).resolve(strict=True)
+                    if not job_dir.is_relative_to(work_dir.resolve()) or job_dir.is_symlink():
+                        raise ValueError("精修任务目录无效")
+                    output = job_dir / "output"
+                    review = request.get("review_note", "")
+                    if not isinstance(review, str) or not 10 <= len(review.strip()) <= 5000:
+                        raise ValueError("请填写 10–5000 字的候选模型审查记录")
+                    candidate = request.get("candidate", "")
+                    if not isinstance(candidate, str) or not re.fullmatch(r"[a-z0-9_]{1,80}", candidate):
+                        raise ValueError("候选模型名称无效")
+                    review_file = job_dir / "researcher-review.txt"
+                    review_file.write_text(review.strip(), encoding="utf-8")
+                    completed = run_engine([sys.executable, str(Path(__file__).with_name("skill_adapter.py")), "--output", str(output), "--select", candidate, "--review-file", str(review_file)], timeout=900, cwd=job_dir)
+                    if completed.returncode:
+                        return self._response(422, {"error": completed.stderr[-3000:] or "skill 候选选择失败", "local_directory": str(job_dir)})
+                    return self._response(200, self._package(output, job_dir))
                 files = request.pop("files")
                 if not isinstance(files, dict) or not all(k in files for k in ("pattern", "structure", "instrument")):
                     raise ValueError("需提交 XRD 实测曲线、结构 CIF 和仪器参数")
                 if set(files) - set(EXTENSIONS):
                     raise ValueError("未知文件类型")
+                if request.get("workflow", "basic") not in {"basic", "skill"}:
+                    raise ValueError("未知精修流程")
                 job_dir = work_dir / uuid.uuid4().hex
                 job_dir.mkdir(parents=True, exist_ok=False)
                 for kind, entry in files.items():
@@ -92,21 +156,15 @@ def create_handler(token: str, work_dir: Path):
                 manifest = job_dir / "job.json"
                 manifest.write_text(json.dumps(request, ensure_ascii=False, indent=2), encoding="utf-8")
                 output = job_dir / "output"
-                completed = subprocess.run(
-                    [sys.executable, str(Path(__file__).with_name("runner.py")), "--input", str(manifest), "--output", str(output)],
-                    capture_output=True, text=True, timeout=900, check=False, cwd=job_dir,
+                completed = run_engine(
+                    [sys.executable, str(Path(__file__).with_name("skill_adapter.py" if request.get("workflow") == "skill" else "runner.py")), "--input", str(manifest), "--output", str(output)],
+                    timeout=1800, cwd=job_dir,
                 )
                 if completed.returncode != 0:
                     return self._response(422, {"error": completed.stderr[-3000:] or "GSAS-II 精修失败", "local_directory": str(job_dir)})
-                result = json.loads((output / "result.json").read_text(encoding="utf-8"))
-                archive = io.BytesIO()
-                with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zipped:
-                    for path in sorted(output.iterdir()):
-                        if path.is_file() and ".bak" not in path.name:
-                            zipped.write(path, path.name)
-                return self._response(200, {"result": result, "zip_base64": base64.b64encode(archive.getvalue()).decode("ascii"), "local_directory": str(job_dir)})
+                return self._response(200, self._package(output, job_dir))
             except subprocess.TimeoutExpired:
-                self._response(504, {"error": "GSAS-II 运行超过 15 分钟，已终止；请在本地检查模型"})
+                self._response(504, {"error": "精修或归档超过允许时间，已终止任务进程；请在本地任务目录检查模型与日志"})
             except (ValueError, KeyError, TypeError, OSError) as exc:
                 self._response(400, {"error": str(exc)})
 

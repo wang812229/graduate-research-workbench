@@ -30,7 +30,7 @@ function limited(req,key,max=12){
   return recent.length>max;
 }
 async function body(req){let text='';for await(const chunk of req){text+=chunk;if(text.length>6_000_000)throw Object.assign(new Error('请求数据超过 6 MB。'),{status:413});}try{return JSON.parse(text||'{}');}catch{throw Object.assign(new Error('JSON 格式错误。'),{status:400});}}
-function validVault(v){return v&&v.schema===1&&['experiments','papers','projects','tasks'].every(key=>Array.isArray(v[key])&&v[key].length<50000)&&v.profile&&typeof v.profile==='object';}
+function validVault(v){return v&&[1,2].includes(v.schema)&&(!v.processingDatasets||Array.isArray(v.processingDatasets)&&v.processingDatasets.length<50000)&&['experiments','papers','projects','tasks'].every(key=>Array.isArray(v[key])&&v[key].length<50000)&&v.profile&&typeof v.profile==='object';}
 async function sendToken(user,purpose,ttl){
   const recent=await store.latestTokenAt(user.id,purpose);
   if(recent&&Date.now()-recent<60_000)return false;

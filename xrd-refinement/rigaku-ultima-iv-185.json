@@ -1,0 +1,30 @@
+{
+  "id": "rigaku-ultima-iv-185",
+  "manufacturer": "Rigaku",
+  "model": "Ultima IV",
+  "goniometer_radius_mm": 185,
+  "maximum_rated_output_kw": 3,
+  "rated_tube_voltage_kv": { "min": 20, "max": 60 },
+  "rated_tube_current_ma": { "min": 2, "max": 60 },
+  "generator_stability_percent": {
+    "value": 0.005,
+    "verification": "用户提供；所查厂商产品手册未证实本台设备的该数值"
+  },
+  "manufacturer_options_not_confirmed_for_this_unit": {
+    "target": ["Cu", "其他靶材可选"],
+    "geometry": ["Bragg-Brentano 聚焦", "平行光束", "其他配置"],
+    "detector": ["闪烁计数器", "其他探测器可选"],
+    "goniometer_radius_mm": [185, 285]
+  },
+  "not_a_calibrated_gsasii_instrument_file": true,
+  "requires_measurement_specific_calibration": [
+    "实际靶材及 Kα 光谱/单色器配置",
+    "扫描几何、狭缝、探测器、样品台与扫描步长",
+    "同配置标准样实测谱（建议 LaB6 或 Si）",
+    "经标准样确定的波长、零点、U/V/W 和低角不对称等参数"
+  ],
+  "sources": [
+    "https://www.irtech.in/wp-content/uploads/2022/04/Ultima-IV-brochure-A4_brochure_EN_Ver1.00_compressed-1.pdf",
+    "https://advancedphotonsource.github.io/GSAS-II-tutorials/CWInstDemo/FindProfParamCW.html"
+  ]
+}
