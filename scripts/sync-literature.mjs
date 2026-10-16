@@ -32,7 +32,7 @@ export function mergeReports(reports,existing=[]){
       // A formally published DOI takes over an earlier arXiv catalog entry.
       // Keep the report history, but show one current catalog record.
       if(id.startsWith('doi:')){
-        const arxiv=String(p.fullText||p.versionNote||'').match(/(?:arxiv\.org\/(?:abs|html|pdf)\/|arxiv:)(\d{4}\.\d{4,5})/i);
+        const arxiv=`${p.fullText||''} ${p.versionNote||''}`.match(/(?:arxiv\.org\/(?:abs|html|pdf)\/|arxiv:)(\d{4}\.\d{4,5})/i);
         if(arxiv)supersededIds.add(`arxiv:${arxiv[1]}`);
       }
       const old=existing.find(item=>item.id===id)||{};

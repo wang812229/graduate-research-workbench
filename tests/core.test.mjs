@@ -14,6 +14,13 @@ test('formal DOI supersedes an earlier arXiv catalog record without doubling the
   const merged=mergeReports(reports,[prior]);
   assert.equal(merged.length,1);
   assert.equal(merged[0].id,'doi:10.1103/85bz-sslm');
+  const publisherCopy=structuredClone(reports);
+  publisherCopy[0].papers[0].fullText='https://journals.aps.org/prb/abstract/10.1103/85bz-sslm';
+  publisherCopy[0].papers[0].versionNote='正式发表补读；对应 arXiv:2609.19678v2';
+  const fromNote=mergeReports(publisherCopy,[prior]);
+  assert.equal(fromNote.length,1);
+  assert.equal(fromNote[0].id,'doi:10.1103/85bz-sslm');
+  assert.equal(publisherCopy[1].papers.length,1);
 });
 
 test('old experiment JSON and CSV import preserve quoted multiline fields',()=>{
