@@ -1,5 +1,88 @@
 [
   {
+    "id": "doi:10.1103/xtc1-jh14",
+    "title": "Magnetic competition and exchange bias driven by cationic inhomogeneity in Fe3−xCrxSe4",
+    "authors": "V. A. Komarova; N. V. Selezneva; A. A. Golubiatnikova; D. A. Shishkin; N. V. Baranov",
+    "journal": "Physical Review Materials 10, 104411 (2026)",
+    "year": 2026,
+    "doi": "10.1103/xtc1-jh14",
+    "url": "https://doi.org/10.1103/xtc1-jh14",
+    "material": "Fe₃₋ₓCrₓSe₄：成分、占位与磁热史共同控制交换偏置",
+    "tags": [
+      "正式期刊",
+      "主文精读",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-18",
+    "access": "全文精读：出版社11页PDF的§I–IV、Experiment、主图1–7与表I；2页Supplemental Material及两幅图已读并视觉核对。重点视觉检查主图4/5/7、表I和SI图2。本轮PDF可直接访问，未确认开放再使用许可；不转载PDF或原图。",
+    "summary": "近补偿成分并不只让磁矩变小，还使微弱冷却场足以选择低温回线偏置方向。作者将这种敏感性与Fe/Cr层间非随机占位、可能的富Cr团簇联系起来。真正需要复现的是配方、热处理、残余场和回线分解的一整套关系；15 kOe是扣除线性反铁磁背景后铁磁/亚铁磁分量的开关偏置，不能当未经处理的整条回线直接位移。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-18/#paper-1"
+  },
+  {
+    "id": "doi:10.1103/2pky-pm78",
+    "title": "Suppression of electron-phonon coupling and emergence of spin-phonon coupling in orthorhombic CsCr3Sb5",
+    "authors": "Bingru Lu; Yi Liu; Keyi Li; Jing Kang; Hao Li; Xiang Li; Wenbo Sang; Anmin Zhang; Jianting Ji; Guanghan Cao; Feng Jin; Qingming Zhang",
+    "journal": "Physical Review B 114, 204106 (2026)",
+    "year": 2026,
+    "doi": "10.1103/2pky-pm78",
+    "url": "https://doi.org/10.1103/2pky-pm78",
+    "material": "CsCr₃Sb₅：Raman支持的对称性与两类耦合分离",
+    "tags": [
+      "正式期刊",
+      "主文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-18",
+    "access": "全文精读：出版社8页PDF的主文§I–IV、Experimental Methods、图1–6及Appendices A–C完整方法推导；重点视觉核对图2/3/4。页面未列独立SI。本轮PDF可读，未确认开放再使用许可；不转载原图/PDF。",
+    "summary": "新声子、角分辨选择定则和低温磁场响应，使作者提出约55 K以下的正交结构及自旋—声子耦合。最值得带走的不是把λ=1.08当成全部声子都已测定，而是区分观测到的谱峰、拟合出的单模耦合、由少数模式外推的总耦合，以及尚未在压力超导态直接验证的配对推断。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-18/#paper-2"
+  },
+  {
+    "id": "doi:10.1103/x6n8-hz3k",
+    "title": "Origin of the magnetic ground state of Tb2Ir2O7",
+    "authors": "Y. Alexanian; E. Lhotel; J. Robert; S. Petit; E. Lefrançois; P. Lejay; A. Hadj-Azzem; F. Damay; J. Ollivier; B. Fåk; S. De Brion; R. Ballou; V. Simonet",
+    "journal": "Physical Review Research 8, 043060 (2026), Editors’ Suggestion",
+    "year": 2026,
+    "doi": "10.1103/x6n8-hz3k",
+    "url": "https://doi.org/10.1103/x6n8-hz3k",
+    "material": "Tb₂Ir₂O₇：偏离Ising轴的磁矩与仍不唯一的低能模型",
+    "tags": [
+      "正式期刊",
+      "主文精读",
+      "开放获取",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-18",
+    "access": "全文精读：出版社15页开放PDF中主文§I–V、Methods、图1–11与Tables I–VII、Appendices A–G已读；参考文献未声称逐篇精读。重点视觉核对图1、4、5及表VI；未列独立SI，扩展方法在正文附录。CC BY 4.0；本期仅原创数值重绘。",
+    "summary": "实验确认Tb磁矩既有沿局域〈111〉的AIAO分量，也有垂直它的反铁磁分量，且在1.5 K以下到毫开尔文区基本不变。作者找到了能重现许多观测的晶场—交换模型，但两组不同波函数仍无法唯一取舍，转变温度与低能谱细节也没有被同时解释。保留这些失败，比把标题理解成磁性起源已彻底解决更有价值。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-18/#paper-3"
+  },
+  {
+    "id": "doi:10.1021/acs.cgd.6c01217",
+    "title": "Achieving Mass Transfer and Saturation Homogeneity in the Acidic Ammonothermal Process for Uniform GaN Growth",
+    "authors": "Jianzhi Li; Chengmin Chen; Haolong You; Lei Zhang; Hengyi Fang; Rongkai Kang; Feipeng Cai; Krishnaswamy Nandakumar",
+    "journal": "Crystal Growth & Design — online article metadata",
+    "year": null,
+    "doi": "10.1021/acs.cgd.6c01217",
+    "url": "https://doi.org/10.1021/acs.cgd.6c01217",
+    "material": "GaN酸性氨热法：挡板优化是待验证的数值建议",
+    "tags": [
+      "正式期刊",
+      "仅摘要",
+      "生长模拟",
+      "氨热法",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-18",
+    "access": "仅摘要/元数据：已读Crossref作者摘要。出版社正文/目录403，重试仍受限；没有可用浙大登录会话。公开作者稿、机构仓储与SI尚未取得，不计正文精读。",
+    "summary": "作者模拟了酸性氨热釜内传热、对流和溶质输运，提出垂直挡板可改善种晶表面供料均匀性。摘要最关键的边界是热化学参数有不确定性、仍需实验验证；1.93 μm/h不是本简报确认的真实晶体生长纪录，不能据此直接改造高压釜。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-18/#paper-4"
+  },
+  {
     "id": "arxiv:2610.21856",
     "title": "Large in-plane optical anisotropy in epitaxial CrN(113) films",
     "authors": "Duc V. Dinh; Frank Peiris; Oliver Brandt",
