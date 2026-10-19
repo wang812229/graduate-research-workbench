@@ -1,5 +1,125 @@
 [
   {
+    "id": "doi:10.1038/s43246-026-01354-z",
+    "title": "Trustworthy machine learning of diffractograms to prevent silent failure of apparently accurate models",
+    "authors": "Redad Mehdi; Weiqi Yue; Ozan Dernek; Matthew A. Willard; Roger H. French; Frank Ernst",
+    "journal": "Communications Materials · Article in Press (2026)",
+    "year": 2026,
+    "doi": "10.1038/s43246-026-01354-z",
+    "url": "https://doi.org/10.1038/s43246-026-01354-z",
+    "material": "Ti–6Al–4V：自动XRD分析为什么不能只看误差",
+    "tags": [
+      "正式期刊",
+      "主文精读",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-19",
+    "access": "全文精读：14页Article in Press主文（Methods、Results、Discussion、Conclusions）、表1–3及图1–8；7页SI文字与图S1–S5；核对官方图5数值CSV。图4及S5作视觉核查。主文CC BY-NC-ND 4.0，不改编/转载原图，本站仅独立绘制表中数值。",
+    "summary": "两种网络在相分数上都可能给出小误差，但一种主要识别背景和噪声，另一种更依赖Bragg环。对你的平台，这是一篇精修结果验收方法论文，不是一个可替代GSAS-II的自动Rietveld引擎；低MAE或低Rwp都不能单独证明结构正确。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-19/#paper-1"
+  },
+  {
+    "id": "arxiv:2610.22917",
+    "title": "Fully Gapped Superconductivity in the Nonsymmorphic Centrosymmetric Superconductor In2Bi",
+    "authors": "Atul Gangwar; Kunal Yadav; Barnabha bandyopadhyay; S. Patnaik; K. G. Suresh; Sandip Chatterjee",
+    "journal": "arXiv:2610.22917v1（未经同行评议的预印本）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.22917v1",
+    "material": "In₂Bi：多探针支持全能隙，但参数不能无条件互认",
+    "tags": [
+      "arXiv独立稿",
+      "主文精读",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-19",
+    "access": "全文精读：11页PDF主文§I–IV、Experimental Procedure、图1–7和表I；视觉核对热容页。文内引用的独立SI未随PDF提供，本轮未读，空气暴露细节只据主文描述。",
+    "summary": "这不是高Tc突破：约6 K的非对称型空间群材料，在多种体相探针下更支持无节点s波。价值在于可复现的低温合金热程和多探针交叉，而不是凭一个BCS拟合宣布拓扑超导不存在；稿件中退磁、热容归一和耦合参数还有必须核对的疑点。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-19/#paper-2"
+  },
+  {
+    "id": "arxiv:2610.23015",
+    "title": "Crystal Field-Phonon Coupling in ErFeO3 Single Crystal Via Inelastic Neutron Scattering",
+    "authors": "Guochu Deng; Xiaoxuan Ma; Wanting Yang; Wei Ren; Shixun Cao; Zhenxiang Cheng; Garry J. McIntyre",
+    "journal": "arXiv:2610.23015v1（未经同行评议的预印本）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.23015v1",
+    "material": "ErFeO₃：升温后再出现的晶场谱峰从哪里来？",
+    "tags": [
+      "arXiv独立稿",
+      "主文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-19",
+    "access": "全文精读：14页PDF主文Introduction、Experiment and Calculation、Results A–C、Conclusion，图1–5；视觉核对图2的能量/强度/宽度。PDF未附独立SI。",
+    "summary": "局域4f晶场激发靠近声学声子后，能量、强度与线宽一起变化，甚至在热占据本应削弱晶场峰时重新变清楚。重点是建立动量、温度和分辨率一致的证据链；它尚未给出一个可拿来预测所有稀土材料耦合强度的完整定量模型。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-19/#paper-3"
+  },
+  {
+    "id": "arxiv:2610.22844",
+    "title": "Coexistence of Griffiths phase and superparamagnetic-like behavior in La-doped antiferromagnetic CaMnO3",
+    "authors": "Koustav Pal; Shuvendu Ghosh; N. N. S. V. Rama Raju; Chitrada Prasad; Kalipada Das; I. Das",
+    "journal": "arXiv:2610.22844v1（未经同行评议的预印本）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.22844v1",
+    "material": "La₀.₁₉Ca₀.₈₁MnO₃：精修单相与磁性团簇并不矛盾",
+    "tags": [
+      "arXiv独立稿",
+      "主文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-19",
+    "access": "全文精读：10页PDF主文§I–IV、表I/II及图1–3；视觉核对结构精修表。正文引用的独立补充图S1/S2未附在该PDF，本轮未读。",
+    "summary": "一个衍射上近似单相、微米EDS均匀的氧化物，仍可有磁性不均匀团簇。作者用磁化拟合给出Griffiths-like和超顺磁-like温区，但这些标签不能替代局域结构、交流动力学或氧含量证据；这也是“Rwp很低”不等于成分和机制都确定的例子。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-19/#paper-4"
+  },
+  {
+    "id": "arxiv:2610.23375",
+    "title": "Termination-dependent surface Fermiology in the intercalated altermagnet CoNb4Se8",
+    "authors": "Pietro Maria Forcella; Alessandro De Vita; Matthew D. Watson; Sammar Tayyab; Chiara Bigi; Iulia Cojocariu; Marcin Szpytma; Matteo Jugovac; Andrea Locatelli; Tevfik Onur Mentes; My Bang Petersen; Paolo Moras; Polina M. Sheverdyaeva; Christopher Candelora; Ilija Zeljkovic; Federico Motti; Jill A. Miwa; Vincent Polewczyk; Matthieu Jamet; Matteo Calandra; Younghun Hwang; Davide Romanin; Federico Mazzola",
+    "journal": "arXiv:2610.23375v1（未经同行评议的预印本）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.23375v1",
+    "material": "CoNb₄Se₈：先知道劈开了哪一面，再谈自旋分裂",
+    "tags": [
+      "arXiv独立稿",
+      "主文精读",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-19",
+    "access": "全文精读：34页合并PDF的主文第3–14页、图1–4，以及第19–34页SI A–I/图S1–S6；图2及SI生长、XPS衰减、slab参数逐项核对。",
+    "summary": "同一Co插层晶体劈开后，Co面与Se面具有不能靠一个刚性费米能移动互换的谱。微区、光子能与slab模型共同分离表面贡献，提醒实验不能把表面态的另一条支当成交替磁体的体相自旋分裂；它并不是在推翻该材料已有交替磁性。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-19/#paper-5"
+  },
+  {
+    "id": "arxiv:2610.23728",
+    "title": "Intercalation of Ultrathin Ferromagnetic Iron Films at the Graphene/SiC Interface",
+    "authors": "Niels Rösch; Rico Ehrler; Stefanie Suzanne Brinkman; Xin Liang Tan; Anders Christian Mathisen; Marc Stevens; Sascha Hermann; Olav Hellwig; Philip Schädlich; Hendrik Bentmann; Susanne Wolff; Thomas Seyller; Fabian Göhler",
+    "journal": "arXiv:2610.23728v1（未经同行评议的预印本）",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.23728v1",
+    "material": "Fe/石墨烯/SiC：稳定的铁磁界面，不等于能顺序长出FeSe",
+    "tags": [
+      "arXiv独立稿",
+      "主文精读",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-19",
+    "access": "全文精读：12页PDF的主文Introduction、Experimental Details、Results全部小节及Conclusions、图1–6；视觉核对图5。独立SI引用位置仍是出版社URL占位符，本轮未读S1–S3/完整3D数据。",
+    "summary": "Fe在高质量零层石墨烯下的插层需要热沉积与后退火，却同时生成硅化物和额外碳；界面能保有室温铁磁且抗氧化，但后续加Se会把Fe换走，未得到目标FeSe。失败路线和不可重现性比一句“成功制得二维铁磁膜”更值得保存。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-19/#paper-6"
+  },
+  {
     "id": "doi:10.1103/xtc1-jh14",
     "title": "Magnetic competition and exchange bias driven by cationic inhomogeneity in Fe3−xCrxSe4",
     "authors": "V. A. Komarova; N. V. Selezneva; A. A. Golubiatnikova; D. A. Shishkin; N. V. Baranov",
