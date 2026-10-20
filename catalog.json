@@ -1,5 +1,47 @@
 [
   {
+    "id": "doi:10.1038/s41467-026-78503-y",
+    "title": "Direct observation of the Lindhard continuum using resonant inelastic X-ray scattering",
+    "authors": "Lomeli, Eder G.; Kundu, Sarbajaya; Siewierska, Katarzyna; Kusch, Maximilian; Böhm, Thomas; Sahel-Schackis, Samuel; Chuang, Yi-De; Zhuo, Zengqing; Chen, Ke; Xi, Xiaoxing; Shen, Lingjia; Dakovski, Georgi L.; Geprägs, Stephan; Moritz, Brian; Devereaux, Thomas P.; Kling, Matthias F.; Vinson, John; Huang, Edwin W.; Jost, Daniel",
+    "journal": "Nature Communications · Article in Press",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-78503-y",
+    "url": "https://doi.org/10.1038/s41467-026-78503-y",
+    "material": "MgB₂：看见带内电子—空穴连续谱，而不是发现新超导相",
+    "tags": [
+      "正式期刊",
+      "主文及SI精读",
+      "MgB₂",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-20",
+    "access": "全文精读：7页Article in Press主文的Results、Discussion、Methods及图1–4；13页真正的Supplementary Information（MOESM1），A–F、图S1–S11和参考文献。视觉核查主文图3、Methods页、SI图S3–S5与S10–S11。MOESM2是19页同行评审文件，不计作SI精读。原文CC BY-NC-ND 4.0，未转载/改编原图，仅对公开数值事实独立制图。",
+    "summary": "用对轨道、偏振和小动量敏感的RIXS，在MgB₂中分辨出随动量移动的低能宽谱，并用带内/带间分解与声学等离激元对照解释其来源。对实验的启发是先弄清探针耦合哪个响应函数，再讨论“没看到”是否代表“不存在”；这不是39 K以上的新Tc发现，也没有用本次数据证明拓扑超导。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-20/#paper-1"
+  },
+  {
+    "id": "doi:10.1038/s41467-026-78716-1",
+    "title": "Strong field spectroscopy of many-body interactions in solids",
+    "authors": "Korolev, Viacheslav; Lettau, Thomas; Krishna, Vipin; Croy, Alexander; Thümmler, Martin; Zürch, Michael; Spielmann, Christian; Wächtler, Maria; Peschel, Ulf; Gräfe, Stefanie; Soavi, Giancarlo; Kartashov, Daniil",
+    "journal": "Nature Communications · 17, 10954 (2026)",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-78716-1",
+    "url": "https://doi.org/10.1038/s41467-026-78716-1",
+    "material": "WS₂/MoS₂/CdSe：强场下的几飞秒相干来自哪段动量轨迹？",
+    "tags": [
+      "正式期刊",
+      "主文及SI精读",
+      "WS₂/MoS₂/CdSe",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-20",
+    "access": "全文精读：10页正式PDF主文Introduction、Results、Discussion、Methods，图1–5；9页SI（MOESM1）S1–S4、图S1–S8和参考文献；视觉核对主文图2/3/5及SI S4的速率映射和SBE方程。MOESM4是14页同行评审文件，不作为补充实验数据。附XLSX原始数值本轮未逐点复算，图解仅用已核对的图2指数。",
+    "summary": "不靠给每条曲线随意选一个T₂，而把强场轨迹带到布里渊区中声子散射更强的区域，解释为什么弱场带边较长相干时间与HHG的几飞秒有效退相干可以共存。主张依赖特定激发密度和三能带近似；常数T₂仍能拟合部分标量斜率，真正区分力还在谱平台和跨条件一致性。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-20/#paper-2"
+  },
+  {
     "id": "doi:10.1038/s43246-026-01354-z",
     "title": "Trustworthy machine learning of diffractograms to prevent silent failure of apparently accurate models",
     "authors": "Redad Mehdi; Weiqi Yue; Ozan Dernek; Matthew A. Willard; Roger H. French; Frank Ernst",
