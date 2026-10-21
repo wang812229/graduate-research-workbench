@@ -1,5 +1,110 @@
 [
   {
+    "id": "arxiv:2610.27460",
+    "title": "Nanocrystalline cubic boron arsenide growth on GaAs(100) by gas source molecular beam epitaxy",
+    "authors": "Matthew A. Delmont; Yu Wu; Han-Hsuan Wu; Xiaoqing Pan; Christopher J. Palmstrøm; Bolin Liao",
+    "journal": "arXiv 2610.27460v1 · 未经同行评审",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.27460v1",
+    "material": "c-BAs/GaAs：先证明长出什么，再谈导热集成",
+    "tags": [
+      "arXiv v1",
+      "正文精读",
+      "c-BAs/GaAs",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-21",
+    "access": "全文精读：12页公开PDF，主文1–5页及SI 7–12页S1–S5；参考文献另读。视觉核查PDF第3页图2、第5页取向/界面论证、第8页S1。没有实测本薄膜热导率。",
+    "summary": "在约15.5%失配的GaAs上得到有择优取向的纳米晶立方BAs薄膜，而非完美共格外延。低温抑制砷流失、三维岛并合及晶粒倾斜共同决定结果；超高热导是块体BAs背景，不能移植为本薄膜已经达到的性能。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-21/#paper-1"
+  },
+  {
+    "id": "arxiv:2610.27663",
+    "title": "Lattice symmetry breaking and strain control of single-$\\mathbf{q}$ magnetism in Na$_3$Co$_2$SbO$_6$",
+    "authors": "Yuchen Gu; Wu Xie; Xintong Li; Junhong Liu; Xianghong Jin; Dmitry Khalyavin; Fabio Orlandi; Pascal Manuel; Ping Miao; Yuan Li",
+    "journal": "arXiv 2610.27663v1 · 未经同行评审",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.27663v1",
+    "material": "Na₃Co₂SbO₆：用晶格剪切和应变选畴判别single-q",
+    "tags": [
+      "arXiv v1",
+      "正文精读",
+      "Na₃Co₂SbO₆",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-21",
+    "access": "全文精读：16页PDF主文1–5及SI 7–16，含反射敏感性、联合峰形、应变畴估计、场中子和交换模型边界；视觉核查第3/8/12页图2–3、表S1、图S4。",
+    "summary": "先发现与磁有序同步的单斜到三斜度量畸变，再用低对称压缩选择磁畴，支持single-q而非保留C₂b的double-q解释。它不是量子自旋液体的发现；Kitaev交换符号的推断还依赖所选Hamiltonian与倾角近似。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-21/#paper-2"
+  },
+  {
+    "id": "arxiv:2610.28041",
+    "title": "Contrasting Crystal-Field and Dipolar Anisotropies in the Triangular Antiferromagnet NaBaEr(BO$_3$)$_2$",
+    "authors": "Cheng Su; Yonglin Wang; Zihang Gao; Xinyang Liu; Jianglong Zhang; Chin-Wei Wang; Michael Marek Koza; Juping Xu; Wen Yin; Hao Deng; Wei Li; Junsen Xiang; Wentao Jin",
+    "journal": "arXiv 2610.28041v1 · 未经同行评审",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.28041v1",
+    "material": "NaBaEr(BO₃)₂：单离子易轴为何对应面内有序？",
+    "tags": [
+      "arXiv v1",
+      "正文精读",
+      "NaBaEr(BO₃)₂",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-21",
+    "access": "全文精读：12页PDF主文1–9及第12页实际Supplementary Note 1/Fig.S1，参考文献另读；视觉核查第3页结构精修、第7页磁衍射及第12页Mc约束。",
+    "summary": "结构中两个Er位点的氧八面体转动使R−3优于旧R−3m模型；晶场给顺磁易c轴，约0.1 K以下的A型反铁磁却主要在ab面。与TN相当的偶极能可在已观察堆垛前提下解释方向竞争，但尚未唯一确定完整交换Hamiltonian。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-21/#paper-3"
+  },
+  {
+    "id": "arxiv:2610.28564",
+    "title": "Differentiable powder X-ray diffraction enables analysis of evolving structures",
+    "authors": "Xiangyu Yin; Nina Andrejevic; Hemant Sharma; Ming Du; Aileen Luo; Michael Prince; Burak Guzelturk; Xiaoyi Zhang; Brian H. Toby; Mathew J. Cherukara",
+    "journal": "arXiv 2610.28564v1 · 未经同行评审",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2610.28564v1",
+    "material": "diffPXRD：真实衍射前向模型，不让平滑轨迹冒充准确度",
+    "tags": [
+      "arXiv v1",
+      "正文精读",
+      "diffPXRD",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-10-21",
+    "access": "全文精读：24页PDF，主文第2–14页及SI第18–23页、关键图1–5和表S1–S5；视觉核查第7页图3、第13页联合模型、第22页窗口与非收敛说明。作者官方GitHub README亦核读；未安装/执行引擎或复算原始实验。",
+    "summary": "用可微物理前向模型把多张衍射共同拟合，减少低计数轨迹波动并加速部分工作负载。真正的进步是模型可扩展与可检验的共享约束；更平滑、GPU更快或更低Rwp都不是普遍保证，它也尚不覆盖磁衍射、TOF和掠入射。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-21/#paper-4"
+  },
+  {
+    "id": "doi:10.1021/acs.nanolett.6c01957",
+    "title": "Intra- and Interlayer Excitonic Fine Structure of the Two-Dimensional Perovskite (PEA)2PbI4",
+    "authors": "Patrick Grenzer; Fabian Lie; Klaus H. Eckstein; Tobias Hertel; Linn Leppert",
+    "journal": "Nano Letters · 正式发表，阅读对应公开预印本",
+    "year": 2026,
+    "doi": "10.1021/acs.nanolett.6c01957",
+    "url": "https://doi.org/10.1021/acs.nanolett.6c01957",
+    "material": "(PEA)₂PbI₄：层内多重峰与弱层间双峰要分开归属",
+    "tags": [
+      "正式期刊",
+      "公开稿正文精读，正式版待核",
+      "(PEA)₂PbI₄",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-10-21",
+    "access": "全文精读（公开稿，不是正式版本）：2604.19327v1共10页，主文1–7页、图1–5、参考文献8–10页；视觉核查第3/5/6页。合成和计算详细参数位于另附SI，本轮未取得；ACS正文及Crossref给出的正式PDF普通重试403，ACS Figshare SI亦403。正式版全文/版本差分待核，未假称机构访问成功。",
+    "summary": "8 K偏振PL中低能多重峰可由不等价层的层内激子解释，弱高能双峰则被归属为层间激子。静态计算对强度、偏振和能标并不完全吻合；冻结畸变提供混合增亮的可能机制，不是实测动态声子过程或无需拟合的绝对预测。",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-21/#paper-5"
+  },
+  {
     "id": "doi:10.1038/s41467-026-78503-y",
     "title": "Direct observation of the Lindhard continuum using resonant inelastic X-ray scattering",
     "authors": "Lomeli, Eder G.; Kundu, Sarbajaya; Siewierska, Katarzyna; Kusch, Maximilian; Böhm, Thomas; Sahel-Schackis, Samuel; Chuang, Yi-De; Zhuo, Zengqing; Chen, Ke; Xi, Xiaoxing; Shen, Lingjia; Dakovski, Georgi L.; Geprägs, Stephan; Moritz, Brian; Devereaux, Thomas P.; Kling, Matthias F.; Vinson, John; Huang, Edwin W.; Jost, Daniel",
