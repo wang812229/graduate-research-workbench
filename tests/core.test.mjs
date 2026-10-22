@@ -5,6 +5,16 @@ import { packResearchDataset, unpackResearchDataset, originalFileBytes, splitClo
 import { PROCESSING_METHODS, processingEntries, locateProcessingDataset, runWorkspaceMethod } from '../processing-workspace.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
+test('supplement retains its own report path alongside a same-day daily report',()=>{
+ const paper={title:'Supplement experiment',doi:'10.1234/supplement'};
+ const reports=[{date:'2026-10-22',slug:'2026-10-22-major-journals',kind:'supplement',papers:[paper]},{date:'2026-10-22',papers:[{title:'Daily experiment',doi:'10.1234/daily'}]}];
+ const merged=mergeReports(reports);
+ assert.equal(merged.length,2);
+ assert.match(merged.find(p=>p.doi==='10.1234/supplement').reportUrl,/\/reports\/2026-10-22-major-journals\/#paper-1$/);
+ assert.match(merged.find(p=>p.doi==='10.1234/daily').reportUrl,/\/reports\/2026-10-22\/#paper-1$/);
+ assert.throws(()=>mergeReports([{...reports[0],slug:'../private'}]),/路径不合法/);
+});
+
 test('formal DOI supersedes an earlier arXiv catalog record without doubling the paper',()=>{
   const prior={id:'arxiv:2609.19678',title:'Crystallographic imperfections and exotic superconductivity of UBe13',date:'2026-09-18'};
   const reports=[

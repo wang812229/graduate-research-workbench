@@ -23,6 +23,8 @@ export function mergeReports(reports,existing=[]){
   const supersededIds=new Set();
   for(const report of [...reports].sort((a,b)=>String(b.date).localeCompare(String(a.date)))){
     if(!/^\d{4}-\d{2}-\d{2}$/.test(report.date)||!Array.isArray(report.papers))throw new Error('简报缺少日期或论文列表');
+    const slug=report.slug||report.date;
+    if(!/^\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?$/.test(slug))throw new Error('简报路径不合法');
     for(const [index,p] of report.papers.entries()){
       if(!p.title)continue;
       const id=paperId(p,report.date,index+1);
@@ -43,7 +45,7 @@ export function mergeReports(reports,existing=[]){
         url:p.doi||p.fullText||old.url||'',material:p.material||old.material||'',
         tags:[...new Set([...(p.tags||[]),p.category].filter(Boolean))],
         category:p.category||'',date:report.date,access:p.access||'',
-        summary:p.conclusion||'',reportUrl:`${briefBase}/reports/${report.date}/#paper-${index+1}`
+        summary:p.conclusion||'',reportSlug:slug,reportKind:report.kind||'daily',reportUrl:`${briefBase}/reports/${slug}/#paper-${index+1}`
       });
     }
   }
@@ -63,7 +65,7 @@ async function remoteReports(){
   // source JSON from the public raw endpoint without a personal token.
   const index=await getJson(`${briefBase}/assets/search-index.json`);
   if(!Array.isArray(index)||!index.length)throw new Error('公开搜索索引为空，保留现有书目');
-  const dates=new Set(index.map(item=>String(item.reportUrl||'').match(/\/reports\/(\d{4}-\d{2}-\d{2})\//)?.[1]).filter(Boolean));
+  const dates=new Set(index.map(item=>String(item.reportUrl||'').match(/\/reports\/(\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?)\//)?.[1]).filter(Boolean));
   // Pages can lag a newly pushed report. Also probe today and yesterday in
   // Beijing time so the workbench does not wait for its static deployment.
   const today=new Date(Date.now()+8*3600000);
@@ -86,7 +88,7 @@ async function remoteReports(){
 }
 
 async function localReports(folder){
-  const files=(await readdir(folder)).filter(name=>/^\d{4}-\d{2}-\d{2}\.json$/.test(name));
+  const files=(await readdir(folder)).filter(name=>/^\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?\.json$/.test(name));
   return Promise.all(files.map(async name=>JSON.parse(await readFile(join(folder,name),'utf8'))));
 }
 
