@@ -10,14 +10,14 @@
     "material": "R₂Co₆Al₂₀₋δ",
     "tags": [
       "两周大期刊补刊",
-      "题名/元数据待核",
+      "已读正文",
       "已接受稿",
       "晶体生长和物性调控"
     ],
     "category": "晶体生长和物性调控",
     "date": "2026-10-22",
-    "access": "仅题名/元数据；正文未精读；公开HTML已定位，待逐篇补读",
-    "summary": "仅题名线索：尚不据此总结结果；先核对公开稿和正式接受状态。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "Al自助熔单晶把重稀土系列的平均结构修正为含Al无序/缺位的Imma，并显示Gd—Tm的反铁磁样异常及Ho→Er各向异性翻转。Y是非磁参照；低温次级异常和准一维解释仍待微观探针，不能从较低拟合残差直接确定磁结构或新结构相。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-1"
@@ -240,14 +240,14 @@
     "material": "无限层镍酸盐",
     "tags": [
       "两周大期刊补刊",
-      "题名/元数据待核",
+      "已读正文",
       "已接受稿",
       "高温与非常规超导"
     ],
     "category": "高温与非常规超导",
     "date": "2026-10-22",
-    "access": "仅题名/元数据；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "仅题名线索：尚不据此总结结果；先核对公开稿和正式接受状态。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "Nd₁₋ₓSrₓNiO₂宽能区谱权重随掺杂与温度重分配，低能光谱需要窄、宽两种Drude贡献；两者在超导区减弱支持多带参与，但载流子密度、质量与模型分解仍需独立约束。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-11"
@@ -355,14 +355,14 @@
     "material": "双层镍酸盐",
     "tags": [
       "两周大期刊补刊",
-      "题名/元数据待核",
+      "已读正文",
       "已接受稿",
       "高温与非常规超导"
     ],
     "category": "高温与非常规超导",
     "date": "2026-10-22",
-    "access": "仅题名/元数据；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "仅题名线索：尚不据此总结结果；先核对公开稿和正式接受状态。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "压应变双层镍酸盐随氧调节呈不对称超导半穹顶：富氧侧起始和中点温度一起降低，缺氧侧起始仍在而相干输运迅速崩塌。氧间隙掺杂与氧空位无序的竞争得到支持，但绝对氧δ、空位位置与竞争磁序尚未逐项直接确定。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-16"
@@ -378,14 +378,14 @@
     "material": "高压四方UTe₂",
     "tags": [
       "两周大期刊补刊",
-      "已读摘要",
+      "已读正文",
       "期刊日期待核",
       "高温与非常规超导"
     ],
     "category": "高温与非常规超导",
     "date": "2026-10-22",
-    "access": "仅摘要；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "摘要级线索，非全文结论：UTe₂高压四方相SC约4 K，Hc₂较小与正交相不同；常规/非常规归属不能仅靠Hc₂唯一判定。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "UTe₂在高压四方结构区出现与正交相截然不同的电阻下降和较小临界场，提示不同超导状态。但本版数据未达明确零电阻、四方相抗磁未检出，配对常规性及磁序归因仍待独立证据；18 GPa终点不是直接测量。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-17"
@@ -516,14 +516,14 @@
     "material": "KTaO₃界面",
     "tags": [
       "两周大期刊补刊",
-      "题名/元数据待核",
+      "已读正文",
       "已接受稿",
       "高温与非常规超导"
     ],
     "category": "高温与非常规超导",
     "date": "2026-10-22",
-    "access": "仅题名/元数据；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "仅题名线索：尚不据此总结结果；先核对公开稿和正式接受状态。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "LaAlO₃/KTa₁₋ₓNbₓO₃(111)在名义x=.8%附近Tc与临界电流较高，栅调出现非单调Tc—Hall密度关系；支持铁电临界涨落关联，但界面软模配对机制并未直接被测定。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-23"
@@ -585,14 +585,14 @@
     "material": "莫尔Kondo体系",
     "tags": [
       "两周大期刊补刊",
-      "题名/元数据待核",
+      "已读正文",
       "已接受稿",
       "重费米子与量子临界"
     ],
     "category": "重费米子与量子临界",
     "date": "2026-10-22",
-    "access": "仅题名/元数据；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "仅题名线索：尚不据此总结结果；先核对公开稿和正式接受状态。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "MoTe₂/WSe₂在ν≈4/3、混合价区及Kondo崩塌前的窄磁场窗出现整数Chern绝缘输运；不是分数Chern绝缘体，较大扭角器件也未复现同等量子化。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-26"
@@ -654,14 +654,14 @@
     "material": "CrPS₄",
     "tags": [
       "两周大期刊补刊",
-      "已读摘要",
+      "已读正文",
       "期刊日期待核",
       "磁性、拓扑与自旋"
     ],
     "category": "磁性、拓扑与自旋",
     "date": "2026-10-22",
-    "access": "仅摘要；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "摘要级线索，非全文结论：CrPS₄/Pt反铁磁非平衡magnon USMR，电流热效应与化学势模型须补读。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "CrPS₄/Pt二次谐波经几何校准扣除自旋Seebeck贡献后，残余非互易磁阻在spin-flip附近增强并随电流密度线性变化；有限非平衡磁子化学势是机制解释，不是直接测量了该化学势的空间分布。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-29"
@@ -715,7 +715,7 @@
   {
     "id": "doi:10.1038/s41467-026-78519-4",
     "title": "Terahertz field-induced giant symmetry modulations in a van der Waals antiferromagnet",
-    "authors": "Sheikh Rubaiat Ul Haque; Martin J. Cross; Sangeeta Rajpurohit; Jonah B. Haber; Christopher J. Ciccarino; Alexandra C. Zimmerman; Isabelle J. Sealey; Vadym Kulichenko; Monique Tie; Huaiyu Wang; Sharon S. Philip; Choongwon Seo; Jake D. Koralek; Luis Balicas; Mykhaylo Ozerov; Dmitry Smirnov; Liang Z. Tan; Felipe H. da Jornada; Tadashi Ogitsu; Matthias C. Hoffmann; Tony F. Heinz; Aaron M. Lindenberg",
+    "authors": "Sheikh Rubaiat Ul Haque 1,2,3,10; Martin J. Cross 4,10; Sangeeta Rajpurohit 5,6,10; Jonah B. Haber 2,3,10; Christopher J. Ciccarino 2,3; Alexandra C. Zimmerman 2; Isabelle J. Sealey 7,8; Vadym Kulichenko 7; Monique Tie 1,3; Huaiyu Wang 3; Sharon S. Philip 3; Choongwon Seo 4; Jake D. Koralek 4; Luis Balicas 7,8; Mykhaylo Ozerov 7; Dmitry Smirnov 7,8; Liang Z. Tan 6; Felipe H. da Jornada 2,3; Tadashi Ogitsu 5; Matthias C. Hoffmann 4; Tony F. Heinz 1,3,9; Aaron M. Lindenberg 2,3,9",
     "journal": "Nature Communications",
     "year": 2026,
     "doi": "10.1038/s41467-026-78519-4",
@@ -723,14 +723,14 @@
     "material": "MnPS₃",
     "tags": [
       "两周大期刊补刊",
-      "已读摘要",
+      "已读正文",
       "正式目录已核",
       "磁性、拓扑与自旋"
     ],
     "category": "磁性、拓扑与自旋",
     "date": "2026-10-22",
-    "access": "仅摘要；正文未精读；公开HTML已定位，待逐篇补读",
-    "summary": "摘要级线索，非全文结论：MnPS₃强THz泵浦RA-SHG动态镜面对称性；AFM→ferrimagnetic是模拟支持的解释，非直接磁结构测定。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "MnPS₃低温THz泵浦后出现1.7/4.5 THz相干振荡和镜面对称破缺的SHG图样；电荷重排—声子—磁交换是计算支持的机制，亚铁磁态仍需独立磁性实验确认。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-32"
@@ -792,14 +792,14 @@
     "material": "Fe₂Mo₃O₈",
     "tags": [
       "两周大期刊补刊",
-      "已读摘要",
+      "已读正文",
       "期刊日期待核",
       "磁性、拓扑与自旋"
     ],
     "category": "磁性、拓扑与自旋",
     "date": "2026-10-22",
-    "access": "仅摘要；正文未精读；公开HTML已定位，待逐篇补读",
-    "summary": "摘要级线索，非全文结论：Fe₂Mo₃O₈亚晶格选择RIXS圆二色性支持bi-altermagnetism，需要模型对照而非零磁矩即定性。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "Fe₂Mo₃O₈用两个不等价Fe位点的激发和镜面选择定则，给出双交替磁序的对称性证据；并未直接测量动量依赖的能带自旋劈裂。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-35"
@@ -976,14 +976,14 @@
     "material": "KV₂Se₂O",
     "tags": [
       "两周大期刊补刊",
-      "已读摘要",
+      "已读正文",
       "正式目录已核",
       "磁性、拓扑与自旋"
     ],
     "category": "磁性、拓扑与自旋",
     "date": "2026-10-22",
-    "access": "仅摘要；正文未精读；公开稿HTML未成功，继续核查PDF/作者稿",
-    "summary": "摘要级线索，非全文结论：α-Bi₄Br₄螺旋边态STM探针测KV₂Se₂O表面d波交错磁，实/动量空间证据关键。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "以Bi₄Br₄螺旋边缘态功能化STM针尖，KV₂Se₂O相反偏压下QPI主方向互换、对应两类V子晶格，支持二维d波交替磁纹理；c轴层间堆垛及体相交替磁性仍未解决。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-43"
@@ -1060,7 +1060,7 @@
   {
     "id": "doi:10.1103/x2k1-7dst",
     "title": "Ferroaxial and nematic transitions in the charge density wave phase of 1T-TiSe2",
-    "authors": "Sarah P. Edwards; Elliott Rosenberg; Ilaria Maccari; Jiaqin Wen; Chaowei Hu; Xiaodong Xu; Jong-Woo Kim; Philip J. Ryan; Rafael M. Fernandes; Fernando de Juan; Maria N. Gastiasoro; Jiun-Haw Chu",
+    "authors": "Sarah Edwards; Elliott Rosenberg; Ilaria Maccari; Jiaqin Wen; Chaowei Hu; Xiaodong Xu; Jong-Woo Kim; Philip J. Ryan; Rafael M. Fernandes; Fernando de Juan; Maria N. Gastiasoro; Jiun-Haw Chu",
     "journal": "Physical Review X",
     "year": 2026,
     "doi": "10.1103/x2k1-7dst",
@@ -1068,14 +1068,14 @@
     "material": "1T-TiSe₂",
     "tags": [
       "两周大期刊补刊",
-      "题名/元数据待核",
+      "已读正文",
       "已接受稿",
       "二维材料与量子器件"
     ],
     "category": "二维材料与量子器件",
     "date": "2026-10-22",
-    "access": "仅题名/元数据；正文未精读；公开HTML已定位，待逐篇补读",
-    "summary": "仅题名线索：尚不据此总结结果；先核对公开稿和正式接受状态。",
+    "access": "全文精读：对应作者公开稿主文；正式版与独立SI未逐段核同",
+    "summary": "1T-TiSe₂两种应变—电阻交叉通道反号，支持CDW内A₂g铁轴性成分；弹热还分辨约7 K的第二温标，低温存在强向列响应。并非看到零场横向电阻就发现反常霍尔，纯1Q/2Q相也未在衍射可达应变内直接完整跨入。",
     "reportSlug": "2026-10-22-major-journals",
     "reportKind": "supplement",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-22-major-journals/#paper-47"
