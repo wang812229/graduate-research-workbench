@@ -5,6 +5,14 @@ import { packResearchDataset, unpackResearchDataset, originalFileBytes, splitClo
 import { PROCESSING_METHODS, processingEntries, locateProcessingDataset, runWorkspaceMethod } from '../processing-workspace.mjs';
 import { mergeReports } from '../scripts/sync-literature.mjs';
 
+test('material hypotheses attach to their source paper without increasing catalog size',()=>{
+ const reports=[{date:'2026-11-02',papers:[{title:'First',doi:'10.1234/one'},{title:'Second',doi:'10.1234/two'}],researchIdeas:{ideas:[{id:'a',paperIndex:1,title:'A',status:'needs-review'},{id:'b',paperIndex:1,title:'B',status:'needs-review'},{id:'c',paperIndex:2,title:'C',status:'needs-review'}]}}];
+ const rows=mergeReports(reports);
+ assert.equal(rows.length,2);assert.equal(rows[0].researchIdeas.length,2);assert.equal(rows[1].researchIdeas.length,1);
+ assert.match(rows[0].researchIdeas[0].url,/\/ideas\/#2026-11-02-a$/);
+ assert.equal(rows[1].researchIdeas[0].status,'needs-review');
+});
+
 test('supplement retains its own report path alongside a same-day daily report',()=>{
  const paper={title:'Supplement experiment',doi:'10.1234/supplement'};
  const reports=[{date:'2026-10-22',slug:'2026-10-22-major-journals',kind:'supplement',papers:[paper]},{date:'2026-10-22',papers:[{title:'Daily experiment',doi:'10.1234/daily'}]}];

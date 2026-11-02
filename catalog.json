@@ -22,7 +22,17 @@
     "summary": "Sn助熔剂LuNb₆Sn₆在79K发生CDW转变，Hall随场变号和局部扣背景后的异常大部分可由电子/空穴多带竞争解释；50–100K仍有系统残差，说明场无关Drude图景不足，但不足以单独证明时间反演破缺。",
     "reportSlug": "2026-11-02",
     "reportKind": "daily",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-1"
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "lu-nb-ta-scattering-cdw",
+        "title": "Lu(Nb₁₋ₓTaₓ)₆Sn₆：把高迁移率Hall、框架畸变和SOC效应分开",
+        "material": "低Ta比例Lu(Nb₁₋ₓTaₓ)₆Sn₆候选固溶系列；Nb位占据与可合成性待验证",
+        "status": "needs-review",
+        "prediction": "条件性预测：若Ta进入Nb位、低替换比例保留母相且主要增加合金散射，残余电阻应升高，低场电子型Hall贡献可能比CDW电阻异常更快减弱。判据不是“所有信号一起变小”，而是同一实测成分序列中Hall形状/迁移率特征与独立CDW结构信号的不同演化。若经无序程度匹配后Ta样品仍有独特Hall/能带变化，单纯散射不足，才进一步检验轨道杂化/SOC；若所有差异都被实测结构变化解释，则优先支持框架效应。不预言CDW温度单调升降，也不承诺新超导态。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-02-lu-nb-ta-scattering-cdw"
+      }
+    ]
   },
   {
     "id": "arxiv:arXiv.2610.41619",
@@ -46,7 +56,17 @@
     "summary": "Conclusion：晶格尺寸变化能成为磁相变及自旋关联的高灵敏读出，但“数kink和magnon”是建立在交换致伸缩假设上的物理解释，不是逐个激发成像。",
     "reportSlug": "2026-11-02",
     "reportKind": "daily",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-2"
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-2",
+    "researchIdeas": [
+      {
+        "id": "csco-fixed-composition-halide-site-correlations",
+        "title": "待查新：固定混卤总量，比较桥位富集与桥位回避结构的交换曲率",
+        "material": "拟设计同一实测总组成Cs2CoBr3.8Cl0.2的两种短程占据结构：Cl在主链Co–X–X–Co交换桥附近富集(A)，与Cl回避该桥位(B)。名义Cl=0.2仅是首轮试验网格点，不是已确认新化合物或最优组分。",
+        "status": "needs-review",
+        "prediction": "条件性预测：若A/B可以在相同实测总组成、相同结构类型下获得，并且Cl确实不同程度进入J4相关桥位，则磁致伸缩对磁化的比例斜率与c22声速对同一磁化的响应不必按同一个比例缩放；无量纲场、温度匹配后，声速—伸长关系可能出现可重复分离。若只有磁相边界整体平移、两类曲线经单一能标缩放即重合，则该“曲率/斜率独立设计”假说失败。此处不预测符号、幅度或临界温度。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-02-csco-fixed-composition-halide-site-correlations"
+      }
+    ]
   },
   {
     "id": "arxiv:2610.40850",
@@ -69,7 +89,8 @@
     "summary": "Conclusion：两种失配差很大的衬底都能长出平整α-MnTe厚膜并保留相近各向异性能带分裂，但结果限于已松弛厚膜，需留意In扩散与磁畴平均。",
     "reportSlug": "2026-11-02",
     "reportKind": "daily",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-3"
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-3",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.40968",
@@ -92,7 +113,17 @@
     "summary": "Conclusion：升温使FePS₃磁振子与声子在普通9 T磁体内接近共振，但耦合本身随温度减弱；接近奈尔点模变宽后不能继续可靠拟合。",
     "reportSlug": "2026-11-02",
     "reportKind": "daily",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-4"
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-4",
+    "researchIdeas": [
+      {
+        "id": "2026-11-02-feps3-sulfur-isotope-mass-disorder",
+        "title": "FeP(³²S₁₋z³⁴Sz)₃同位素晶体：把声子质量、局域各向异性与无序从化学替换中拆开",
+        "material": "拟议稳定硫同位素晶体FeP(³²S₁₋z³⁴Sz)₃：先比较³²S富集端元、³⁴S富集端元与天然硫基线；只有端元证实可分辨质量效应后，再做中间混合同位素成分。它是同位素材料设计，不宣称新化学化合物。样品未制备、模式计算未执行。",
+        "status": "needs-review",
+        "prediction": "在保持结构、电子数和磁序相同的Born–Oppenheimer近似下，更换稳定硫同位素首先改变质量加权动力学矩阵，而不直接改变静态电子势能面的交换和单离子各向异性。若目标P₃模含可观S位移，³⁴S端元应相对³²S出现与该本征矢一致的声子频移；磁振子裸隙的一阶质量效应预期较小，但零点结构/自旋声子修正允许其非零，必须测量。较重同位素降低声子能量可能增大与磁振子的失谐，反而使所需共振场上移，不能保证低场改善。扣除各成分实测失谐及量子位移归一化后，若微观磁弹导数近似不变，归一化耦合应相容；中间随机同位素成分可能主要增加声子线宽，使反交叉更难分辨。没有给频移、Tc、稳定性或耦合的虚构数值。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-02-2026-11-02-feps3-sulfur-isotope-mass-disorder"
+      }
+    ]
   },
   {
     "id": "arxiv:2610.41797v1",
@@ -116,7 +147,17 @@
     "summary": "Conclusion：这篇论文最有说服力的故事是同一晶体换一个新鲜表面，原先很像磁序读出的磁滞就消失了。它把表面与热磁历史变成必须控制的实验变量，而不是否认MnTe的交错磁性本身。",
     "reportSlug": "2026-11-02",
     "reportKind": "daily",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-5"
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-5",
+    "researchIdeas": [
+      {
+        "id": "mnte-depth-selective-balanced-zn-dilution",
+        "title": "相同Zn面剂量的表层—深埋稀释对照：把MnTe表面磁记忆与体交错磁序分开",
+        "material": "候选材料架构：NiAs型α-MnTe(0001)主体中嵌入α-(Mn1−xZnx)Te局域稀释层；优先试验x=0、0.01、0.03的设计值（未验证可合成），比较表面约2–3nm与深埋层；Zn总面剂量、总膜厚及最外Te终止保持匹配。不是新化学式声明。",
+        "status": "needs-review",
+        "prediction": "有条件的差分预测：若表层可稀释Mn缺陷群主导MCD磁滞/记忆，在α相、表面终止、载流子及光学权重完成校准后，表层Zn与深埋Zn应产生超出重复误差的不同MCD回线面积/场冷偏移响应，而主体磁序指标变化相对较小。若Mn子晶层不均衡稀释制造未补偿矩，单层偏置设计应比相邻反平行层均衡设计出现更强残余矩或不同回线；方向与数值未计算，不预言特定TN、消失温度或增强百分比。若只是载流子/折射率效应，信号将随Hall/椭偏校正而坍缩，深度差异不会保留。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-02-mnte-depth-selective-balanced-zn-dilution"
+      }
+    ]
   },
   {
     "id": "arxiv:2610.41827v1",
@@ -140,7 +181,8 @@
     "summary": "Conclusion：本文不是把超导膜照得越坏越好，而是用可定位损伤换取周期钉扎，并用Tc代价、磁阻谷和临界电流峰共同寻找窗口。100nm几何周期能预测匹配场，是比单独展示一个Jc峰更有约束力的证据。",
     "reportSlug": "2026-11-02",
     "reportKind": "daily",
-    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-6"
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-02/#paper-6",
+    "researchIdeas": []
   },
   {
     "id": "doi:10.1038/s41567-026-03504-z",

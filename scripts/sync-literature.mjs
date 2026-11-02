@@ -45,7 +45,8 @@ export function mergeReports(reports,existing=[]){
         url:p.doi||p.fullText||old.url||'',material:p.material||old.material||'',
         tags:[...new Set([...(p.tags||[]),p.category].filter(Boolean))],
         category:p.category||'',date:report.date,access:p.access||'',
-        summary:p.conclusion||'',reportSlug:slug,reportKind:report.kind||'daily',reportUrl:`${briefBase}/reports/${slug}/#paper-${index+1}`
+        summary:p.conclusion||'',reportSlug:slug,reportKind:report.kind||'daily',reportUrl:`${briefBase}/reports/${slug}/#paper-${index+1}`,
+        researchIdeas:report.researchIdeas ? report.researchIdeas.ideas.filter(idea=>idea.paperIndex===index+1).map(idea=>({id:idea.id,title:idea.title,material:idea.material,status:idea.status,prediction:idea.prediction,url:`${briefBase}/ideas/#${report.date}-${idea.id}`})) : (old.researchIdeas||[])
       });
     }
   }
