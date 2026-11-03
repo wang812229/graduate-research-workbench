@@ -40,7 +40,7 @@ export function mergeReports(reports,existing=[]){
       const old=existing.find(item=>item.id===id)||{};
       const doi=id.startsWith('doi:')?id.slice(4):'';
       merged.set(id,{
-        ...old,id,title:p.title,authors:p.authors||old.authors||'',journal:p.journal||old.journal||'',
+        ...old,id,title:p.title,...(p.titleZh?{titleZh:p.titleZh}:{}),authors:p.authors||old.authors||'',journal:p.journal||old.journal||'',
         year:Number(String(p.date||report.date).slice(0,4)),doi,
         url:p.doi||p.fullText||old.url||'',material:p.material||old.material||'',
         tags:[...new Set([...(p.tags||[]),p.category].filter(Boolean))],

@@ -304,3 +304,8 @@ test('independent processing data retains its own scope through backup and encry
   const restored=await unpackResearchDataset(packageValue,'independent-transfer-password');assert.equal(restored.scope,'processing');assert.deepEqual(originalFileBytes(restored),bytes);
   assert.throws(()=>runWorkspaceMethod({...dataset,localRawOnly:true},method,{step_0_value:'1'}),/完整数据/);
 });
+
+test('catalog sync carries Chinese translation without changing original title or identity',()=>{
+ const rows=mergeReports([{date:'2026-11-03',papers:[{title:'Orbital order',titleZh:'轨道有序',doi:'https://doi.org/10.1234/translation'}]}]);
+ assert.equal(rows.length,1);assert.equal(rows[0].title,'Orbital order');assert.equal(rows[0].titleZh,'轨道有序');assert.equal(rows[0].id,'doi:10.1234/translation');
+});
