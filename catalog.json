@@ -1,5 +1,95 @@
 [
   {
+    "id": "doi:10.1103/kxk6-55jg",
+    "title": "Mott insulating interface in cuprate-based p–n bilayers",
+    "titleZh": "铜氧化物 p–n 双层中的莫特绝缘界面",
+    "authors": "Maxime Dion, Guo-zhen Zhu, Guillaume Hardy, Gianluigi A. Botton, Patrick Fournier",
+    "journal": "Physical Review B",
+    "year": 2026,
+    "doi": "10.1103/kxk6-55jg",
+    "url": "https://doi.org/10.1103/kxk6-55jg",
+    "material": "PCCO/LSCO 外延双层",
+    "tags": [
+      "正式期刊",
+      "中英文标题",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-10-15",
+    "access": "全文精读：APS 正式版 10 页，第 II 节 Methods、第 III–V 节、图 1–8；对照第一作者机构公开学位论文第 5、9 章部分。",
+    "summary": "双层本身均有超导转变，结构上直接接触的界面却表现出均匀性较好的高阻隧穿。莫特平台是结合结构和输运得出的解释，局部填充数与势垒厚度仍需直接核验。",
+    "reportSlug": "2026-10-15",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-15/#paper-5",
+    "researchIdeas": []
+  },
+  {
+    "id": "doi:10.1103/js3k-4d9x",
+    "title": "Highly uniaxial stress-tunable orbital-driven magnetism in CrAs",
+    "titleZh": "可由单轴应力强烈调控的 CrAs 轨道驱动磁性",
+    "authors": "Kousuke Ishida, Hsiao-Yi Chen, Shumpei Seto, Hisashi Kotegawa, Ryoga Takahara, Yoichi Nii, Eiichi Matsuoka, Yusuke Wakabayashi, Clifford W. Hicks, Yusuke Nomura, Yoshinori Onose",
+    "journal": "Physical Review B",
+    "year": 2026,
+    "doi": "10.1103/js3k-4d9x",
+    "url": "https://doi.org/10.1103/js3k-4d9x",
+    "material": "CrAs",
+    "tags": [
+      "正式期刊",
+      "中英文标题",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-14",
+    "access": "全文精读：APS 正式主文图 1–4 和独立 SI 第 I–IV 节、图 S1–S2、表 S1，另核对轨道分析。",
+    "summary": "b 轴压缩在螺旋磁相中产生有滞后的近恒应力区，揭示一阶转变的强各向异性。轨道计算给出 dxy 占据重排的解释，零温临界应力仍为外推。",
+    "reportSlug": "2026-10-14",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-7",
+    "researchIdeas": [
+      {
+        "id": "cras-sb-matched-b-axis",
+        "title": "在等 b 晶格参数下比较 CrAs₁₋ₓSbₓ 与 CrAs 的一阶应力相线",
+        "material": "保留 MnP 型的低 Sb CrAs₁₋ₓSbₓ 单晶，b 轴单轴加载",
+        "status": "needs-review",
+        "prediction": "若 b 主导、且替换主要通过晶格作用调节轨道占据，磁与力学转变在相同实测 b 时应在误差内接近。若 b 已匹配而有系统差异，应检查 Cr–Pn 键角、配体共价性/SOC、无序与杂相，单坐标模型即被证伪。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-10-14-cras-sb-matched-b-axis"
+      }
+    ]
+  },
+  {
+    "id": "doi:10.1103/jbjp-kjwx",
+    "title": "Spin 1/2-3/2 crossover in a chain antiferromagnet Cs₂CoCl₄",
+    "titleZh": "链状反铁磁体 Cs₂CoCl₄ 中自旋 1/2–3/2 的交叉行为",
+    "authors": "T. A. Soldatov, A. I. Smirnov",
+    "journal": "Physical Review Materials",
+    "year": 2026,
+    "doi": "10.1103/jbjp-kjwx",
+    "url": "https://doi.org/10.1103/jbjp-kjwx",
+    "material": "Cs₂CoCl₄",
+    "tags": [
+      "正式期刊",
+      "中英文标题",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-10-13",
+    "access": "全文精读：APS 正式版 6 页，第 I–V 节、图 1–5、式 1–9；数据仓库尚未复算。",
+    "summary": "在同一批链状磁体晶体中，低温只看见下 Kramers 双重态的有效赝自旋，高温额外共振则需要 Co²⁺ 的四能级模型。转换连续，可直接指明哪些温场条件下仍能使用自旋 1/2 模型。",
+    "reportSlug": "2026-10-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-13/#paper-2",
+    "researchIdeas": [
+      {
+        "id": "cs-cobalt-mixed-halide-esr",
+        "title": "混卤 Cs₂CoCl₄₋ₓBrₓ 的局域各向异性是否先于链交换改变",
+        "material": "正交 Cs₂CoCl₄₋ₓBrₓ 的低 Br 组成序列",
+        "status": "needs-review",
+        "prediction": "若少量 Br 优先改变 Co 的局域配位且存在明显静态环境差异，15 K 的 A/B 线中心联立拟合将先出现超出纯样误差的展宽或分支，而低温有效链尺度变化较小。若只是统一改变晶场，则应能用一个连续变化的 D 同时拟合 a、b 两方向，无须引入第二配位环境。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-10-13-cs-cobalt-mixed-halide-esr"
+      }
+    ]
+  },
+  {
     "id": "arxiv:2611.14231",
     "title": "From Growth to Devices: Oxygen-Controlled Superconductivity in BSCCO Thin Films",
     "titleZh": "从生长到器件：BSCCO 薄膜中由氧调控的超导",
@@ -8991,7 +9081,18 @@
     "summary": "让PtSe₂少往上堆、更多横向长，是本文的故事。GO在反应早期允许Se进入，随后还原成为限制空间的碳盖层；但盖层过厚也可能堵住反应。最有用的是有无盖层和温度的对照，而不是把局域STEM或1200 °C形貌保持扩展为整片单晶、半导体带隙或化学稳定的证明。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-15/#paper-1",
     "reportSlug": "2026-10-15",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "一步硒化法在石墨烯限域下生长少层 PtSe₂",
+    "researchIdeas": [
+      {
+        "id": "ptse2-isotope-cap-transport",
+        "title": "候选：用硒同位素脉冲追踪GO盖层下的生长通道",
+        "material": "rGO/PtSe₂/rGO；稳定Se同位素示踪，非放射性实验",
+        "status": "not-found-in-scope",
+        "prediction": "以两种可分辨的稳定Se同位素前后供料，并固定总Se剂量和盖层条件。若边缘扩散控制且交换可忽略，后供同位素的空间分数可能与到边缘/预设开口的距离及脉冲时间关联，扩散主导区可能呈长度随时间平方根增长；若顶面分布式渗透占优，空间图将更受局部缺陷分布控制。这是竞争假设，不是已经计算出的扩散系数或必然标度。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-10-15-ptse2-isotope-cap-transport"
+      }
+    ]
   },
   {
     "id": "arxiv:2610.14825",
@@ -9017,7 +9118,9 @@
     "summary": "衬底不是静止模板：hBN生长让Pt表面重分面，不同晶面又改变hBN电子结构。本稿最值得学习的是把裸表面能、覆层黏附和应变分开计算。它不是“一张能量图预测所有晶面”的闭合理论，也不是全部实验首次公开。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-15/#paper-2",
     "reportSlug": "2026-10-15",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "六方氮化硼在弯曲铂衬底上诱导的选择性刻面化",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.16483",
@@ -9043,7 +9146,18 @@
     "summary": "作者把化学插层真正接入相位敏感器件，再用倒置电极与追加插层追问零场二极管来自哪里。故事的核心是材料处理与测量几何共同决定所见信号；它支持异常内部相位的候选图景，但零场非互易不是s+is′配对态的唯一指纹。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-15/#paper-3",
     "reportSlug": "2026-10-15",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "分子插层范德华约瑟夫森结揭示复杂多带超导",
+    "researchIdeas": [
+      {
+        "id": "tas2-mixed-guests-charge-matched",
+        "title": "候选：固定总客体含量的TMA/TEA混合插层TaS₂",
+        "material": "(TMA)ₚ(TEA)ᑫTaS₂，p+q=x；x与混合比例均须实测",
+        "status": "needs-review",
+        "prediction": "若混合客体单相确实存在，且总客体含量与实际载流子密度可以匹配，改变客体比例可能改变层间距分布和散射，而不必同步改变名义注入电荷。是否改变零场非互易与相位敏感响应是待实验检验的预测，不预言Tc升高，也不预言必然出现s+is′。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-10-15-tas2-mixed-guests-charge-matched"
+      }
+    ]
   },
   {
     "id": "doi:10.1103/p5ry-x2wr",
@@ -9069,7 +9183,9 @@
     "summary": "在零电场会互相抵消的局域响应，施加电场后可以留下可测信号。论文的力量不在信号多大，而在畴反转、偏振转角、撤磁场和翻片等对称性检查相互闭合。它为寻找隐蔽反铁磁响应提供方法，但没有直接用衍射拍到飞米位移，也不是用普通实验室XRD即可完成的测试。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-15/#paper-4",
     "reportSlug": "2026-10-15",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "赤铁矿中的电场诱导 X 射线非互易二色性",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.17452",
@@ -9096,7 +9212,9 @@
     "summary": "这篇首先解决“能否把理论候选长成可测量单晶”。CVT与单晶衍射给出P6₃/mmc结构，热容和电阻抓到141 K转变；但75 K以下少量互生相的磁性明显，Hall和磁阻仍有多种解释。最值得带回实验室的是成分、超结构、互生相和测量几何的联合验收，而不是将异常Hall直接称为交替磁性证据。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-1",
     "reportSlug": "2026-10-14",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "候选交替磁体 Cr₁⁄₄NbS₂ 的晶体生长、磁性与输运性质",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.15726",
@@ -9123,7 +9241,9 @@
     "summary": "作者用同一类Flux生长改变Al/Si，让Hall信号形成拱形，而磁转变只小幅改变。最有用的是“起始配比—实际EDS—电阻/载流子—Hall缩放”串起来的样品系列。巨大的Hall并不自动等于更强Berry曲率；所谓可逆是跨组成的机制回返，不能理解为同一晶体原位反复切换。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-2",
     "reportSlug": "2026-10-14",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "通过调节 Al/Si 比实现 PrAlSi 反常霍尔效应内禀与外禀贡献的可逆交叉",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.16253",
@@ -9149,7 +9269,9 @@
     "summary": "故事是用压力保持成分不变，却改变点接触看到的能隙权重和方向各向异性。Andreev开隙温度没有简单复制电阻的双穹顶，提醒读者电阻转变、能隙拟合和配对胶不是同一种观察。峰—谷—隆起可提示强耦合，但没有直接识别玻色子种类。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-3",
     "reportSlug": "2026-10-14",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "笼目超导体 CsV₃Sb₅ 超导序参量随压力的演化",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.14367",
@@ -9176,7 +9298,9 @@
     "summary": "故事的关键不是再测一个很大的二次电压，而是选对能耦合BCD的张量分量。左右手晶体、上下电极和转角让符号翻转与对称性关系一起被检验。实验测得的是二次响应；BCD数值通过几何、迁移率和有效质量换算，仍有这些假设的误差。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-4",
     "reportSlug": "2026-10-14",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "通过交叉轴非线性霍尔效应直接观测三方 Te 中依赖手性的贝里曲率偶极",
+    "researchIdeas": []
   },
   {
     "id": "arxiv:2610.16439",
@@ -9203,7 +9327,9 @@
     "summary": "作者把多畴重叠拆开后，发现一种软模的隙不是越热越小，而先随热涨落增大，靠近磁转变再关闭。故事能成立的关键是选畴、仪器卷积和准弹性背景同时受控。√T是有效模型中的中温行为，不是整个温区的普适经验律，也没有把常规衍射单峰当能隙。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-5",
     "reportSlug": "2026-10-14",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "各向同性螺旋磁体 ZnCr₂Se₄ 中随升温增强的赝戈德斯通自旋能隙",
+    "researchIdeas": []
   },
   {
     "id": "doi:10.1021/jacs.6c13327",
@@ -9229,7 +9355,9 @@
     "summary": "作者试图用组分选择把两种磁结构的能量拉近，让较小压力引发较大磁化改变。目前只能核准其摘要所讲的故事和两个指标，不能评价样品是否单相、压力循环是否可逆或该系数是否跨温区适用。等待主文后才能给可执行的合成方案。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-14/#paper-6",
     "reportSlug": "2026-10-14",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "通过自旋调控在 Mn₃(Zn₀.₂₅Sn₀.₂₅Ga₀.₂₅Ge₀.₂₅)C 中诱导巨压磁效应",
+    "researchIdeas": []
   },
   {
     "id": "doi:10.1021/acs.nanolett.6c03824",
@@ -9254,11 +9382,13 @@
     ],
     "category": "晶体生长和物性调控",
     "date": "2026-10-13",
-    "access": "全文精读（仅公开 SI）：实际读取 ACS 官方17页 SI 的 Materials and Methods、图S1–S12及MD/LJ参数表；主文网页返回403，未读到主文，不宣称主文全文已读。",
+    "access": "仅公开 SI 精读：实际读取 ACS 官方17页 SI 的 Materials and Methods、图S1–S12及MD/LJ参数表；主文网页返回403，未读到主文，不宣称主文全文已读。",
     "summary": "作者希望把昂贵的大块单晶或外延，换成工业多晶金属箔在气流中的取向竞争。Cu与Ni垂直悬挂在氧化铝支架上，分别在1030和1400 °C退火；Ni的远距离EBSD和极图支持连续(111)择向，但6–9°低角亚晶界说明“单晶”不等于零缺陷。模拟中气体促进较少FCC晶域恢复，只提供表面尺度的机制支持，不能代替宏观金属箔的热史。对下一炉最有价值的是支架、气流、压力与全幅取向分布的可追溯记录，而不是照抄“100%单晶”的标签。",
     "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-10-13/#paper-1",
     "reportSlug": "2026-10-13",
-    "reportKind": "daily"
+    "reportKind": "daily",
+    "titleZh": "通过气流优化实现面向商业化的大尺寸单晶金属箔定向制备与缺陷抑制",
+    "researchIdeas": []
   },
   {
     "id": "doi:10.1038/s41467-026-78522-9",
