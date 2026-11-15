@@ -1,5 +1,281 @@
 [
   {
+    "id": "doi:10.1038/s41467-026-79672-6",
+    "title": "Directly visualizing the energy level structure of quantum dot molecules",
+    "titleZh": "直接观测量子点分子的能级结构",
+    "authors": "Heun Mo Yoo; Tanner M. Janda; Connor Nasseraddin; Jason R. Petta",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-79672-6",
+    "url": "https://doi.org/10.1038/s41467-026-79672-6",
+    "material": "²⁸Si/SiGe 双量子点",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-11-15",
+    "access": "全文精读：出版者 Article in Press 的 Results、Methods、图 1–4；已核补充材料的唯象模型、图 S1、S3–S7 及表 S1。",
+    "summary": "在同一个 Si/SiGe 双量子点上调节点间隧穿，谱线由弱耦合时的穿越变为强耦合时的反交叉，并能分别测量谷、轨道、自旋与双电子单重态—三重态能标。",
+    "reportSlug": "2026-11-15",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-15/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "si-isotope-depth-valley-hyperfine",
+        "title": "在 ²⁸Si/SiGe 双量子点的量子阱中移动等剂量的 ²⁹Si 薄层",
+        "material": "SiGe / ²⁸Si 量子阱（插入稀 ²⁹Si 同位素层） / SiGe；比较居中与靠近顶界面的两种深度",
+        "status": "needs-review",
+        "prediction": "点电子的垂直包络向同位素薄层偏移时，归于这层的准静态超精细噪声应增强，Ramsey T₂* 倾向缩短。若界面分布与有效垂直场相同，谷劈裂分布对核自旋层位置的敏感度应小于退相干；预期不显著改变 (tc) 的校准关系。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-15-si-isotope-depth-valley-hyperfine"
+      }
+    ]
+  },
+  {
+    "id": "doi:10.1038/s43246-026-01418-0",
+    "title": "Mechanisms of β ↔ γ transformations in tin induce asymmetric kinetics",
+    "titleZh": "锡中 β↔γ 相变的机制导致不对称动力学",
+    "authors": "Robin Fréville; Agnès Dewaele; Charles Pépin; Nicolas Bruzy; Florent Occelli; Matteo Levantino; Nicolas Guignot",
+    "journal": "Communications Materials",
+    "year": 2026,
+    "doi": "10.1038/s43246-026-01418-0",
+    "url": "https://doi.org/10.1038/s43246-026-01418-0",
+    "material": "β–Sn / γ–Sn",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-14",
+    "access": "全文精读：出版者 Article in Press 的 Results、Discussion、Methods，核对静态取向、动态衍射和变速曲线相关图文。",
+    "summary": "同一元素的正反相变具有不同动力学。300 K 下正向 β→γ 的突变压力约 10.9±0.2 GPa，反向压力明显随卸载速率变动。",
+    "reportSlug": "2026-11-14",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-14/#paper-1",
+    "researchIdeas": []
+  },
+  {
+    "id": "doi:10.1021/acs.nanolett.6c03572",
+    "title": "Phonon-Activated Optical Transitions in Graphullerene Monolayers",
+    "titleZh": "二维富勒烯聚合物单层中由声子激活的光学跃迁",
+    "authors": "Aurélie Champagne; Antonios M. Alvertis; Yoann Olivier; Leeor Kronik; Jeffrey B. Neaton",
+    "journal": "Nano Letters",
+    "year": 2026,
+    "doi": "10.1021/acs.nanolett.6c03572",
+    "url": "https://doi.org/10.1021/acs.nanolett.6c03572",
+    "material": "graphullerene 单层",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-11-14",
+    "access": "仅摘要：Crossref 返回作者与公开摘要，ACS 正文访问遇到验证页面，未找到可核实的公开作者全文。",
+    "summary": "作者计算声子运动对准粒子和光学带隙的重整化，预测动核破缺对称性后可激活原本禁戒的 Γ 点垂直跃迁。",
+    "reportSlug": "2026-11-14",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-14/#paper-2",
+    "researchIdeas": [
+      {
+        "id": "isotope-graphullerene-optics",
+        "title": "以富集 ¹³C₆₀ 构筑 graphullerene，检验禁戒光学跃迁的零点贡献",
+        "material": "(¹³C₆₀)∞ 与 (¹²C₆₀)∞ 的同构单层",
+        "status": "needs-review",
+        "prediction": "在力常数和对称性不变的谐振近似下，富 ¹³C 样品的相关振动频率应降低且零点位移减小；低温禁戒边的振子强度或声子相关红移应有同方向的可分辨变化。绝对能量差需要计算。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-14-isotope-graphullerene-optics"
+      }
+    ]
+  },
+  {
+    "id": "doi:10.1038/s41467-026-78687-3",
+    "title": "Signatures of a Kondo insulator in a multilayer moiré Superlattice",
+    "titleZh": "多层莫尔超晶格中的近藤绝缘体迹象",
+    "authors": "Qiran Wu; Jingyuan Cui; Ang-Kun Wu; Yuze Meng; Dongxue Chen; Yueshan Wang; Li Yan; Lei Ma; Takashi Taniguchi; Kenji Watanabe; Shi-Zeng Lin; Su-Fei Shi; Yong-Tao Cui",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-78687-3",
+    "url": "https://doi.org/10.1038/s41467-026-78687-3",
+    "material": "1L WS₂ / 2L WSe₂",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-11-13",
+    "access": "全文精读：出版者 Article in Press 的正文、Methods、图 1–4，核对对照与模型；独立 SI 链接待补。",
+    "summary": "同一块石墨烯双栅器件中，绝缘响应沿总莫尔空穴填充 ν₁+ν₂=2 伸入近层欠填充区，磁场抑制异常，局域输运与热力学能标共同支持近藤解释。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "remote-mose2-moire-kondo",
+        "title": "以 MoSe₂ 替换 WS₂/WSe₂/WSe₂ 中的远端 WSe₂",
+        "material": "WS₂/WSe₂/MoSe₂ 顺序固定的范德华三层",
+        "status": "needs-review",
+        "prediction": "只有远层参与占据且同样存在 ν总=2 的填充控制时，才预期近藤型信号仍能成立；其最大能隙对应失谐、电场闭隙边界会随远端换层而改变。若远层不填充，预期相应异常消失。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-13-remote-mose2-moire-kondo"
+      }
+    ]
+  },
+  {
+    "id": "doi:10.1038/s41467-026-79012-8",
+    "title": "Room-temperature continuous-wave lasing-like emission from solution-processed bulk monolayer MoS₂ thin films",
+    "titleZh": "溶液加工的体相单层式 MoS₂ 薄膜在室温下的连续波类激光发射",
+    "authors": "Boxuan Zhou; Haoyang Li; Bangyao Hu; Jingxuan Zhou; Chen Li; Jingyuan Zhou; Yu Huang; Xiangfeng Duan",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-79012-8",
+    "url": "https://doi.org/10.1038/s41467-026-79012-8",
+    "material": "MoS₂/PVP 叠层薄膜",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-11-13",
+    "access": "全文精读：出版者 Article in Press 正文、Methods、图 1–5 与相关图注。独立 SI 和报告表未读。",
+    "summary": "通过 PVP 把多层堆叠的每片 MoS₂ 保持近似电子解耦，再借反射基底及微球腔增加有效增益体积。约 1.4 nW 处有阈值样变化，但尚无可信二阶相干测量。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-2",
+    "researchIdeas": []
+  },
+  {
+    "id": "doi:10.1103/vhbs-v961",
+    "title": "Site-selective substitutions and magnetic structures in (Fe,Co)₂(P,Si) compounds probed by x-ray linear dichroism and neutron diffraction",
+    "titleZh": "用 X 射线线二色性和中子衍射探测 (Fe,Co)₂(P,Si) 化合物的位点选择性取代与磁结构",
+    "authors": "L. L. Bao; W. Wei; H. Yibole; Jiazheng Hao; Lunhua He; F. Wilhelm; A. Rogalev; F. Guillou",
+    "journal": "Physical Review Materials",
+    "year": 2026,
+    "doi": "10.1103/vhbs-v961",
+    "url": "https://doi.org/10.1103/vhbs-v961",
+    "material": "Fe₁.₉₃₋ₓCoₓP₁₋ᵧSiᵧ",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-13",
+    "access": "全文精读：APS 正式 PDF 样品与实验段、图 1–5、表 I 与讨论。未独立复算结构模型。",
+    "summary": "Co 优先占四面体 3f，Si 分布在两个非金属位点，故 c/a 相似不能保证两个成分的磁结构相似。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-3",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.17335",
+    "title": "Long-lived light-driven bimagnons at finite momentum in NiO",
+    "titleZh": "NiO 中有限动量下长寿命的光驱动双磁振子",
+    "authors": "Xian P. Yang; Christopher T. Parzyck; Martin Cross; Ella Blake; Octave Duros; Yinchuan Lv; Hari Paudyal; Che-Min Lin; Sharon S. Philip; Lingjia Shen; Daniel Jost; Giacomo Coslovich; Joshua J. Turner; Choongwon Seo; Elyse Schriber; Michael E. Flatté; Xiaoqin Li; Yuri Suzuki; Durga Paudyal; Harold Y. Hwang; Georgi L. Dakovski; Matthias C. Hoffmann; Wei-Sheng Lee; Alexander H. Reid",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.17335v1",
+    "material": "NiO(100)/MgO(100)",
+    "tags": [
+      "中英文标题",
+      "独立预印本",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-11-13",
+    "access": "全文精读：公开 v1 正文、Methods、图 1–3 及随文补充材料中拟合和几何相关内容。",
+    "summary": "在有限动量看见寿命为几十皮秒量级的双磁振子过量占据，早期响应与后期升温基线可分辨；28±11 ps 是模型拟合的弛豫时间。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-4",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.15984",
+    "title": "Elastic tricriticality at the collapse of magnetic order in a valence fluctuating Eu-based compound",
+    "titleZh": "价态涨落 Eu 基化合物在磁有序崩塌时的弹性三临界性",
+    "authors": "Yassine Agarmani; Arif Ata; Lars Franke; Jan Zimmermann; Ulrich Tutsch; Marius Peters; Michelle Ocker; Kristin Kliemt; Cornelius Krellner; Bernd Wolf; Markus Garst; Michael Lang",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.15984v1",
+    "material": "EuPd₂(Si₀.₈₉Ge₀.₁₁)₂",
+    "tags": [
+      "中英文标题",
+      "独立预印本",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-11-13",
+    "access": "全文精读：公开 v1 正文、Materials and Methods、图 2–4 以及补充方法、图 S2 与样品表。",
+    "summary": "磁有序终止附近的低压区出现 a 轴等温压缩率增强，热膨胀、电阻和磁性共同约束弹性三临界解释。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-5",
+    "researchIdeas": [
+      {
+        "id": "sige-sn-eupd2-elastic",
+        "title": "在 EuPd₂(Si,Ge)₂ 的 Si/Ge 位点加入微量 Sn",
+        "material": "EuPd₂(Si₀.₈₉₋ᵧGe₀.₁₁Snᵧ)₂，y 为试验变量",
+        "status": "needs-review",
+        "prediction": "若 Sn 形成均匀同位点固溶且主要表现为负化学压力，与原 Ge 实测值匹配的样品可预期压缩率主峰偏向更高实际压力。若在校正体积后仍显著偏离或只增宽，则局域杂化、取代无序或竞争结构优先。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-13-sige-sn-eupd2-elastic"
+      }
+    ]
+  },
+  {
+    "id": "arxiv:2611.14968",
+    "title": "Nitride crystalline barrier epitaxial SIS Josephson junctions by MBE",
+    "titleZh": "分子束外延制备具有晶态氮化物势垒的 SIS 约瑟夫森结",
+    "authors": "Manas Verma; Anand Ithepalli; Amit Rohan Rajapurohita; Eegene Clara Chung; David A. Garcia-Wetten; Naomi Pieczulewski; Danqing Wang; John G. Wright; Archit Shah; Jimy Encomendero; Rishabh Singh; Chandrashekar Savant; Hangwang Yang; Anthony Hyatt; Jaehong Choi; Thomas Varghese; Kushagra Aggarwal; Paul B. Welander; Apurva Mehta; David Schuster; Valla Fatemi; Gregory D. Fuchs; Michael C. Hamilton; Hong X. Tang; David A. Muller; Huili Grace Xing; Debdeep Jena",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.14968v1",
+    "material": "NbN / AlN / NbN",
+    "tags": [
+      "中英文标题",
+      "独立预印本",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-11-13",
+    "access": "全文精读：公开 v1 主文、Methods 的生长与结制备小节、图 2–3 及表征讨论。独立补充数据待进一步复核。",
+    "summary": "连续晶态 AlN 势垒仍允许相干隧穿，材料界面和测得 I–V 同时给力，器件相干时间仍未测出。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-6",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.15022",
+    "title": "Termination-selective Kondo hybridization of topological surface states in CeCuAs₂",
+    "titleZh": "CeCuAs₂ 拓扑表面态随表面终止而异的近藤杂化",
+    "authors": "Bo Chen; Chen Zhang; Hao Liu; Qi-Yi Wu; Zhong-Tuo Fu; Ying Zhou; Chun-Hui Lyu; Yang Luo; Zi-Jie Xu; Hai-Long Deng; Zheng-Tai Liu; Mao Ye; Zhen-Hua Chen; Yao-Bo Huang; Sheng-Tao Cui; Zhe Sun; Da-Wei Shen; Jun He; Yu-Xia Duan; Jian-Qiao Meng",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.15022v1",
+    "material": "CeCuAs₂",
+    "tags": [
+      "中英文标题",
+      "独立预印本",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-11-13",
+    "access": "全文精读：公开 v1 样品与 ARPES 方法、图 1–4 和表面模拟讨论。助熔剂温程与独立 SI 未取得。",
+    "summary": "CeAs₂ 终止上同时出现 Dirac 支与近费米能 Ce 4f 信号，冷却时两区域谱权重联动，提供表面近藤杂化的谱学证据。",
+    "reportSlug": "2026-11-13",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-13/#paper-7",
+    "researchIdeas": []
+  },
+  {
     "id": "doi:10.1103/kxk6-55jg",
     "title": "Mott insulating interface in cuprate-based p–n bilayers",
     "titleZh": "铜氧化物 p–n 双层中的莫特绝缘界面",
