@@ -1,5 +1,62 @@
 [
   {
+    "id": "doi:10.1038/s41467-026-79153-w",
+    "title": "Constructing radiative dipolar excitons via frontier-state hybridization in 2D perovskites",
+    "titleZh": "通过前沿态杂化在二维钙钛矿中构造可辐射偶极激子",
+    "authors": "Jiakai Yan; Cheng Wang; Siyi Wu; Wei Dai; Shuwen Jia; Yan Zeng; Wenbo Li; Yan Li; Huiting Zhang; Zigang Ren; Bowen Deng; Yao Gao; Weibin Chu; Ti Wang; Hongxing Xu",
+    "journal": "Nature Communications",
+    "year": 2026,
+    "doi": "10.1038/s41467-026-79153-w",
+    "url": "https://doi.org/10.1038/s41467-026-79153-w",
+    "material": "(AE3T)PbI₄ / (AE2T)PbI₄",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-17",
+    "access": "全文精读：出版者 Article in Press 正文和 Methods、图 1–4；补充图 S2–S8、S12、S21–S22、Note 2 与表 S1–S4。",
+    "summary": "把激子从无机层内态推到有机/无机界面的部分分离态，同时保留可测发光。光谱和扩散共同约束偶极模型，宏观一阶 Stark 响应与单激子的永久偶极须分开看。",
+    "reportSlug": "2026-11-17",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-17/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "ae3t-halide-exciton-detuning",
+        "title": "在 (AE3T)PbI₄ 中稀量替 I 为 Br，检验可辐射偶极激子的失谐窗口",
+        "material": "(AE3T)Pb(I₁₋ₓBrₓ)₄，先筛富 I 的稀 Br 区，端位/桥位选择性未知",
+        "status": "needs-review",
+        "prediction": "若 Br 进入同相无机卤位且配体构象保持，较深的 Br 4p 成分可使无机价带相对有机前沿能级下移。无机吸收边预期优先蓝移；当局部能级失谐明显增大，低能杂化峰相对于层内峰的归一化吸收权重应下降。其密度蓝移与永久偶极可单独测量，不预设与光强同步。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-17-ae3t-halide-exciton-detuning"
+      }
+    ]
+  },
+  {
+    "id": "doi:10.1021/jacs.6c17007",
+    "title": "Bandedge-State-Limited Single-Photon Emission from Volumetric Quantum Design of 2D Colloidal Quantum Wells",
+    "titleZh": "通过二维胶体量子阱的三维量子设计实现带边态数受限的单光子发射",
+    "authors": "Xiao Liang; Bo Wang; Yue Yu; Pedro Ludwig Hernandez-Martinez; Zengshan Xing; Lu Ding; Vijay Kumar Sharma; Tze Chien Sum; Hilmi Volkan Demir",
+    "journal": "Journal of the American Chemical Society",
+    "year": 2026,
+    "doi": "10.1021/jacs.6c17007",
+    "url": "https://doi.org/10.1021/jacs.6c17007",
+    "material": "CdSe/CdSeₓS₁₋ₓ/CdS 面内梯度核／ZnS 势垒／CdᵧZn₁₋ᵧS 外壳",
+    "tags": [
+      "中英文标题",
+      "正式期刊",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-11-17",
+    "access": "早期公开稿全文精读：arXiv v1 的 Results、Methods、图 1–5 及补充图 6–8、14–21、27–38。出版社正文和正式 SI 受访问验证限制。",
+    "summary": "横向势能梯度压缩有效带边域，纵向薄 ZnS 势垒与渐变壳兼顾限域和应变，在作者可读稿中得到室温约 0.041 的 g⁽²⁾(0) 和超过 99.5% 的亮态占比。",
+    "reportSlug": "2026-11-17",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-17/#paper-2",
+    "researchIdeas": []
+  },
+  {
     "id": "arxiv:2611.18294",
     "title": "Thermally Hysteretic Room-Temperature Nonlinear Hall Effect in Bulk EuTe4",
     "titleZh": "块体 EuTe₄ 中具有热滞后的室温非线性霍尔效应",
