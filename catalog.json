@@ -1,5 +1,158 @@
 [
   {
+    "id": "arxiv:2611.33115",
+    "title": "Compositionally Tunable Synthesis of High-Entropy Transition Metal Dichalcogenides Exhibiting Above-Room-Temperature Magnetism",
+    "titleZh": "室温以上仍有磁性的高熵过渡金属二硫族化物的组分可调合成",
+    "authors": "Zhang, Chen; Zhong, Xiahua; Kong, Dejia; Wang, Wenhu; Nelson, Christopher T.; Chen, Mingfeng; He, Xiaoqing; Lawrie, Benjamin J.; Chao, Hsin-Yun; Melendez, Alex L.; Liu, Peixin; Gibson, Benjamin G.; Yan, Xiaodong; Wang, Xi; Liang, Liangbo; Gai, Zheng; Zhao, Huan; Yang, Yingchao",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.33115v1",
+    "material": "(V,Cr,Fe,Co,Ni)S₂₋δ",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-25",
+    "access": "全文精读：v1 正文、Methods 2.1–2.4、图 1–4；核对正文所列 SI 表 5–8 的用途，独立 SI 文件待补。",
+    "summary": "层状双氢氧化物将多种金属先混合，再将其转为微米及亚微米硫族化薄晶；局域磁场与整体磁化支持室温以上仍有磁响应。410 K 是已测上界之一。",
+    "reportSlug": "2026-11-25",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-25/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "he-tmd-sulfide-mn-for-co-anisotropy",
+        "title": "在高熵 V–Cr–Fe–Co–Ni 硫化物中以少量 Mn 替代 Co，检验室温附近的磁各向异性",
+        "material": "VₐCrᵦFe𝒸(Co₁₋ᵧMnᵧ)𝒹Ni₁₋ₐ₋ᵦ₋𝒸₋𝒹S₂₋δ。名义试验保持其余金属比例和 S/金属比。暂以局域 Mn²⁺/Co²⁺作为可检验近似，电荷补偿、硫价态与实际占位未知。",
+        "status": "needs-review",
+        "prediction": "若 Mn 进入原 Co 所在的层内金属子晶格，稀区低场面内/面外磁滞差及约 320 K 异常强度应系统减小，较高场的净磁化未必同向。若各向异性反增且相/δ 匹配，更可能是交换路径的非局域变化或局域应变，否定简单单离子削弱图景。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-25-he-tmd-sulfide-mn-for-co-anisotropy"
+      }
+    ]
+  },
+  {
+    "id": "doi:10.1038/s41535-026-00955-8",
+    "title": "Intertwined charge density wave order in vanadium based kagome superconductors",
+    "titleZh": "钒基 kagome 超导体中相互交织的电荷密度波序",
+    "authors": "Sun, Kuanglv; Nie, Linpeng; Li, Hongyu; Zhao, Jiyin; Rao, Huachen; Yu, Fanghang; Shi, Mengzhu; Xiang, Ziji; Ying, Jianjun; Wang, Zhenyu; Wu, Tao; Chen, Xianhui",
+    "journal": "npj Quantum Materials",
+    "year": 2026,
+    "doi": "10.1038/s41535-026-00955-8",
+    "url": "https://doi.org/10.1038/s41535-026-00955-8",
+    "material": "CsV₃₋ₓTiₓSb₅ / CsV₃Sb₅₋ᵧSnᵧ",
+    "tags": [
+      "正式期刊",
+      "首次上线",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-11-25",
+    "access": "全文精读：出版社可引用在刊稿 Methods、图 1–5；SI Notes 1–6 与图 S1–S3、应变传输分析；公开 Research Square 旧稿比对题录与实验。",
+    "summary": "两条不同置换位点的系列都可见 T_CDW 附近弹阻突变与更低 T*。T* 与 Tc 反向演化提示低温电子响应关联超导，微观序参量仍需独立探测。",
+    "reportSlug": "2026-11-25",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-25/#paper-2",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.31362",
+    "title": "Band-Selective Coupling to Charge Density Wave Fluctuations in Kagome Superconductors AV3Sb5",
+    "titleZh": "kagome 超导体 AV₃Sb₅ 中与电荷密度波涨落的能带选择性耦合",
+    "authors": "Moen, Peter C.; Blank, T. G. H.; Le, C.; Smit, S.; Heinsdorf, N.; Sarkar, S.; Au-Yeung, C. C.; Zimmermann, V.; Kraan, J.; Pang, C. S. B.; Tuniz, M.; Bluschke, M.; Haghighirad, A. A.; Rajput, I.; Salinas, A. C.; Gorovikov, S.; Dosanjh, P.; Dadap, J. I.; Mills, A. K.; Zhdanovich, S.; Michiardi, M.; Levy, G.; Elfimov, I. S.; Wilson, S. D.; Tacon, M. Le; Jones, D. J.; Wu, X.; Damascelli, A.",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.31362v1",
+    "material": "CsV₃Sb₅ / KV₃Sb₅",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-11-25",
+    "access": "全文精读：v1 正文第 1–5 页及图 1–4，读高低通量谱与冻声子段落。正文引用独立补充，文件待补。",
+    "summary": "3.1 THz 的相干能量响应随费米面片显著变化。它是可分辨的耦合通道，常态超快谱本身不能定出超导配对胶。",
+    "reportSlug": "2026-11-25",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-25/#paper-3",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.32254",
+    "title": "Symmetry-dependent field-induced elastic renormalization in the quantum-critical medium-entropy alloy NiCoCr0.8",
+    "titleZh": "量子临界中熵合金 NiCoCr₀.₈ 中磁场诱导的、依赖对称性的弹性重整化",
+    "authors": "Watanabe, Tadataka; Watanabe, Mai; Sales, Brian C.",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.32254v1",
+    "material": "NiCoCr₀.₈",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "重费米子与量子临界"
+    ],
+    "category": "重费米子与量子临界",
+    "date": "2026-11-25",
+    "access": "全文精读：v1 §II–IV 与图 1–4，核直接传播模式、模量组合与 T* 标度。",
+    "summary": "约 10 ppm 的场致响应可分解为体模量增强和四方剪切软化，跨已知 QC–FL 交叉线平滑演化。",
+    "reportSlug": "2026-11-25",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-25/#paper-4",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.33156",
+    "title": "Antiferromagnetic phase of MnTe2: spin-order-induced renormalization of phonon Raman spectrum",
+    "titleZh": "MnTe₂ 的反铁磁相：自旋有序诱导的声子拉曼谱重整化",
+    "authors": "Palasyuk, Taras; Wadge, Ashutosh S.; Zubov, Eduard E.; Antoniazzi, Igor; Gayatri; Wiśniewski, Andrzej; Szuszkiewicz, Wojciech; Jastrzebski, Daniel; Diduszko, Ryszard; Babiński, Adam; Molas, Maciej R.; Wierzbicki, Michał; Jastrzebski, Cezariusz",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.33156v1",
+    "material": "MnTe₂",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-11-25",
+    "access": "全文精读：v1 Experimental Methods、主要 Raman 谱图及自旋–声子格林函数段落。",
+    "summary": "黄铁矿型 MnTe₂ 中部分声子在反铁磁区偏离高温非谐外推，且低能磁振子呈不同的偏振和磁场响应。",
+    "reportSlug": "2026-11-25",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-25/#paper-5",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.31861",
+    "title": "Superconductivity with valley-imbalanced Fermi surfaces in thick rhombohedral graphene",
+    "titleZh": "厚菱方堆垛石墨烯中具有谷不平衡费米面的超导电性",
+    "authors": "Liu, Le; Zhao, Jian; Xu, Cheng; Watanabe, Kenji; Taniguchi, Takashi; Zhang, Yang; Gao, Weibo",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.31861v1",
+    "material": "厚菱方堆垛石墨烯",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-11-25",
+    "access": "全文精读：v1 正文图 1–4 与 Supplementary Information 的器件和输运；核电阻凹陷、振荡频率与置换场响应。",
+    "summary": "厚菱方堆垛可在谷极化边界附近出现电阻凹陷，振荡谱支持谷费米面不平衡。配对结构受约束，但需自旋和谷的独立证据。",
+    "reportSlug": "2026-11-25",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-25/#paper-6",
+    "researchIdeas": []
+  },
+  {
     "id": "doi:10.1038/s41467-026-79746-5",
     "title": "Quasi-degenerate cation occupation enables oxygen-vacancy defect healing in nonlinear optical crystals",
     "titleZh": "准简并阳离子占位使非线性光学晶体中的氧空位缺陷得以修复",
