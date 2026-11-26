@@ -1,5 +1,158 @@
 [
   {
+    "id": "arxiv:2611.33405",
+    "title": "Unveiling ferroelectricity in wafer-scale beta-phase In2Se3",
+    "titleZh": "揭示晶圆尺度 β 相 In₂Se₃ 的铁电性",
+    "authors": "Yang, Kyungmin; Cho, Hyunmin; Jeon, Jihwan; Park, Tae Hyeon; Ro, Seojeong; Kim, Hye Jung; Lee, Jung-Hoon; Wang, Jaewon; Shin, Hyeon Suk; Kim, Young-Min; Myung, Chang Woo; Olsson III, Roy H.; Song, Seunguk; Jariwala, Deep",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.33405v1",
+    "material": "β-In₂Se₃",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-26",
+    "access": "全文精读：v1 Results、Methods、图1–5 与文末补图1–10、21及相应讨论；覆盖制备、原子位移及电学读数。",
+    "summary": "MOCVD 制得晶圆尺度 β 相薄膜，两写入态中心 Se 的皮米级位移方向相反。电学开关响应持续至约 1.9 nm，但 PUND 表观剩余极化含屏蔽电荷等贡献。",
+    "reportSlug": "2026-11-26",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-26/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "beta-in2se3-ga-central-se-switch",
+        "title": "在 β-In₂Se₃ 中做少量 Ga-for-In 取代，检验中心 Se 可逆位移的配位敏感性",
+        "material": "In₂₋ₓGaₓSe₃，稀量 x。名义 In³⁺→Ga³⁺等价取代；若保持 β，In 原为八面体。Ga 是否进入该位及是否诱发异相未知。",
+        "status": "needs-review",
+        "prediction": "若 β 骨架保留且 Ga 真占 In 位，预测低 x 使跨多个五原子层的平均可逆位移减小、局部位移分布加宽，结构可逆分量与电学 PUND 的变化需分别检验；若平均反增且厚度、应变和相均匹配，则支持局部化学压力稳定极性这条相反机制。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-26-beta-in2se3-ga-central-se-switch"
+      }
+    ]
+  },
+  {
+    "id": "arxiv:2611.33422",
+    "title": "Spectroscopic Signatures of Polaronic Density Wave Fluctuations in Superconducting Bismuthates",
+    "titleZh": "超导铋酸盐中极化子密度波涨落的谱学特征",
+    "authors": "Pudełko, Wojciech R.; Naamneh, Muntaser; Dee, Philip M.; Li, Hang; Guedes, Eduardo B.; Gawryluk, Dariusz J.; Krztoń-Maziopa, Anna; Sazgari, Vahid; Soh, Yona; Shi, Ming; Radović, Milan; Chang, Johan; Johnston, Steven; Plumb, Nicholas C.",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.33422v1",
+    "material": "Ba₁₋ₓKₓBiO₃ / BaPb₁₋ᵧBiᵧO₃",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "高温与非常规超导"
+    ],
+    "category": "高温与非常规超导",
+    "date": "2026-11-26",
+    "access": "全文精读：v1 图1–4、Methods 表I–II、费米面强度与动量分布拟合、密度波模型；另列独立 SI 未取得。",
+    "summary": "PLD 的两种铋酸盐超导薄膜在正常态 ARPES 显示与动量相关的强度/散射图样。短程密度波模型可解释一组热点位置，双极化子解释仍待独立检验。",
+    "reportSlug": "2026-11-26",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-26/#paper-2",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.33868",
+    "title": "Self-Assembled Triangular Sc-rich Nanodomains: The Orign of Anomalous Alloy Scattering in ScAlN/GaN Heterostructures",
+    "titleZh": "自组装三角形富 Sc 纳米畴：ScAlN/GaN 异质结构异常合金散射的起源",
+    "authors": "Yin, Yuhao; Fan, Shizhao",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.33868v1",
+    "material": "ScAl(Ga)N/GaN",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-26",
+    "access": "全文精读：v1 Method、图1–7及样品A/B对照，读取位错与场像及 Hall 拟合。",
+    "summary": "降低穿透位错密度伴随富 Sc 纳米畴数量大幅减少和低温 Hall 迁移率提高。30→10 eV 的有效散射势为模型拟合。",
+    "reportSlug": "2026-11-26",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-26/#paper-3",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.34847",
+    "title": "Measuring a buried Bi2Te3 epitaxial film through a protective Te cap: an exact three-layer terahertz analysis",
+    "titleZh": "穿过保护 Te 帽层测量埋藏 Bi₂Te₃ 外延薄膜：精确三层太赫兹分析",
+    "authors": "Russo, Guilherme R.; Dias, Laura O.; Stefanato, Eduardo D.; Kawahala, Nicolas M.; Ferreira, Sukarno O.; Rodrigues, Leonarde N.; Hernandez, Felix G. G.",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.34847v1",
+    "material": "Bi₂Te₃/Te/GaAs",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-26",
+    "access": "全文精读：v1 §II–VI 图2–8、表I–II",
+    "summary": "用盖层参照与三层传播反演分离薄膜电导，Te 帽层误差在更薄薄膜中被显著放大。",
+    "reportSlug": "2026-11-26",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-26/#paper-4",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.34259",
+    "title": "Anisotropic magnetic-field modulation of hysteretic sheet resistance in few-layer ferroelectric WTe2",
+    "titleZh": "少层铁电 WTe₂ 片电阻磁滞的各向异性磁场调控",
+    "authors": "Manna, Arpan; Mukhopadhyay, Soumik",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.34259v1",
+    "material": "WTe₂",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "磁性、拓扑与自旋"
+    ],
+    "category": "磁性、拓扑与自旋",
+    "date": "2026-11-26",
+    "access": "全文精读：v1 Experimental Methods、图1–4、单分支磁输运及幂律比较",
+    "summary": "面外磁场增强栅压片阻磁滞，平行电流的面内场近乎不变。分支输运不同不能直接推出磁场增强极化。",
+    "reportSlug": "2026-11-26",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-26/#paper-5",
+    "researchIdeas": []
+  },
+  {
+    "id": "arxiv:2611.34900",
+    "title": "Brightening spin- and parity-forbidden interlayer excitons through rhombohedral stacking",
+    "titleZh": "通过菱方堆垛使自旋与宇称禁戒的层间激子变亮",
+    "authors": "Hu, Haodong; Hsu, Chih-En; Watanabe, Kenji; Taniguchi, Takashi; Hsueh, Hung-Chung; Li, Zhenglu; Ye, Ziliang",
+    "journal": "arXiv",
+    "year": 2026,
+    "doi": "",
+    "url": "https://arxiv.org/abs/2611.34900v1",
+    "material": "3R-MoS₂ 双层",
+    "tags": [
+      "arXiv",
+      "当日公告",
+      "二维材料与量子器件"
+    ],
+    "category": "二维材料与量子器件",
+    "date": "2026-11-26",
+    "access": "全文精读：v1 图1–4，层间激子混合、磁场 Zeeman 和模型讨论；独立方法补充待取得。",
+    "summary": "3R 堆垛的两类层间激子发生可调混合，赋予可见跃迁强度；跃迁归属由混合和 g 因子共同约束。",
+    "reportSlug": "2026-11-26",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-26/#paper-6",
+    "researchIdeas": []
+  },
+  {
     "id": "arxiv:2611.33115",
     "title": "Compositionally Tunable Synthesis of High-Entropy Transition Metal Dichalcogenides Exhibiting Above-Room-Temperature Magnetism",
     "titleZh": "室温以上仍有磁性的高熵过渡金属二硫族化物的组分可调合成",
