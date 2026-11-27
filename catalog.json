@@ -1,5 +1,39 @@
 [
   {
+    "id": "doi:10.1021/acs.nanolett.6c04853",
+    "title": "Au-Free Hexagonal SiGe Nanowires and Quantum Dots",
+    "titleZh": "无金催化的六方 SiGe 纳米线与量子点",
+    "authors": "Denny Lamon; Marijn J. J. M. V. Hendrikx; Marvin M. Jansen-Zilles; Ries Koolen; Marcel A. Verheijen; Erik P. A. M. Bakkers",
+    "journal": "Nano Letters",
+    "year": 2026,
+    "doi": "10.1021/acs.nanolett.6c04853",
+    "url": "https://doi.org/10.1021/acs.nanolett.6c04853",
+    "material": "六方 SiGe 纳米线及量子点",
+    "tags": [
+      "正式期刊",
+      "当日在线",
+      "仅摘要",
+      "晶体生长和物性调控"
+    ],
+    "category": "晶体生长和物性调控",
+    "date": "2026-11-27",
+    "access": "仅摘要：已阅读出版社提交至 Crossref 的摘要及元数据。ACS HTML、PDF、SI 检索均受限；TU/e 仓储题名路径404，arXiv 精确题名无返回。实际方法、正文图和 SI 未读。",
+    "summary": "以 Ga 代替 Au 催化制备六方 SiGe 纳米线与量子点，摘要报告纳米线尺寸可控并获得最高80% Ge 的量子点；与早期 Au 催化工作形成工艺增量。光效率改善及 CMOS 集成仍是潜在目标。",
+    "reportSlug": "2026-11-27",
+    "reportKind": "daily",
+    "reportUrl": "https://wang812229.github.io/crystal-growth-property-control/reports/2026-11-27/#paper-1",
+    "researchIdeas": [
+      {
+        "id": "hex-sige-sn-ga-axial-dot",
+        "title": "Ga 催化六方 SiGe 量子点中稀量 Sn 取代 Ge：弹性容纳与光学局限态的竞争",
+        "material": "拟制 2H-Si₀.₂Ge₀.₈₋ᵧSnᵧ 轴向富 Ge 段、富 Si 的 2H-SiGe 势垒；y 为稀量名义组成，Sn 实际占位和 2H 稳定性待核。与 Ga 催化的 y=0 对照同尺寸。",
+        "status": "needs-review",
+        "prediction": "若 Sn 在四配位 Ge 位形成均匀等价固溶，预期相对母点产生更大的局部晶格参数及红移趋势，局域应变分布或组分拖尾可能增宽。红移是依据 GeSn 合金和轨道变化的类比，2H 三元带边仍未知；若同尺寸同应变的点无红移或蓝移，否定该方向。若仅见团簇或不同多型导致的新谱峰，停止宣称固溶。",
+        "url": "https://wang812229.github.io/crystal-growth-property-control/ideas/#2026-11-27-hex-sige-sn-ga-axial-dot"
+      }
+    ]
+  },
+  {
     "id": "arxiv:2611.33405",
     "title": "Unveiling ferroelectricity in wafer-scale beta-phase In2Se3",
     "titleZh": "揭示晶圆尺度 β 相 In₂Se₃ 的铁电性",
